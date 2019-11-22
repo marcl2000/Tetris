@@ -12,11 +12,13 @@ class Line;
 class GraphicsDisplay {
 
 	xWindow xw;
+	int row = 18;
+	int col = 11;
 
 	public:
 
 		//assuming the user wishes to play with the graphics turned on
-		void init();
+		GraphicsDisplay();
 		void update_shape(Shape *);
 		void update_line(Line *);
 }

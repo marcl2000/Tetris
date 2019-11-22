@@ -12,7 +12,7 @@ class GraphicsDisplay;
 
 class Grid {
 
-	int gridRows = 15;
+	int gridRows = 18;
 	int gridCols = 11;
 
 	std::vector<Line> lines; 
@@ -34,4 +34,6 @@ class Grid {
 		int lines_cleared(Line l);
 		void set_gd(GraphicsDisplay *gd);
 }
+#endif
+
 

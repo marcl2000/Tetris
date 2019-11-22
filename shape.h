@@ -12,12 +12,13 @@ class Shape {
 
 	string type_name;
 	Coord focal;                //for rotating
-	bool heavy_flag;
+	bool heavy_flag = false;
 	bool gd_on;                 //so that a shape knows whether to update the graphicsdisplay when changed
 
 	std::vector<Cell*> members;
 
 	public:
+		Shape(string name, Coord focal): name{name}, focal{focal} {}
 		void move_left();
 		void move_right();
 		void move_down();

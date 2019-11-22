@@ -7,13 +7,8 @@
 
 class Level {
 
-	int level = 0;
-
 	public:
-		Shape createShape();
-		void levelup();
-		void leveldown();
-		int return_level();
+		virtual Shape createShape();
 }
 
 #endif
