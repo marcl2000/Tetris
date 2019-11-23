@@ -36,9 +36,9 @@ void TextDisplay::setShape(int display, Shape &s) {
 	vector<Coord> cells = s.getMembers();
 	for (auto i: cells) {
 			if (display == 1) {
-				this->firstDisplay[cells[i].x][cells[i].y] = s.type_name;
+				//this->firstDisplay[cells[i].x][cells[i].y] = s.type_name;
 			} else {
-				this->secondDisplay[cells[i].x][cells[i].y] = s.type_name;
+				//this->secondDisplay[cells[i].x][cells[i].y] = s.type_name;
 			}
 	}
 }
