@@ -1,12 +1,60 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 
-int main(){	
+int main(int argc, char *argv[]){	
+	//Variables for program setup
 	string numSteps = "";
 	int steps = 1;
+	string user1file = "biquadris_sequence1.txt";
+	string user2file = "biquadris_sequence2.txt";
+  	int turn = 0;	
 
+	//If any command lines were given, interpret and apply them
+	for (int i = 0; i < argc; ++i) {
+		string cmd = argv[i];
+		if (cmd.substr(0,2) == "-t") {
+			 cout << "Running only in text mode" << endl;
+		} else if (cmd.substr(0, 3) == "-se") {
+                        ++i;
+			int seed = stoi(argv[i]); 
+                        cout << "Setting the random number's generator seed to " << seed << endl;
+                }else if (cmd.substr(0, 3) == "-st") {
+                        ++i;
+			int level = stoi(argv[i]);
+                        cout << "Starting at level  " << level << endl;
+                } else if (cmd == "-scriptfile1") {
+                        ++i;
+                        string newFile = argv[i];
+			user1file = newFile;
+                        cout << "Replacing scriptfile1 with " << argv[i] << endl;
+                } else if (cmd == "-scriptfile2") {
+                        ++i;
+                        string newFile = argv[i];
+			user2file = newFile;
+                        cout << "Replacing scriptfile2 with " << argv[i] << endl;
+                }
+	}
+
+	// Create filestreams for the blocks of each user
+	ifstream u1stream {user1file};
+        ifstream u2stream {user2file};
+        string u1block;
+        string u2block;
+	
 	while (true) {
+
+		//To differentiate between users, user1 will play when the turn count is
+        	//even and user2 will play when the turn count is odd
+        	if (turn % 2 == 0) {
+                	u1stream >> u1block;
+                	cout << "user1's block is " << u1block << endl;
+       		 } else {
+                	u2stream >> u2block;
+               		cout << "user2's block is " << u2block << endl;
+       		 }
+       		 ++turn;
 		
 		//Read the first string inputted
 		string s;
@@ -82,25 +130,8 @@ int main(){
                         cout << "Making " << s << " block" << endl;
                 } else if (s == "T") {
                         cout << "Making " << s << " block" << endl;
-                } else if (s.substr(0, 2) == "-t") { //Command-line interface commands
-			cout << "Running only in text mode" << endl;
-		} else if (s.substr(0, 3) == "-se") {
-			int seed;
-			cin >> seed;
-			cout << "Setting the random number's generator seed to " << seed << endl;
-		} else if (s.substr(0, 3) == "-st") {
-                        int level;
-                        cin >> level;
-                        cout << "Starting at level  " << level << endl;
-		} else if (s == "-scriptfile1") {
-			string f;
-			cin >> f;
-			cout << "Replacing scriptfile1 with " << f << endl;
-		} else if (s == "-scriptfile2") {
-                        string f;
-                        cin >> f;
-                        cout << "Replacing scriptfile2 with " << f << endl;
-                }
+               	}
+	       
 		steps = 1;
 		numSteps = "";
 	}
