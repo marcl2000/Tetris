@@ -68,7 +68,7 @@ int main(){
 			string file = "";
 			cin >> file;
                         cout << "Sequence of blocks is in " << file << endl;
-                } else if (s == "I") {
+                } else if (s == "I") { //Commands for testing with different block types
 			cout << "Making " << s << " block" << endl;
 		} else if (s == "J") {
                         cout << "Making " << s << " block" << endl;
@@ -82,7 +82,7 @@ int main(){
                         cout << "Making " << s << " block" << endl;
                 } else if (s == "T") {
                         cout << "Making " << s << " block" << endl;
-                } else if (s.substr(0, 2) == "-t") {
+                } else if (s.substr(0, 2) == "-t") { //Command-line interface commands
 			cout << "Running only in text mode" << endl;
 		} else if (s.substr(0, 3) == "-se") {
 			int seed;
