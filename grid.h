@@ -6,6 +6,8 @@
 #include "cell.h"
 #include "line.h"
 #include "shape.h"
+#include <string>
+//#include <memory>
 
 //forward declarations
 class TextDisplay;
@@ -13,6 +15,7 @@ class GraphicsDisplay;
 
 class Grid {
 
+	std::string name;
 	int gridRows = 18;
 	int gridCols = 11;
 
@@ -28,12 +31,14 @@ class Grid {
 	GraphicsDisplay *gd = nullptr;
 
 	public:
-		void init(TextDisplay *td, int position);
+		~Grid();
+		void init(std::string name);
 		void change_blind(bool b);
 		bool piece_fits(std::string name);
 		void print();
 		int lines_cleared();
 		void set_gd(GraphicsDisplay *gd);
+		void set_td(TextDisplay *td);
 };
 #endif
 

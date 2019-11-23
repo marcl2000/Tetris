@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "coord.h"
 
 using namespace std;
 
@@ -19,5 +20,13 @@ bool Cell::inRegion(){
 
 bool Cell::isFilled(){
 	return this->is_filled;
+}
+
+Coord Cell::getCoord(){
+	return this->coordinates;
+}
+
+void Cell::setCoord(Coord c){
+	this->coordinates = c;
 }
 

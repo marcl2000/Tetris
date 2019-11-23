@@ -2,20 +2,31 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "textdisplay.h"
+#include "graphicsdisplay.h"
+//#include <memory>
 
 using namespace std;
 
+Grid::~Grid(){
+	if(this->name == "g1"){
+		delete td;
+		delete gd;
+	}
+}
+
 //called by the main after initializing a textdisplay with a unique pointer
-void Grid::init(TextDisplay *td, int position){
+void Grid::init(string name){
+	this->name = name;
 
 	//create lines and push them into the vector of lines contained in grid
 	for(int i=0;i<18;i++){
 
-		Line l(i, td);               //update the textdisplay with these cells that are created in line
+		Line l(i);               //update the textdisplay with these cells that are created in line
 		lines.emplace_back(l);
 	}
 
-	td->setDisplay(position, this);
+	//td->setDisplay(position, this);
 }	
 
 //called by the main when the user wants to play the blind option
@@ -24,8 +35,9 @@ void Grid::change_blind(bool b){
 }
 
 //called by the main to determine if the game is over
-bool Grid::piece_fits(string name){***************
-	return true;//temporay placeholder, delete once code is added
+bool Grid::piece_fits(string name){
+	bool temp = true;
+	return temp;//temporay placeholder, delete once code is added
 }
 
 //called by the main (is passed on to textdisplay)
@@ -53,4 +65,7 @@ void Grid::set_gd(GraphicsDisplay *gd){
 	this->gd = gd;
 }
 
+void Grid::set_td(TextDisplay *td){
+	this->td = td;
+}
 

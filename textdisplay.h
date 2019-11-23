@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cstddef>
+#include "shape.h"
 
 //forward declarations
 class Cell;
@@ -16,7 +17,7 @@ class TextDisplay {
 		void setShape(int display, Shape &s);
 		void clearLine(int display); // clears the last line of the textdisplay, from main (or grid) we keep checking if
 				  // if the last line is full, and call clearLine() on the td as much as needed?
-}
+};
 
 #endif
 

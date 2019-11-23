@@ -5,30 +5,28 @@
 #include <cstddef>
 #include "coord.h"
 #include <string>
-
-//forward declaration
-class Cell;
+#include "cell.h"
 
 class Shape {
 
 	std::string type_name;
 	Coord focal;                //for rotating
-	bool heavy_flag = false;
-	bool gd_on;                 //so that a shape knows whether to update the graphicsdisplay when changed
-
-	std::vector<Cell*> members;
+	
+	std::vector<Cell> members;
+	bool heavy_flag;
+	bool gd_on;
 
 	public:
-		Shape(std::string name, Coord focal): type_name{name}, focal{focal} {}
+		~Shape(){}
+		Shape(std::string name, Coord focal, std::vector<Cell> members, bool heavy_flag, bool gd_on):
+		       	type_name{name}, focal{focal}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on} {}
 		void move_left();
 		void move_right();
 		void move_down();
 		void drop();
 		void clockwise();
 		void counterclockwise();
-		void make_heavy();
-		void gdOn();
-		vector<Coord> getMembers();
+		std::vector<Coord> getMembers();
 };
 
 #endif

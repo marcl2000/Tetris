@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-void textdisplay::init() 
+void TextDisplay::init(){
 	for (int i = 0; i <= 18; ++i) {
 		for (int j = 0; j <= 11; ++j) {
 			// Fill each row of each grid with 11 cells
@@ -15,7 +15,7 @@ void textdisplay::init()
 	}
 }
 
-void textdisplay::print(bool b) {
+void TextDisplay::print(bool b) {
 	for (int i = 0; i < 18; ++i) {
 		// Print out user1's row
 		for (int j = 0; j < 11; ++j) {
@@ -36,24 +36,24 @@ void TextDisplay::setShape(int display, Shape &s) {
 	vector<Coord> cells = s.getMembers();
 	for (auto n : cells) {
 		if (display == 1) {
-			this->firstDisplay[cells[i].x][cells[i].y] = s.type_name;
+			//this->firstDisplay[cells[i].x][cells[i].y] = s.type_name;
 		} else {
-			this->secondDisplay[cells[i].x][cells[i].y] = s.type_name;
+			//this->secondDisplay[cells[i].x][cells[i].y] = s.type_name;
 		}
 	}
 }
 
-void clearLine(int display) {
+void TextDisplay::clearLine(int display) {
 
 	//Create a new vector to be inserted at the top of the grid
 	vector<string> newv;
-        for (int i = 0, i < 11; ++i) {
-		newv[i].push_back("_");
+        for (int i = 0; i < 11; ++i) {
+		//newv[i].emplace_back("_");
 	}
 
 	// Pop off the last vector and insert the new vector at the beginning of the specified grid
 	if (display == 1) {
-		firstDisplay.pop_back;
+		firstDisplay.pop_back();
 		firstDisplay.insert(firstDisplay.begin(), newv);
 	} else {
 		secondDisplay.pop_back();
