@@ -11,7 +11,7 @@ class Line;
 
 class GraphicsDisplay {
 
-	xWindow xw;
+	xWindow xw(740,220);
 	int row = 18;
 	int col = 11;
 

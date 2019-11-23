@@ -16,6 +16,8 @@ class Cell {
 		Cell(string name, Coord coordinates): name{name}, coordinates{coordinates} {}
 		void set_region(bool b);
 		void set_filled(bool b);
+		bool in_region();
+		bool is_filled();
 }
 
 #endif

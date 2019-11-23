@@ -31,7 +31,7 @@ class Grid {
 		void change_blind(bool b);
 		bool piece_fits(string name);
 		void print();
-		int lines_cleared(Line l);
+		int lines_cleared();
 		void set_gd(GraphicsDisplay *gd);
 }
 #endif

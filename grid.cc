@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//the textdisplay to be updated is passed as parameter
+//called by the main after initializing a textdisplay with a unique pointer
 void Grid::init(TextDisplay *td){
 
 	//create lines and push them into the vector of lines contained in grid
@@ -15,20 +15,24 @@ void Grid::init(TextDisplay *td){
 		lines.emplace_back(l);
 	}
 }	
-	
+
+//called by the main when the user wants to play the blind option
 void Grid::change_blind(bool b){
 	this->blind_flag = b;
 }
 
+//called by the main to determine if the game is over
 bool Grid::piece_fits(string name){***************
 
 }
 
+//called by the main (is passed on to textdisplay)
 void Grid::print(){
 	this->td->print(this->blind_flag);
 }
 
-int Grid::lines_cleared(Line l){
+//called by the main (on the grid)
+int Grid::lines_cleared(){
 	//lines will actually be cleared in the line class
 	int count = 0;
 
@@ -42,6 +46,7 @@ int Grid::lines_cleared(Line l){
 	return count;
 }
 
+//called by the main when it is determined that the user wants graphics
 void Grid::set_gd(GraphicsDisplay *gd){
 	this->gd = gd;
 }
