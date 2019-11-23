@@ -5,12 +5,11 @@
 #include <cstddef>
 
 class Coord {
-
 	public:
 		int x = 0;
 		int y = 0;
-		Coord(int x, int y): x{x}, y{y} {}
-}
+		Coord(int x, int y): x{x}, y{y} {};
+};
 
 #endif
 

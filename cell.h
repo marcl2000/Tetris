@@ -4,21 +4,22 @@
 #include <vector>
 #include <cstddef>
 #include "coord.h"
+#include <string>
 
 class Cell {
 
-	string name;
+	std::string name;
 	bool in_region = false;
 	bool is_filled = false;
 	Coord coordinates;
 
 	public:
-		Cell(string name, Coord coordinates): name{name}, coordinates{coordinates} {}
+		Cell(std::string name, Coord coordinates): name{name}, coordinates{coordinates} {}
 		void set_region(bool b);
 		void set_filled(bool b);
-		bool in_region();
-		bool is_filled();
-}
+		bool inRegion();
+		bool isFilled();
+};
 
 #endif
 

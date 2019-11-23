@@ -6,7 +6,7 @@
 using namespace std;
 
 //called by the main after initializing a textdisplay with a unique pointer
-void Grid::init(TextDisplay *td){
+void Grid::init(TextDisplay *td, int position){
 
 	//create lines and push them into the vector of lines contained in grid
 	for(int i=0;i<18;i++){
@@ -14,6 +14,8 @@ void Grid::init(TextDisplay *td){
 		Line l(i, td);               //update the textdisplay with these cells that are created in line
 		lines.emplace_back(l);
 	}
+
+	td->setDisplay(position, this);
 }	
 
 //called by the main when the user wants to play the blind option
@@ -23,7 +25,7 @@ void Grid::change_blind(bool b){
 
 //called by the main to determine if the game is over
 bool Grid::piece_fits(string name){***************
-
+	return true;//temporay placeholder, delete once code is added
 }
 
 //called by the main (is passed on to textdisplay)
@@ -38,7 +40,7 @@ int Grid::lines_cleared(){
 
 	//loop through the vector of lines and check how many are filled
 	for(int i=0;i<18;i++){
-		if(this->lines[i].is_filled()){
+		if(this->lines[i].isFilled()){
 			count++;
 		}
 	}

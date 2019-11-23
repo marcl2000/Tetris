@@ -13,8 +13,8 @@ class Line {
 	int count = 0;
 
 	public:
-		bool is_filled();
-}
+		bool isFilled();
+};
 
 #endif
 

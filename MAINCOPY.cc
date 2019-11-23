@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <fstream>
-#include <memory>
 using namespace std;
 
 int main(int argc, char *argv[]){	
@@ -21,7 +20,7 @@ int main(int argc, char *argv[]){
                         ++i;
 			int seed = stoi(argv[i]); 
                         cout << "Setting the random number's generator seed to " << seed << endl;
-                } else if (cmd.substr(0, 3) == "-st") {
+                }else if (cmd.substr(0, 3) == "-st") {
                         ++i;
 			int level = stoi(argv[i]);
                         cout << "Starting at level  " << level << endl;

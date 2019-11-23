@@ -4,13 +4,14 @@
 #include <vector>
 #include <cstddef>
 #include "coord.h"
+#include <string>
 
 //forward declaration
 class Cell;
 
 class Shape {
 
-	string type_name;
+	std::string type_name;
 	Coord focal;                //for rotating
 	bool heavy_flag = false;
 	bool gd_on;                 //so that a shape knows whether to update the graphicsdisplay when changed
@@ -18,7 +19,7 @@ class Shape {
 	std::vector<Cell*> members;
 
 	public:
-		Shape(string name, Coord focal): name{name}, focal{focal} {}
+		Shape(std::string name, Coord focal): type_name{name}, focal{focal} {}
 		void move_left();
 		void move_right();
 		void move_down();
@@ -26,9 +27,9 @@ class Shape {
 		void clockwise();
 		void counterclockwise();
 		void make_heavy();
-		void gd_on();
-
-}
+		void gdOn();
+		vector<Coord> getMembers();
+};
 
 #endif
 

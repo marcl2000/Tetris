@@ -13,12 +13,11 @@ void Cell::set_filled(bool b){
 	this->is_filled = b;
 }
 
-bool Cell::in_region(){
+bool Cell::inRegion(){
 	return this->in_region;
 }
 
-bool Cell::is_filled(){
+bool Cell::isFilled(){
 	return this->is_filled;
 }
-
 
