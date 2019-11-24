@@ -55,6 +55,11 @@ void GraphicsDisplay::update_shape(string name, vector<Coord> coords) {
 		for(int i=0;i<size;i++){
 			this->xw.fillRectangle(coords[i].x, coords[i].y, 20, 20, 2);
 		}
+	} else if (name == "J") {
+	 	int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x, coords[i].y, 20, 20, 3);
+                }
 	}
 }
 

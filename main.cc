@@ -88,6 +88,16 @@ int main(int argc, char *argv[]){
 
 	//ALREADY GET THE NEXT BLOCK HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
+	u1stream >> u1block;
+	cout << "U1 BLOCK IS " << u1block << endl;
+	current = zero->createShape(u1block, heavy_flag, wants_graphics);
+   	gd->update_shape(u1block, current->getMembers());
+
+	
+	// This part causes the seg fault
+	u2stream >> u2block;
+	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+        gd->update_shape(u2block, current2->getMembers());
 
 	while (true) {
 
@@ -147,14 +157,22 @@ int main(int argc, char *argv[]){
 					u1stream >> u1block;
 				}
 				cout << "user1's block is " << u1block << endl;
+				//******DISPLAY THE NEXT SHAPE	
+			       	current = zero->createShape(u1block, heavy_flag, wants_graphics);
+                                 gd->update_shape(u1block, current->getMembers());
 			} else {
 				u2stream >> u2block;
 				if (u2stream.eof()) {
 					u2stream.clear( );
 					u2stream.seekg( 0, std::ios::beg);
 					u2stream >> u1block;
+					current = zero->createShape(u2block, heavy_flag, wants_graphics);
+					gd->update_shape(u2block, current->getMembers());
 				}
-				cout << "user2's block is " << u2block << endl;
+				 cout << "user2's block is " << u2block << endl;
+				//****DISPLAY THE NEXT SHAPE
+				current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+                                gd->update_shape(u2block, current2->getMembers());
 			}
 		} else if (s.substr(0, 2) == "co") {
 			cout << "Rotating counter clockwise by " << steps << " steps" << endl;
