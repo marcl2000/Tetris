@@ -88,14 +88,22 @@ int main(int argc, char *argv[]){
 
 	//get the next block in line
 	u1stream >> u1block;
-	cout << "U1 BLOCK IS " << u1block << endl;
-	current = zero->createShape(u1block, heavy_flag, wants_graphics);
-   	gd->update_next(u1block, current->getMembers(), 1);
+	cout << "U1 next IS " << u1block << endl;
+	Shape *next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+   	gd->update_next(u1block, next1->getMembers(), 1);
 
+	// Create a shape for user2
 	u2stream >> u2block;
+	cout << "U2 Blocks is " << u2block << endl;
 	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-        gd->update_shape(u2block, current2->getMembers(), 2);                           //this line causes a seg fault
-	cout<<"here"<<endl;
+	gd->update_shape(u2block, current2->getMembers(), 2);                         
+	
+	//get the next block for user2
+	u2stream >> u2block;
+        cout << "U2 next IS " << u2block << endl;
+        Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+        gd->update_next(u2block, next2->getMembers(), 2);
+
 
 	while (true) {
 
@@ -145,8 +153,11 @@ int main(int argc, char *argv[]){
 			cout << "Dropping  " << steps << " steps" << endl;
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
-			++turn;
 			if (turn % 2 == 0) {
+				gd->clear_current(1);
+				// First set the next block to the current shape
+				current = next1;
+				gd->update_shape(u1block, current->getMembers(),1);
 				u1stream >> u1block;
 				if (u1stream.eof()) {
 					// Clear the filestream and start reading from the beginning of the file
@@ -154,32 +165,44 @@ int main(int argc, char *argv[]){
 					u1stream.seekg( 0, std::ios::beg);
 					u1stream >> u1block;
 				}
+				gd->clear_next(1);
 				cout << "user1's block is " << u1block << endl;
-				//******DISPLAY THE NEXT SHAPE	
-			       	current = zero->createShape(u1block, heavy_flag, wants_graphics);
-                                 gd->update_shape(u1block, current->getMembers(),1);
+				// Now display the next block
+			       	next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+				gd->update_next(u1block, next1->getMembers(),1);
 			} else {
+				gd->clear_current(2);
+				// Repeat the above process but for user2
+				cout << "User 2's old block is " << u2block << endl;
+				current2 = next2;
+				gd->update_shape(u2block, next2->getMembers(),2);
 				u2stream >> u2block;
 				if (u2stream.eof()) {
 					u2stream.clear( );
 					u2stream.seekg( 0, std::ios::beg);
-					u2stream >> u1block;
-					current = zero->createShape(u2block, heavy_flag, wants_graphics);
-					gd->update_shape(u2block, current->getMembers(),2);
+					u2stream >> u2block;
 				}
-				 cout << "user2's block is " << u2block << endl;
-				//****DISPLAY THE NEXT SHAPE
-				current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-                                gd->update_shape(u2block, current2->getMembers(),2);
+				gd->clear_next(2);
+				cout << "user2's block is " << u2block << endl;
+				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+                                gd->update_next(u2block, next2->getMembers(),2);
 			}
+			++turn;
 		} else if (s.substr(0, 2) == "co") {
 			cout << "Rotating counter clockwise by " << steps << " steps" << endl;
 		} else if (s.substr(0, 2) == "cl") {                                                       //HOW WILL WE EVER ROTATE PLAYER TWO'S SHAPE???
 			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
+			//	gd->delete_shape(current->getMembers(), 1);
+			//	current->clockwise();
+			//	gd->update_next(u1block, current->getMembers(), 1);
+			//** Claudia, above is your old code. After fixing the seg fault, your old code doesn't work anymore
+			//so I had to call differently as shown below. I had to create a getName() method because other wise
+			// block1's type is set to next's type, and we need current's type, so i can pass in block1, i have
+			// to pass in current's type. Sorry i
 				gd->delete_shape(current->getMembers(), 1);
 				current->clockwise();
-				gd->update_shape(u1block, current->getMembers(), 1);
+				gd->update_shape(current->getName(), current->getMembers(), 1);
 			}
 
 		} else if (s.substr(0, 2) == "ra") {

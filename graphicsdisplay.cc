@@ -54,7 +54,7 @@ void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_n
 		n = 14*20;
 	}
 
-	//this new shape must be displayed on the board with a colour for each colour
+	//this new shape must be displayed on the board with a colour for each shape
 	if(name == "I"){
 		int size = coords.size();
 		for(int i=0;i<size;i++){
@@ -65,10 +65,36 @@ void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_n
                 for(int i=0;i<size;i++){
                         this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 3);
                 }
-	}
+	} else if (name == "S") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 4);
+                }
+        } else if (name == "L") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 5);
+                }
+        } else if (name == "O") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 6);
+                }
+        } else if (name == "T") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 7);
+                }
+        } else if (name == "Z") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 8);
+                }
+        }
 }
 
-void GraphicsDisplay::delete_shape(vector<Coord> coords, int grid_number){
+
+void GraphicsDisplay::delete_shape(std::vector<Coord> coords, int grid_number){
 
 	int n = 0;
 	if(grid_number == 2){
@@ -79,16 +105,55 @@ void GraphicsDisplay::delete_shape(vector<Coord> coords, int grid_number){
 	for(int i=0;i<size;i++){
 		this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 0);
 	}
+	
 }
 
 void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_number){
-	//code this
+
+	int n = 0;
+        if(grid_number == 2){
+                n = 14*20;
+        }
+
+        //this new shape must be displayed on the board with a colour for each shape
+        if(name == "I"){
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 2);
+                }
+        } else if (name == "J") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 3);
+                }
+        } else if (name == "S") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 4);
+                }
+        } else if (name == "L") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 5);
+                }
+        } else if (name == "O") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 6);
+                }
+        } else if (name == "T") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 7);
+                }
+        } else if (name == "Z") {
+                int size = coords.size();
+                for(int i=0;i<size;i++){
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 8);
+                }
+        }
+
 }
-
-
-
-
-
 
 //called by Line class from within is_filled(), once it realizes it must delete itself
 void GraphicsDisplay::update_line(vector<Cell> cells, int grid_number) {
@@ -98,5 +163,21 @@ void GraphicsDisplay::update_line(vector<Cell> cells, int grid_number) {
 
 }
 
+void  GraphicsDisplay::clear_current(int grid_number) {
+	int n = 14*20;
+	if (grid_number == 1) {
+		this->xw.fillRectangle(0, 5*20, 80, 80, 0);
+	} else {
+		this->xw.fillRectangle(n, 5*20, 80, 80, 0);
+	}
+}
 
+void  GraphicsDisplay::clear_next(int grid_number) {
+	int n = 14*20;
+	if (grid_number == 1) {
+                this->xw.fillRectangle(0, 5*20+20*18, 80, 60, 0);
+        } else {
+                this->xw.fillRectangle(n, 5*20+20*18, 80, 60, 0);
+        }
+}
 

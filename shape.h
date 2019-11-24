@@ -26,6 +26,7 @@ class Shape {
 		void clockwise();
 		void counterclockwise();
 		std::vector<Coord> getMembers();
+		std::string getName();
 };
 
 #endif

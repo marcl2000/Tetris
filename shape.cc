@@ -123,4 +123,6 @@ vector<Coord> Shape::getMembers(){
 	return coords;
 }
 
-
+string Shape::getName() {
+	return this->type_name;
+}
