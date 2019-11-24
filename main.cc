@@ -84,20 +84,18 @@ int main(int argc, char *argv[]){
 	Shape *current = zero->createShape(u1block, heavy_flag, wants_graphics);
 
 	//print the textdisplay
-	gd->update_shape(u1block, current->getMembers());
+	gd->update_shape(u1block, current->getMembers(), 1);
 
-	//ALREADY GET THE NEXT BLOCK HERE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
+	//get the next block in line
 	u1stream >> u1block;
 	cout << "U1 BLOCK IS " << u1block << endl;
 	current = zero->createShape(u1block, heavy_flag, wants_graphics);
-   	gd->update_shape(u1block, current->getMembers());
+   	gd->update_next(u1block, current->getMembers(), 1);
 
-	
-	// This part causes the seg fault
 	u2stream >> u2block;
 	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-        gd->update_shape(u2block, current2->getMembers());
+        gd->update_shape(u2block, current2->getMembers(), 2);                           //this line causes a seg fault
+	cout<<"here"<<endl;
 
 	while (true) {
 
@@ -159,7 +157,7 @@ int main(int argc, char *argv[]){
 				cout << "user1's block is " << u1block << endl;
 				//******DISPLAY THE NEXT SHAPE	
 			       	current = zero->createShape(u1block, heavy_flag, wants_graphics);
-                                 gd->update_shape(u1block, current->getMembers());
+                                 gd->update_shape(u1block, current->getMembers(),1);
 			} else {
 				u2stream >> u2block;
 				if (u2stream.eof()) {
@@ -167,21 +165,21 @@ int main(int argc, char *argv[]){
 					u2stream.seekg( 0, std::ios::beg);
 					u2stream >> u1block;
 					current = zero->createShape(u2block, heavy_flag, wants_graphics);
-					gd->update_shape(u2block, current->getMembers());
+					gd->update_shape(u2block, current->getMembers(),2);
 				}
 				 cout << "user2's block is " << u2block << endl;
 				//****DISPLAY THE NEXT SHAPE
 				current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-                                gd->update_shape(u2block, current2->getMembers());
+                                gd->update_shape(u2block, current2->getMembers(),2);
 			}
 		} else if (s.substr(0, 2) == "co") {
 			cout << "Rotating counter clockwise by " << steps << " steps" << endl;
-		} else if (s.substr(0, 2) == "cl") {
+		} else if (s.substr(0, 2) == "cl") {                                                       //HOW WILL WE EVER ROTATE PLAYER TWO'S SHAPE???
 			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
-				gd->delete_shape(current->getMembers());
+				gd->delete_shape(current->getMembers(), 1);
 				current->clockwise();
-				gd->update_shape(u1block, current->getMembers());
+				gd->update_shape(u1block, current->getMembers(), 1);
 			}
 
 		} else if (s.substr(0, 2) == "ra") {

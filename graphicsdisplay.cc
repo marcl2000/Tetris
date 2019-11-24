@@ -47,29 +47,43 @@ GraphicsDisplay::GraphicsDisplay(){
 }
 
 //called by the main or shape class when something happens to next* (is created or is changed)
-void GraphicsDisplay::update_shape(string name, vector<Coord> coords) {
+void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_number) {
+
+	int n = 0;
+	if(grid_number == 2){
+		n = 14*20;
+	}
 
 	//this new shape must be displayed on the board with a colour for each colour
 	if(name == "I"){
 		int size = coords.size();
 		for(int i=0;i<size;i++){
-			this->xw.fillRectangle(coords[i].x, coords[i].y, 20, 20, 2);
+			this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 2);
 		}
 	} else if (name == "J") {
 	 	int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x, coords[i].y, 20, 20, 3);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 3);
                 }
 	}
 }
 
-void GraphicsDisplay::delete_shape(vector<Coord> coords){
+void GraphicsDisplay::delete_shape(vector<Coord> coords, int grid_number){
+
+	int n = 0;
+	if(grid_number == 2){
+		n = 14*20;
+	}
+
 	int size = coords.size();
 	for(int i=0;i<size;i++){
-		this->xw.fillRectangle(coords[i].x, coords[i].y, 20, 20, 0);
+		this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 0);
 	}
 }
-//else if (name == "" ...
+
+void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_number){
+	//code this
+}
 
 
 
@@ -77,12 +91,10 @@ void GraphicsDisplay::delete_shape(vector<Coord> coords){
 
 
 //called by Line class from within is_filled(), once it realizes it must delete itself
-void GraphicsDisplay::update_line(vector<Cell> cells) {
+void GraphicsDisplay::update_line(vector<Cell> cells, int grid_number) {
 
 	//loop through the cells on that row and set them back to black
 	//for(int i=0;i<11;i++){
-
-
 
 }
 

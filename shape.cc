@@ -15,6 +15,7 @@ void Shape::move_down(){
 
 }
 
+//should change make_blind to false after dropping, and update textdisplay and graphicsdisplay with delete_shape and update_shape
 void Shape::drop(){
 
 }
@@ -94,6 +95,14 @@ void Shape::clockwise(){
 				}
 			}
 		}
+
+		//if heavy is on, then this rotate should drop the shape by 1
+		if(this->heavy_flag){
+			for(int i=0;i<4;i++){
+				Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+				this->members[i].setCoord(c);
+			}
+		}
 	}
 
 	//if(this->type_name == "J"){
@@ -107,8 +116,8 @@ vector<Coord> Shape::getMembers(){
 	vector<Coord> coords;
 	//for the length of the vector of cells
 	for(int i=0;i<4;i++){
-		if(members[i].isFilled()){
-			coords.emplace_back(members[i].getCoord());
+		if(this->members[i].isFilled()){
+			coords.emplace_back(this->members[i].getCoord());
 		}
 	}
 	return coords;

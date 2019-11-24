@@ -9,8 +9,7 @@
 
 class Shape {
 
-	std::string type_name;
-	
+	std::string type_name;	
 	std::vector<Cell> members;
 	bool heavy_flag;
 	bool gd_on;
@@ -19,6 +18,7 @@ class Shape {
 		~Shape(){}
 		Shape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on):
 		       	type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on} {}
+
 		void move_left();
 		void move_right();
 		void move_down();

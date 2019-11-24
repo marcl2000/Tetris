@@ -4,6 +4,9 @@
 #include <vector>
 #include <cstddef>
 #include "cell.h"
+#include "coord.h"
+#include "graphicsdisplay.h"
+#include "textdisplay.h"
 
 //forward declarations
 class TextDisplay;
@@ -13,13 +16,16 @@ class Line {
 	std::vector<Cell> contents;
 
 	bool is_filled = false;
-	int count = 0;
-	int i;
+	int row_number;
 	TextDisplay *td;
+	GraphicsDisplay *gd;
 
 	public:
-		Line(int i): i{i} {}
+		void init(int i);
 		bool isFilled();
+		void set_td(TextDisplay *td);
+		void set_gd(GraphicsDisplay *gd);
+		std::vector<Coord> getMembers();
 };
 
 #endif

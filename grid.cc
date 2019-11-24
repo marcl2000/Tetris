@@ -4,7 +4,6 @@
 #include <vector>
 #include "textdisplay.h"
 #include "graphicsdisplay.h"
-//#include <memory>
 
 using namespace std;
 
@@ -15,14 +14,18 @@ Grid::~Grid(){
 	}
 }
 
-//called by the main after initializing a textdisplay with a unique pointer
+//called by the main twice
 void Grid::init(string name){
 	this->name = name;
 
 	//create lines and push them into the vector of lines contained in grid
 	for(int i=0;i<18;i++){
 
-		Line l(i);               //update the textdisplay with these cells that are created in line
+		Line l;               //update the textdisplay with these cells that are created in line
+		l.init(i);
+		l.set_td(this->td);
+		l.set_gd(this->gd);
+
 		lines.emplace_back(l);
 	}
 
@@ -56,6 +59,9 @@ int Grid::lines_cleared(){
 			count++;
 		}
 	}
+
+	//now, shift all the pieces downwards if there were any lines cleared (make sure to make each cell filled again)
+	if(count>0){}
 
 	return count;
 }

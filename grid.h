@@ -7,7 +7,6 @@
 #include "line.h"
 #include "shape.h"
 #include <string>
-//#include <memory>
 
 //forward declarations
 class TextDisplay;
@@ -22,7 +21,6 @@ class Grid {
 	std::vector<Line> lines; 
 	std::vector<Shape *> shapes;
 
-	bool is_finished = false;
 	bool blind_flag = false;
 	bool gd_on = true;            //the command line arg -text turns this off
 	
@@ -34,7 +32,7 @@ class Grid {
 		~Grid();
 		void init(std::string name);
 		void change_blind(bool b);
-		bool piece_fits(std::string name);
+		bool piece_fits(std::string name);    //if this returns false, then the game is over
 		void print();
 		int lines_cleared();
 		void set_gd(GraphicsDisplay *gd);
