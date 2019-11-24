@@ -42,6 +42,10 @@ bool Line::isFilled(){
 	return temp;
 }
 
+vector<Cell> Line::get_cells(){
+	return this->contents;
+}
+
 vector<Coord> Line::getMembers(){
 	vector<Coord> coords;
 	for(int i=0;i<11;i++){

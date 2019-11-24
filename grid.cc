@@ -43,6 +43,14 @@ bool Grid::piece_fits(string name){
 	return temp;//temporay placeholder, delete once code is added
 }
 
+vector<Line> Grid::get_lines(){
+	return this->lines;
+}
+
+void Grid::add_shape(Shape * sh){
+	this->shapes.emplace_back(sh);
+}
+
 //called by the main (is passed on to textdisplay)
 void Grid::print(){
 	this->td->print(this->blind_flag);

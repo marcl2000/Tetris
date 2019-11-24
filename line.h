@@ -23,6 +23,7 @@ class Line {
 	public:
 		void init(int i);
 		bool isFilled();
+		std::vector<Cell> get_cells();
 		void set_td(TextDisplay *td);
 		void set_gd(GraphicsDisplay *gd);
 		std::vector<Coord> getMembers();

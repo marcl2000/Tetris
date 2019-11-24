@@ -11,10 +11,10 @@ using namespace std;
 Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 	if(name == "I"){
 		//make the four cells that set up the shape
-		Coord one(0, 7*20);
-		Coord two(20, 7*20);
-		Coord three(40, 7*20);
-		Coord four(60, 7*20);
+		Coord one(0, 6*20);
+		Coord two(20, 6*20);
+		Coord three(40, 6*20);
+		Coord four(60, 6*20);
 		Cell c1("I", one, true);
 		Cell c2("I", two, true);
 		Cell c3("I", three, true);

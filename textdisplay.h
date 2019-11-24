@@ -15,9 +15,9 @@ class TextDisplay {
 		void init();
 		void update_next(std::string name, int grid_number); 
 		void print(bool blind_flag);
-		void update_shape(std::string name, std::vector<Coord> coords);
-		void delete_shape(std::vector<Coord>);
-		void clearLine(std::vector<Coord>);
+		void update_shape(std::string name, std::vector<Coord> coords, int grid_number);
+		void delete_shape(std::vector<Coord>, int grid_number);
+		void clearLine(std::vector<Coord>, int grid_number);
 };
 
 #endif

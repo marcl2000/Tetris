@@ -53,6 +53,7 @@ int main(int argc, char *argv[]){
 
 	//make the textdisplay
 	TextDisplay *td = new TextDisplay();
+	td->init();
 
 	//set up the two grids regardless
 	Grid g1;
@@ -83,26 +84,32 @@ int main(int argc, char *argv[]){
 	LevelZero *zero = new LevelZero();
 	Shape *current = zero->createShape(u1block, heavy_flag, wants_graphics);
 
-	//print the textdisplay
 	gd->update_shape(u1block, current->getMembers(), 1);
+	td->update_shape(u1block, current->getMembers(), 1);
 
 	//get the next block in line
 	u1stream >> u1block;
 	cout << "U1 next IS " << u1block << endl;
 	Shape *next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
-   	gd->update_next(u1block, next1->getMembers(), 1);
+	gd->update_next(u1block, next1->getMembers(), 1);
+	td->update_next(u1block, 1);  //
 
 	// Create a shape for user2
 	u2stream >> u2block;
 	cout << "U2 Blocks is " << u2block << endl;
 	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-	gd->update_shape(u2block, current2->getMembers(), 2);                         
-	
+	gd->update_shape(u2block, current2->getMembers(), 2);
+	td->update_shape(u2block, current2->getMembers(), 2);
+
 	//get the next block for user2
 	u2stream >> u2block;
-        cout << "U2 next IS " << u2block << endl;
-        Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-        gd->update_next(u2block, next2->getMembers(), 2);
+	cout << "U2 next IS " << u2block << endl;
+	Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+	gd->update_next(u2block, next2->getMembers(), 2);
+	td->update_next(u2block, 2);
+
+	//now print the textdisplay
+	g1.print();
 
 
 	while (true) {
@@ -149,15 +156,99 @@ int main(int argc, char *argv[]){
 			cout << "Moving right by " << steps << " steps" << endl;
 		} else if (s.substr(0, 2) == "do") {
 			cout << "Moving down by " << steps << " steps" << endl;
+			for(int i=0;i<steps;i++){
+				//check to see if the block can be moved down safely
+				if(turn%2 == 0){
+					bool can_drop = true;
+					if(current->getName() == "I"){
+						for(int i=0;i<4;i++){
+							int n = current->getMembers()[i].y/20 - 2;
+							int m = current->getMembers()[i].x/20;
+
+							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
+								can_drop = false;
+								break;
+							}
+						}
+					}
+					//else if (current->getName() == "")
+					if(can_drop){
+						gd->delete_shape(current->getMembers(), 1);
+						td->delete_shape(current->getMembers(), 1);
+
+						current->move_down();
+						gd->update_shape(current->getName(), current->getMembers(), 1);
+						td->update_shape(current->getName(), current->getMembers(), 1);
+
+						//add this piece to the grid by adding it to shapes and making the corresponding cells filled
+					}
+				}
+				else{
+					bool can_drop = true;
+					for(int i =0;i<4;i++){
+						if((g2.get_lines()[current2->getMembers()[i].y+1].get_cells()[current2->getMembers()[i].x]).isFilled()){
+							can_drop = false;
+							break;
+						}
+					}
+					if(can_drop){
+						gd->delete_shape(current2->getMembers(), 2);
+						td->delete_shape(current2->getMembers(), 2);
+						current2->move_down();
+						gd->update_shape(current2->getName(), current2->getMembers(), 2);
+						td->update_shape(current2->getName(), current2->getMembers(), 2);
+					}
+
+				}
+			}
+			g1.print();
+
 		} else if (s.substr(0, 2) == "dr") {
 			cout << "Dropping  " << steps << " steps" << endl;
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
 			if (turn % 2 == 0) {
-				gd->clear_current(1);
+				if(current->getName() == "I"){
+					bool can_move = true;
+					int move_count = 0;
+					while(can_move){
+						for(int i=0;i<4;i++){
+							int n = current->getMembers()[i].y/20 - 2;
+							int m = current->getMembers()[i].x/20;
+
+							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
+								can_move = false;
+								break;
+							}
+						}
+						if(can_move){
+							move_count++;
+							if(move_count==1){
+								gd->delete_shape(current->getMembers(), 1);
+								td->delete_shape(current->getMembers(), 1);
+							}
+							current->move_down();
+						}
+					}
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+					td->update_shape(current->getName(), current->getMembers(), 1);
+				
+				}
+				//else if(current->getName() =="J"){...
+				
+				//after dropping, add this shape to the list of shapes and set the corresponding grid cells to filled
+				g1.add_shape(current);
+
+				for(int i=0;i<4;i++){
+					int n = current->getMembers()[i].y/20 - 3;
+					int m = current->getMembers()[i].x/20;
+					(g1.get_lines()[n].get_cells()[m]).set_filled(true);
+				}
+			
 				// First set the next block to the current shape
 				current = next1;
 				gd->update_shape(u1block, current->getMembers(),1);
+				td->update_shape(u1block, current->getMembers(), 1);
 				u1stream >> u1block;
 				if (u1stream.eof()) {
 					// Clear the filestream and start reading from the beginning of the file
@@ -168,8 +259,10 @@ int main(int argc, char *argv[]){
 				gd->clear_next(1);
 				cout << "user1's block is " << u1block << endl;
 				// Now display the next block
-			       	next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 				gd->update_next(u1block, next1->getMembers(),1);
+				td->update_next(u1block, 1);
+				g1.print();
 			} else {
 				gd->clear_current(2);
 				// Repeat the above process but for user2
@@ -185,24 +278,31 @@ int main(int argc, char *argv[]){
 				gd->clear_next(2);
 				cout << "user2's block is " << u2block << endl;
 				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-                                gd->update_next(u2block, next2->getMembers(),2);
+				gd->update_next(u2block, next2->getMembers(),2);
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
 			cout << "Rotating counter clockwise by " << steps << " steps" << endl;
-		} else if (s.substr(0, 2) == "cl") {                                                       //HOW WILL WE EVER ROTATE PLAYER TWO'S SHAPE???
+		} else if (s.substr(0, 2) == "cl") {                     
 			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
-			//	gd->delete_shape(current->getMembers(), 1);
-			//	current->clockwise();
-			//	gd->update_next(u1block, current->getMembers(), 1);
-			//** Claudia, above is your old code. After fixing the seg fault, your old code doesn't work anymore
-			//so I had to call differently as shown below. I had to create a getName() method because other wise
-			// block1's type is set to next's type, and we need current's type, so i can pass in block1, i have
-			// to pass in current's type. Sorry i
-				gd->delete_shape(current->getMembers(), 1);
-				current->clockwise();
-				gd->update_shape(current->getName(), current->getMembers(), 1);
+				if(turn % 2 == 0){   //first player's block
+					gd->delete_shape(current->getMembers(), 1);
+					td->delete_shape(current->getMembers(), 1);
+					current->clockwise();
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+					td->update_shape(current->getName(), current->getMembers(), 1);
+					g1.print();
+				}
+
+				else{  //second player's block
+					gd->delete_shape(current2->getMembers(), 2);
+					td->delete_shape(current2->getMembers(), 2);
+					current2->clockwise();
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+					td->update_shape(current2->getName(), current2->getMembers(), 2);
+					g1.print();
+				}
 			}
 
 		} else if (s.substr(0, 2) == "ra") {

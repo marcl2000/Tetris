@@ -12,23 +12,32 @@ void Shape::move_right(){
 }
 
 void Shape::move_down(){
-
+	//main has concluded that it is possible to move down
+	for(int i=0;i<4;i++){
+		int n = this->members[i].getCoord().x;
+		int m = this->members[i].getCoord().y + 20;
+		Coord c(n,m);
+		this->members[i].setCoord(c);
+	}
 }
 
-//should change make_blind to false after dropping, and update textdisplay and graphicsdisplay with delete_shape and update_shape
+//should change make_blind to false after dropping and change the cells in the shape to is_filled()
 void Shape::drop(){
+	//the main will delete the old shape
+	
+	//check to see if it can be dropped
+
 
 }
 
 void Shape::clockwise(){
-	
+
 	if(this->type_name == "I"){
 		if(this->members[0].getCoord().y == this->members[1].getCoord().y){
 			//we are horizontal and it can always be rotated
 
 			//check if in position 1 or 3
 			if(this->members[0].getCoord().x < this->members[1].getCoord().x){
-				cout<<"first if"<<endl;
 
 				Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 3*20);
 				this->members[0].setCoord(one);
@@ -43,7 +52,6 @@ void Shape::clockwise(){
 				this->members[3].setCoord(four);
 			}
 			else{
-				cout<<"second if"<<endl;
 				Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y - 3*20);
 				this->members[3].setCoord(one);
 
@@ -64,7 +72,6 @@ void Shape::clockwise(){
 
 				//check if in position 2 or 4
 				if(this->members[0].getCoord().y > this->members[1].getCoord().y){
-					cout<<"third if"<<endl;
 
 					Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y);
 					this->members[0].setCoord(one);
@@ -79,7 +86,6 @@ void Shape::clockwise(){
 					this->members[3].setCoord(four);
 				}
 				else{
-					cout<<"fourth if"<<endl;
 					Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y);
 					this->members[3].setCoord(one);
 
