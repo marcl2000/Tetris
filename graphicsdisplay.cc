@@ -156,14 +156,14 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
 }
 
 //called by Line class from within is_filled(), once it realizes it must delete itself
-void GraphicsDisplay::update_line(vector<Cell> cells, int grid_number) {
+void GraphicsDisplay::update_line(vector<Coord> coords, int grid_number) {
 
-	//loop through the cells on that row and set them back to black
+	//for each of these coordinates, the colour must be set back to white
 	//for(int i=0;i<11;i++){
 
 }
 
-void  GraphicsDisplay::clear_current(int grid_number) {
+void GraphicsDisplay::clear_current(int grid_number) {
 	int n = 14*20;
 	if (grid_number == 1) {
 		this->xw.fillRectangle(0, 5*20, 80, 80, 0);
@@ -172,7 +172,7 @@ void  GraphicsDisplay::clear_current(int grid_number) {
 	}
 }
 
-void  GraphicsDisplay::clear_next(int grid_number) {
+void GraphicsDisplay::clear_next(int grid_number) {
 	int n = 14*20;
 	if (grid_number == 1) {
                 this->xw.fillRectangle(0, 5*20+20*18, 80, 60, 0);
@@ -181,3 +181,6 @@ void  GraphicsDisplay::clear_next(int grid_number) {
         }
 }
 
+void GraphicsDisplay::update_level(int new_level){}
+
+void GraphicsDisplay::update_score(int new_score){}
