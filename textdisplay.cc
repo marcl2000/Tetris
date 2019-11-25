@@ -133,10 +133,6 @@ void TextDisplay::print(bool blind_flag) {
 	cout<<endl;
 }
 
-//void TextDisplay::update_level(int new_level){
-
-
-
 void TextDisplay::update_shape(string name, vector<Coord> coords, int grid_number){
 	int n = 0;
 	if(grid_number == 2){
@@ -207,3 +203,7 @@ void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
 }
 
 void TextDisplay::clearLine(vector<Coord> coords, int grid_number) {}
+
+void update_level(int new_level){}
+
+void update_score(int new_score){}
