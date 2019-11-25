@@ -4,11 +4,34 @@
 
 using namespace std;
 
-void Shape::move_left(){
+void Shape::move_left(int n){
+		for (int i=0; i < 4; ++i) {
+			int newx = this->members[i].getCoord().x - n * 20;
+			Coord c(newx, this->members[i].getCoord().y);
+			this->members[i].setCoord(c);
+			cout << "New coords are " << c.x << " , " << c.y << endl;
+		}
+		
+		for (int i=0; i < 4; ++i) {
+			while (this->members[i].getCoord().x < 0) {
+				this->move_right(1);
+			}	
+		}
 }
 
-void Shape::move_right(){
+void Shape::move_right(int n){
+	 for (int i=0; i < 4; ++i) {
+         	int newx = this->members[i].getCoord().x + n * 20;
+                Coord c(newx, this->members[i].getCoord().y);
+                this->members[i].setCoord(c);
+                cout << "New coords are " << c.x << " , " << c.y << endl;
+         }
 
+	 for (int i=0; i < 4; ++i) {
+                        while (this->members[i].getCoord().x > 10 * 20) {
+                                this->move_left(1);
+                        }	
+	 }
 }
 
 void Shape::move_down(){

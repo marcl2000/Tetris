@@ -198,7 +198,7 @@ void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
 
 	int size = coords.size();
 	for(int i =0; i<size;i++){
-		theDisplay[coords[i].y/20 + n][coords[i].x/20] = " ";
+		theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
 	}
 }
 

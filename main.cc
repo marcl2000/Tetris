@@ -151,9 +151,43 @@ int main(int argc, char *argv[]){
 				cout << "Going down " << steps << " levels"  << endl;
 			}
 		} else if (s.substr(0, 3) == "lef") {
-			cout << "Moving left by " << steps << " steps" << endl;
+			if (turn%2 == 0) {
+				//gd->clear_current(1);
+ 				gd->delete_shape(current->getMembers(), 1);
+                                td->delete_shape(current->getMembers(), 1);
+				current->move_left(steps);
+				gd->update_shape(current->getName(), current->getMembers(), 1);
+                                td->update_shape(current->getName(), current->getMembers(), 1);
+                                g1.print();
+			} else {
+				cout << "type is " << current2->getName() << endl;
+				//gd->clear_current(2);
+				gd->delete_shape(current2->getMembers(), 2);
+                                td->delete_shape(current2->getMembers(), 2);
+				current2->move_left(steps);
+				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+                                td->update_shape(current2->getName(), current2->getMembers(), 2);
+                                g2.print();
+			}
 		} else if (s.substr(0, 2) == "ri") {
-			cout << "Moving right by " << steps << " steps" << endl;
+			if (turn%2 == 0) {
+                                //gd->clear_current(1);
+                                gd->delete_shape(current->getMembers(), 1);
+                         	td->delete_shape(current->getMembers(), 1);
+                                current->move_right(steps);
+                                gd->update_shape(current->getName(), current->getMembers(), 1);
+                                td->update_shape(current->getName(), current->getMembers(), 1);
+                                g1.print();
+                        } else {
+                                cout << "type is " << current2->getName() << endl;
+                                //gd->clear_current(2);
+                                gd->delete_shape(current2->getMembers(), 2);
+                                td->delete_shape(current2->getMembers(), 2);
+                                current2->move_right(steps);
+                                gd->update_shape(current2->getName(), current2->getMembers(), 2);
+                                td->update_shape(current2->getName(), current2->getMembers(), 2);
+                                g2.print();
+                        }
 		} else if (s.substr(0, 2) == "do") {
 			cout << "Moving down by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
@@ -204,7 +238,7 @@ int main(int argc, char *argv[]){
 			g1.print();
 
 		} else if (s.substr(0, 2) == "dr") {
-			cout << "Dropping  " << steps << " steps" << endl;
+			
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
 			if (turn % 2 == 0) {
@@ -245,6 +279,8 @@ int main(int argc, char *argv[]){
 					(g1.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
 			
+				gd->clear_current(1);
+
 				// First set the next block to the current shape
 				current = next1;
 				gd->update_shape(u1block, current->getMembers(),1);

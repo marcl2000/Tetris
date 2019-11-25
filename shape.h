@@ -19,8 +19,8 @@ class Shape {
 		Shape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on):
 		       	type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on} {}
 
-		void move_left();
-		void move_right();
+		void move_left(int n);
+		void move_right(int n);
 		void move_down();
 		void drop();
 		void clockwise();
