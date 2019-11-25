@@ -54,6 +54,7 @@ void Shape::drop(){
 }
 
 void Shape::clockwise(){
+	cout << "SHape type is " << this->type_name << endl;
 
 	if(this->type_name == "I"){
 		if(this->members[0].getCoord().y == this->members[1].getCoord().y){
@@ -124,7 +125,79 @@ void Shape::clockwise(){
 				}
 			}
 		}
+		if(this->type_name == "S"){
+				cout << "SHAPE IS S" << endl;
+			
+			// Check if it is horizontal, then it can be rotated always
+			if (this->members[0].getCoord().x - this->members[3].getCoord().x == 2) {
+				// Position 1
+				if (this->members[0].getCoord().y > this->members[3].getCoord().y) {
+			
+				cout << "POSITION 1" << endl;
+					Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 2 * 20);
+					this->members[0].setCoord(one);
 
+					Coord two(this->members[1].getCoord().x - 1 * 20, this->members[1].getCoord().y - 1 * 20);
+					this->members[1].setCoord(two);
+
+					//Third coordinate stays the same
+
+					Coord four(this->members[3].getCoord().x - 1 * 20, this->members[3].getCoord().y + 1 * 20);
+					this->members[3].setCoord(four);	
+				} else {
+
+
+					cout << "POSITION 2" << endl;
+					Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y - 2 * 20);
+                                        this->members[3].setCoord(one);
+
+                                        Coord two(this->members[2].getCoord().x - 1 * 20, this->members[2].getCoord().y - 1 * 20);
+                                        this->members[2].setCoord(two);
+
+                                        //Third coordinate stays the same
+
+                                        Coord four(this->members[0].getCoord().x - 1 * 20, this->members[0].getCoord().x + 1 * 20);
+                                        this->members[0].setCoord(four);
+
+				}
+
+			} else {
+				if (this->members[0].getCoord().y - this->members[3].getCoord().y == -2) {
+					
+					cout << "POSITION 3" << endl;
+					Coord one(this->members[0].getCoord().x + 2 * 20, this->members[0].getCoord().y + 1 * 20);
+					this->members[0].setCoord(one);
+
+					Coord two(this->members[1].getCoord().x + 1 *20, this->members[1].getCoord().y);
+					this->members[1].setCoord(two);
+
+					Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 1 *20);
+					this->members[2].setCoord(three);
+
+					Coord four(this->members[3].getCoord().x - 1 * 20, this->members[3].getCoord().y);
+					this->members[3].setCoord(four);
+				} else {
+
+					cout << "POSITION 2" << endl;
+					Coord one(this->members[0].getCoord().x - 1 * 20, this->members[0].getCoord().y);
+					this->members[0].setCoord(one);
+
+					Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y + 1 * 20);
+					this->members[1].setCoord(two);
+
+					Coord three(this->members[2].getCoord().x + 1 * 20, this->members[2].getCoord().y);
+					this->members[2].setCoord(three);
+
+					Coord four(this->members[3].getCoord().x + 2 * 20, this->members[3].getCoord().y + 1 *20 );
+					this->members[3].setCoord(four);
+
+				}
+			
+			
+			}
+			
+		
+		}
 		//if heavy is on, then this rotate should drop the shape by 1
 		if(this->heavy_flag){
 			for(int i=0;i<4;i++){
