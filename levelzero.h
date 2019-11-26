@@ -3,13 +3,13 @@
 #include <iostream>
 #include <vector>
 #include <cstddef>
-//#include "level.h"
+#include "level.h"
 #include "shape.h"
 
-class LevelZero {
+class LevelZero : public Level {
 	public:
-		//~LevelZero() override {}
-		Shape* createShape(std::string name, bool heavy_flag, bool gd_on); // override;
+		~LevelZero() override {}
+		Shape* createShape(std::string name, bool heavy_flag, bool gd_on) override;
 };
 
 #endif

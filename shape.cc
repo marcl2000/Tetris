@@ -128,10 +128,14 @@ void Shape::clockwise(){
 	}
 	if(this->type_name == "S"){
 		cout << "SHAPE IS S" << endl;
+		for (int i = 0; i < 4; ++i) {
+		cout << this->members[i].getCoord().x << " , " << this->members[i].getCoord().y << endl; 
 
+		}
 		// Check if it is horizontal, then it can be rotated always
-		if (this->members[0].getCoord().x - this->members[3].getCoord().x == 2) {
+		if (this->members[0].getCoord().x - this->members[3].getCoord().x == - 2 * 20) {
 			// Position 1
+		
 			if (this->members[0].getCoord().y > this->members[3].getCoord().y) {
 
 				cout << "POSITION 1" << endl;
@@ -149,21 +153,22 @@ void Shape::clockwise(){
 
 
 				cout << "POSITION 2" << endl;
-				Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y - 2 * 20);
+				Coord one(this->members[3].getCoord().x - 1 * 20, this->members[3].getCoord().y);
 				this->members[3].setCoord(one);
 
-				Coord two(this->members[2].getCoord().x - 1 * 20, this->members[2].getCoord().y - 1 * 20);
+				Coord two(this->members[2].getCoord().x, this->members[2].getCoord().y + 1 * 20);
 				this->members[2].setCoord(two);
 
-				//Third coordinate stays the same
+				Coord three(this->members[1].getCoord().x + 1 * 20, this->members[1].getCoord().y);
+				this->members[1].setCoord(three);
 
-				Coord four(this->members[0].getCoord().x - 1 * 20, this->members[0].getCoord().x + 1 * 20);
+				Coord four(this->members[0].getCoord().x + 2 * 20, this->members[0].getCoord().x + 1 * 20);
 				this->members[0].setCoord(four);
 
 			}
 
 		} else {
-			if (this->members[0].getCoord().y - this->members[3].getCoord().y == -2) {
+			if (this->members[0].getCoord().y - this->members[3].getCoord().y == -2 * 20) {
 
 				cout << "POSITION 3" << endl;
 				Coord one(this->members[0].getCoord().x + 2 * 20, this->members[0].getCoord().y + 1 * 20);
@@ -179,7 +184,7 @@ void Shape::clockwise(){
 				this->members[3].setCoord(four);
 			} else {
 
-				cout << "POSITION 2" << endl;
+				cout << "POSITION 4" << endl;
 				Coord one(this->members[0].getCoord().x - 1 * 20, this->members[0].getCoord().y);
 				this->members[0].setCoord(one);
 

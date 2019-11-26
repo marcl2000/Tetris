@@ -9,6 +9,9 @@
 using namespace std;
 
 Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
+	
+	Shape *newShape;
+
 	if(name == "I"){
 		//make the four cells that set up the shape
 		Coord one(0, 6*20);
@@ -26,8 +29,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		Shape *newShape = new Shape("I", members, heavy_flag, gd_on);
-		return newShape;
+		newShape = new Shape("I", members, heavy_flag, gd_on);
 	}
 
 	if(name == "J"){
@@ -45,8 +47,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		Shape *newShape = new Shape("J", members, heavy_flag, gd_on);
-		return newShape;
+		newShape = new Shape("J", members, heavy_flag, gd_on);
 	}
 
 	   if(name == "S"){
@@ -64,8 +65,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
                 members.emplace_back(c2);
                 members.emplace_back(c3);
                 members.emplace_back(c4);
-                Shape *newShape = new Shape("S", members, heavy_flag, gd_on);
-                return newShape;
+                newShape = new Shape("S", members, heavy_flag, gd_on);
         }
 
 	if(name == "L"){
@@ -83,8 +83,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
                 members.emplace_back(c2);
                 members.emplace_back(c3);
                 members.emplace_back(c4);
-                Shape *newShape = new Shape("L", members, heavy_flag, gd_on);
-                return newShape;
+                newShape = new Shape("L", members, heavy_flag, gd_on);
 	}
 
 	if(name == "O"){
@@ -102,8 +101,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
                 members.emplace_back(c2);
                 members.emplace_back(c3);
                 members.emplace_back(c4);
-                Shape *newShape = new Shape("O", members, heavy_flag, gd_on);
-                return newShape;
+                newShape = new Shape("O", members, heavy_flag, gd_on);
         }
 	
 	if(name == "Z"){
@@ -121,8 +119,7 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
                 members.emplace_back(c2);
                 members.emplace_back(c3);
                 members.emplace_back(c4);
-                Shape *newShape = new Shape("Z", members, heavy_flag, gd_on);
-                return newShape;
+                newShape = new Shape("Z", members, heavy_flag, gd_on);
         }
 
 	if(name == "T"){
@@ -140,9 +137,9 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
                 members.emplace_back(c2);
                 members.emplace_back(c3);
                 members.emplace_back(c4);
-                Shape *newShape = new Shape("T", members, heavy_flag, gd_on);
-                return newShape;
+                newShape = new Shape("T", members, heavy_flag, gd_on);
 	}
+	return newShape;
         
 }
 
