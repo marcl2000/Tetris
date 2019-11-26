@@ -1,1 +1,1 @@
-level.o: level.cc
+level.o: level.cc shape.h coord.h cell.h level.h
