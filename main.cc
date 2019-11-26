@@ -70,7 +70,6 @@ int main(int argc, char *argv[]){
 	g1.set_gd(gd);
 	g2.set_gd(gd);
 
-
 	// Create filestreams for the blocks of each user
 	ifstream u1stream {user1file};
 	ifstream u2stream {user2file};
@@ -110,7 +109,6 @@ int main(int argc, char *argv[]){
 
 	//now print the textdisplay
 	g1.print();
-
 
 	while (true) {
 
@@ -239,108 +237,29 @@ int main(int argc, char *argv[]){
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
 			if (turn % 2 == 0) {
-				if((current->getName() == "I")||(current->getName()=="L")||(current->getName()=="J")||(current->getName()=="O")){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current->getMembers()[i].y/20 - 2;
-							int m = current->getMembers()[i].x/20;
+				bool can_move = true;
+				int move_count = 0;
+				while(can_move){
+					for(int i=0;i<4;i++){
+						int n = current->getMembers()[i].y/20 - 2;
+						int m = current->getMembers()[i].x/20;
 
-							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}
-						if(can_move){
-							move_count++;
-							if(move_count==1){
-								gd->delete_shape(current->getMembers(), 1);
-								td->delete_shape(current->getMembers(), 1);
-							}
-							current->move_down();
+						if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
+							can_move = false;
+							break;
 						}
 					}
-					gd->update_shape(current->getName(), current->getMembers(), 1);
-					td->update_shape(current->getName(), current->getMembers(), 1);
-
-				}
-				else if(current->getName() =="S"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current->getMembers()[i].y/20 - 2;
-							int m = current->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
+					if(can_move){
+						move_count++;
+						if(move_count==1){
+							gd->delete_shape(current->getMembers(), 1);
+							td->delete_shape(current->getMembers(), 1);
 						}
-
-						if(can_move){
-							move_count++;
-							if(move_count ==1){
-								gd->delete_shape(current->getMembers(), 1);
-								td->delete_shape(current->getMembers(), 1);
-							}
-							current->move_down();
-						}
+						current->move_down();
 					}
-					gd->update_shape(current->getName(), current->getMembers(), 1);
-					td->update_shape(current->getName(), current->getMembers(), 1);
 				}
-				else if(current->getName() == "Z"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current->getMembers()[i].y/20 - 2;
-							int m = current->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}
-						if(can_move){
-							move_count++;
-							if(move_count ==1){
-								gd->delete_shape(current->getMembers(), 1);
-								td->delete_shape(current->getMembers(), 1);
-							}
-							current->move_down();
-						}
-					}
-					gd->update_shape(current->getName(), current->getMembers(), 1);
-					td->update_shape(current->getName(), current->getMembers(), 1);
-				}
-				else if(current->getName() == "T"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current->getMembers()[i].y/20 - 2;
-							int m = current->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}
-						if(can_move){
-							move_count++;
-							if(move_count == 1){
-								gd->delete_shape(current->getMembers(), 1);
-								td->delete_shape(current->getMembers(), 1);
-							}
-							current->move_down();
-						}
-					}
-					gd->update_shape(current->getName(), current->getMembers(), 1);
-					td->update_shape(current->getName(), current->getMembers(), 1);
-				}
+				gd->update_shape(current->getName(), current->getMembers(), 1);
+				td->update_shape(current->getName(), current->getMembers(), 1);
 
 				//after dropping, add this shape to the list of shapes and set the corresponding grid cells to filled
 				g1.add_shape(current);
@@ -376,111 +295,29 @@ int main(int argc, char *argv[]){
 				g1.print();
 
 			} else {
+				bool can_move = true;
+				int move_count = 0;
+				while(can_move){
+					for(int i=0;i<4;i++){
+						int n = current2->getMembers()[i].y/20 - 2;
+						int m = current2->getMembers()[i].x/20;
 
-				if((current2->getName() == "I")||(current2->getName()=="L")||(current2->getName()=="J")||(current2->getName()=="O")){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current2->getMembers()[i].y/20 - 2;
-							int m = current2->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}
-						if(can_move){
-							move_count++;
-							if(move_count==1){
-								gd->delete_shape(current2->getMembers(), 2);
-								td->delete_shape(current2->getMembers(), 2);
-							}
-							current2->move_down();
+						if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
+							can_move = false;
+							break;
 						}
 					}
-					gd->update_shape(current2->getName(), current2->getMembers(), 2);
-					td->update_shape(current2->getName(), current2->getMembers(), 2);
-
-				}
-				else if(current2->getName() =="S"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-
-						for(int i=0;i<4;i++){
-							int n = current2->getMembers()[i].y/20 - 2;
-							int m = current2->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}						
-
-						if(can_move){
-							move_count++;
-							if(move_count ==1){
-								gd->delete_shape(current2->getMembers(), 2);
-								td->delete_shape(current2->getMembers(), 2);
-							}	
-							current2->move_down();
+					if(can_move){
+						move_count++;
+						if(move_count==1){
+							gd->delete_shape(current2->getMembers(), 2);
+							td->delete_shape(current2->getMembers(), 2);
 						}
+						current2->move_down();
 					}
-
-					gd->update_shape(current2->getName(), current2->getMembers(), 2);
-					td->update_shape(current2->getName(), current2->getMembers(), 2);
 				}
-				else if(current2->getName() == "Z"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current2->getMembers()[i].y/20 - 2;
-							int m = current2->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}				
-						}
-						if(can_move){
-							move_count++;
-							if(move_count ==1){
-								gd->delete_shape(current2->getMembers(), 2);
-								td->delete_shape(current2->getMembers(), 2);
-							}
-							current2->move_down();
-						}
-					}
-					gd->update_shape(current2->getName(), current2->getMembers(), 2);
-					td->update_shape(current2->getName(), current2->getMembers(), 2);
-				}
-				else if(current2->getName() == "T"){
-					bool can_move = true;
-					int move_count = 0;
-					while(can_move){
-						for(int i=0;i<4;i++){
-							int n = current2->getMembers()[i].y/20 - 2;
-							int m = current2->getMembers()[i].x/20;
-
-							if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
-								can_move = false;
-								break;
-							}
-						}
-						if(can_move){
-							move_count++;
-							if(move_count == 1){
-								gd->delete_shape(current2->getMembers(), 2);
-								td->delete_shape(current2->getMembers(), 2);
-							}
-							current2->move_down();
-						}
-					}
-					gd->update_shape(current2->getName(), current2->getMembers(), 2);
-					td->update_shape(current2->getName(), current2->getMembers(), 2);
-				}
+				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				td->update_shape(current2->getName(), current2->getMembers(), 2);
 
 				//after dropping, add this shape to the list of shapes and set the corresponding grid cells to filled
 				g2.add_shape(current2);
