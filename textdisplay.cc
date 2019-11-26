@@ -204,6 +204,21 @@ void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
 
 void TextDisplay::clearLine(vector<Coord> coords, int grid_number) {}
 
-void update_level(int new_level){}
+void TextDisplay::update_level(int new_level, int grid_number){
+	if(grid_number == 1){
+		theDisplay[0][10] = ""+new_level;
+	}
+	else if (grid_number==2){
+		theDisplay[0][25] = ""+new_level;
+	}
+}
 
-void update_score(int new_score){}
+void TextDisplay::update_score(int new_score, int grid_number){
+	if(grid_number == 1){
+		theDisplay[1][10] = ""+new_score;
+	}
+	else if(grid_number == 2){
+		theDisplay[1][25] = ""+new_score;
+	}
+}
+

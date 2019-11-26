@@ -42,7 +42,7 @@ bool Line::isFilled(){
 	return temp;
 }
 
-vector<Cell> Line::get_cells(){
+vector<Cell>& Line::get_cells(){
 	return this->contents;
 }
 

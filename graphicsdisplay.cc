@@ -181,6 +181,22 @@ void GraphicsDisplay::clear_next(int grid_number) {
         }
 }
 
-void GraphicsDisplay::update_level(int new_level){}
+void GraphicsDisplay::update_level(int new_level, int grid_number){
+	if(grid_number == 1){
+		xw.drawString(1, 20, "Level: "+new_level, 1);
+	}
+	else if(grid_number==2){
+		xw.drawString(14*20 + 1, 20, "Level: "+new_level, 1);
+	}
+}
 
-void GraphicsDisplay::update_score(int new_score){}
+void GraphicsDisplay::update_score(int new_score, int grid_number){
+	if(grid_number == 1){
+		xw.drawString(1, 40, "Score: "+new_score, 1);
+	}
+	else if(grid_number == 2){
+		xw.drawString(14*20 + 1, 40, "Score: "+new_score, 1);
+	}
+}
+
+

@@ -34,7 +34,7 @@ class Grid {
 		void change_blind(bool b);
 		bool piece_fits(std::string name);    //if this returns false, then the game is over
 		void add_shape(Shape *sh);
-		std::vector<Line> get_lines();
+		std::vector<Line>& get_lines();
 		void print();
 		int lines_cleared();
 		void set_gd(GraphicsDisplay *gd);

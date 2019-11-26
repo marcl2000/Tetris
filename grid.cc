@@ -43,7 +43,7 @@ bool Grid::piece_fits(string name){
 	return temp;//temporay placeholder, delete once code is added
 }
 
-vector<Line> Grid::get_lines(){
+vector<Line>& Grid::get_lines(){
 	return this->lines;
 }
 
