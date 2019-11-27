@@ -6,7 +6,14 @@
 #include "grid.h"
 #include "textdisplay.h"
 #include "level.h"
-#include "levelzero.h"    //this should really not be included but its not working without ?????
+#include "levelzero.h"
+#include "IShape.h"
+#include "JShape.h"
+#include "LShape.h"
+#include "SShape.h"
+#include "TShape.h"
+#include "ZShape.h"
+#include "OShape.h"
 
 using namespace std;
 
