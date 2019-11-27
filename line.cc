@@ -25,7 +25,7 @@ void Line::set_gd(GraphicsDisplay *gd){
 	this->gd = gd;
 }
 
-bool Line::isFilled(){
+bool Line::isFilled(int grid_num){
 
 	bool temp = true;
 	for(int i=0;i<11;i++){
@@ -37,6 +37,16 @@ bool Line::isFilled(){
 
 	//if it is filled, make sure to update both the textdisplay and graphicsdisplay, and set each cell in the line to not_filled
 	if(temp){
+		vector<Cell> &mem = this->get_cells();
+		int n = mem.size();
+		for (int i = 0; i < n; ++i) {
+			mem[i].set_filled(false);
+		}	
+
+		td->clear(this->getMembers(), grid_num);
+		gd->clear(this->getMembers(), grid_num);
+
+		
 	}
 	
 	return temp;

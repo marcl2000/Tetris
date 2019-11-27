@@ -189,7 +189,7 @@ void TextDisplay::update_shape(string name, vector<Coord> coords, int grid_numbe
 	}
 }
 
-
+/*
 void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
 	int n = 0;
 	if(grid_number == 2){
@@ -201,8 +201,18 @@ void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
 		theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
 	}
 }
+*/
+void TextDisplay::clear(vector<Coord> coords, int grid_number) {
+	int n = 0;
+ 	if (grid_number == 2) {
+		n = 14;
+	}	
 
-void TextDisplay::clearLine(vector<Coord> coords, int grid_number) {}
+	int size = coords.size();
+        for(int i =0; i<size;i++){
+                theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
+        }
+}
 
 void TextDisplay::update_level(int new_level, int grid_number){
 	if(grid_number == 1){

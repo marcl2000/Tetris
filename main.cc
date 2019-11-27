@@ -151,8 +151,8 @@ int main(int argc, char *argv[]){
 		} else if (s.substr(0, 3) == "lef") {
 			if (turn%2 == 0) {
 				//gd->clear_current(1);
-				gd->delete_shape(current->getMembers(), 1);
-				td->delete_shape(current->getMembers(), 1);
+				gd->clear(current->getMembers(), 1);
+				td->clear(current->getMembers(), 1);
 				current->move_left(steps);
 				gd->update_shape(current->getName(), current->getMembers(), 1);
 				td->update_shape(current->getName(), current->getMembers(), 1);
@@ -160,8 +160,8 @@ int main(int argc, char *argv[]){
 			} else {
 				cout << "type is " << current2->getName() << endl;
 				//gd->clear_current(2);
-				gd->delete_shape(current2->getMembers(), 2);
-				td->delete_shape(current2->getMembers(), 2);
+				gd->clear(current2->getMembers(), 2);
+				td->clear(current2->getMembers(), 2);
 				current2->move_left(steps);
 				gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
@@ -170,8 +170,8 @@ int main(int argc, char *argv[]){
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
 				//gd->clear_current(1);
-				gd->delete_shape(current->getMembers(), 1);
-				td->delete_shape(current->getMembers(), 1);
+				gd->clear(current->getMembers(), 1);
+				td->clear(current->getMembers(), 1);
 				current->move_right(steps);
 				gd->update_shape(current->getName(), current->getMembers(), 1);
 				td->update_shape(current->getName(), current->getMembers(), 1);
@@ -179,8 +179,8 @@ int main(int argc, char *argv[]){
 			} else {
 				cout << "type is " << current2->getName() << endl;
 				//gd->clear_current(2);
-				gd->delete_shape(current2->getMembers(), 2);
-				td->delete_shape(current2->getMembers(), 2);
+				gd->clear(current2->getMembers(), 2);
+				td->clear(current2->getMembers(), 2);
 				current2->move_right(steps);
 				gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
@@ -202,8 +202,8 @@ int main(int argc, char *argv[]){
 						}
 					}
 					if(can_drop){
-						gd->delete_shape(current->getMembers(), 1);
-						td->delete_shape(current->getMembers(), 1);
+						gd->clear(current->getMembers(), 1);
+						td->clear(current->getMembers(), 1);
 
 						current->move_down();
 						gd->update_shape(current->getName(), current->getMembers(), 1);
@@ -222,8 +222,8 @@ int main(int argc, char *argv[]){
 						}
 					}
 					if(can_drop){
-						gd->delete_shape(current2->getMembers(), 2);
-						td->delete_shape(current2->getMembers(), 2);
+						gd->clear(current2->getMembers(), 2);
+						td->clear(current2->getMembers(), 2);
 						current2->move_down();
 						gd->update_shape(current2->getName(), current2->getMembers(), 2);
 						td->update_shape(current2->getName(), current2->getMembers(), 2);
@@ -252,8 +252,8 @@ int main(int argc, char *argv[]){
 					if(can_move){
 						move_count++;
 						if(move_count==1){
-							gd->delete_shape(current->getMembers(), 1);
-							td->delete_shape(current->getMembers(), 1);
+							gd->clear(current->getMembers(), 1);
+							td->clear(current->getMembers(), 1);
 						}
 						current->move_down();
 					}
@@ -274,6 +274,10 @@ int main(int argc, char *argv[]){
 
 				//call lines_cleared to determine if lines are cleared and shifting needs to occur************************
 				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
+				int clearCount = g1.lines_cleared();
+				 cout << "Clear count is " << clearCount << endl;
+				// calculatet the score later
+
 
 				// First set the next block to the current shape
 				current = next1;
@@ -310,8 +314,8 @@ int main(int argc, char *argv[]){
 					if(can_move){
 						move_count++;
 						if(move_count==1){
-							gd->delete_shape(current2->getMembers(), 2);
-							td->delete_shape(current2->getMembers(), 2);
+							gd->clear(current2->getMembers(), 2);
+							td->clear(current2->getMembers(), 2);
 						}
 						current2->move_down();
 					}
@@ -331,12 +335,17 @@ int main(int argc, char *argv[]){
 
 				//call lines_cleared to determine if lines are cleared and shifting needs to occur*******************
 				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
+				int clearCount = g2.lines_cleared();
+				cout << "Clear count is " << clearCount << endl;
+		
+				// Now calaculate teh score
 
 				gd->clear_current(2);
 				// Repeat the above process but for user2
 				cout << "User 2's old block is " << u2block << endl;
 				current2 = next2;
 				gd->update_shape(u2block, next2->getMembers(),2);
+				td->update_shape(u2block, current2->getMembers(), 2);
 				u2stream >> u2block;
 				if (u2stream.eof()) {
 					u2stream.clear( );
@@ -347,6 +356,8 @@ int main(int argc, char *argv[]){
 				cout << "user2's block is " << u2block << endl;
 				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
 				gd->update_next(u2block, next2->getMembers(),2);
+				td->update_next(u2block, 2);
+				g2.print();
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
@@ -355,8 +366,8 @@ int main(int argc, char *argv[]){
 			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
 				if(turn % 2 == 0){   //first player's block
-					gd->delete_shape(current->getMembers(), 1);
-					td->delete_shape(current->getMembers(), 1);
+					gd->clear(current->getMembers(), 1);
+					td->clear(current->getMembers(), 1);
 					current->clockwise();
 					gd->update_shape(current->getName(), current->getMembers(), 1);
 					td->update_shape(current->getName(), current->getMembers(), 1);
@@ -364,8 +375,8 @@ int main(int argc, char *argv[]){
 				}
 
 				else{  //second player's block
-					gd->delete_shape(current2->getMembers(), 2);
-					td->delete_shape(current2->getMembers(), 2);
+					gd->clear(current2->getMembers(), 2);
+					td->clear(current2->getMembers(), 2);
 					current2->clockwise();
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 					td->update_shape(current2->getName(), current2->getMembers(), 2);

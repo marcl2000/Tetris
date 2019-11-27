@@ -33,13 +33,13 @@ GraphicsDisplay::GraphicsDisplay(){
 	//print the level and player strings
 	xw.drawString(1, 20, "Level: ", 1);
 	xw.drawString(1, 40, "Score: ", 1);
-	xw.drawString(1, 60, "---------------------------------", 1);
-	xw.drawString(1, 21*20, "_________________________________", 1);
+	xw.drawString(1, 60, "-------------------------------------", 1);
+	xw.drawString(1, 21*20, "_____________________________________", 1);
 	xw.drawString(1, 22*20, "Next: ", 1);
 	xw.drawString(14*20 + 1, 20, "Level: ", 1);
 	xw.drawString(14*20 + 1, 40, "Score: ", 1);
-	xw.drawString(14*20 + 1, 60, "---------------------------------", 1);
-	xw.drawString(14*20 + 1, 21*20, "_________________________________", 1);
+	xw.drawString(14*20 + 1, 60, "-------------------------------------", 1);
+	xw.drawString(14*20 + 1, 21*20, "_____________________________________", 1);
 	xw.drawString(14*20 + 1, 22*20, "Next: ", 1);
 
 
@@ -94,7 +94,7 @@ void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_n
 }
 
 
-void GraphicsDisplay::delete_shape(std::vector<Coord> coords, int grid_number){
+void GraphicsDisplay::clear(std::vector<Coord> coords, int grid_number){
 
 	int n = 0;
 	if(grid_number == 2){
@@ -156,12 +156,12 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
 }
 
 //called by Line class from within is_filled(), once it realizes it must delete itself
-void GraphicsDisplay::update_line(vector<Coord> coords, int grid_number) {
+//void GraphicsDisplay::update_line(vector<Coord> coords, int grid_number) {
 
 	//for each of these coordinates, the colour must be set back to white
 	//for(int i=0;i<11;i++){
 
-}
+//}
 
 void GraphicsDisplay::clear_current(int grid_number) {
 	int n = 14*20;

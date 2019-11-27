@@ -60,16 +60,67 @@ void Grid::print(){
 int Grid::lines_cleared(){
 	//lines will actually be cleared in the line class
 	int count = 0;
+	int grid = 0;
+
+	if (name == "g1") {
+		grid = 1;
+	} else {
+		grid = 2;
+	}
 
 	//loop through the vector of lines and check how many are filled
 	for(int i=0;i<18;i++){
-		if(this->lines[i].isFilled()){
+		if(this->lines[i].isFilled(grid)){
 			count++;
 		}
 	}
 
-	//now, shift all the pieces downwards if there were any lines cleared (make sure to make each cell filled again)
-	if(count>0){}
+	//now, shift all the pieces downwards if there were any lines cleared (make sure to make each cell filled again
+	if(count>0){
+		int dropCount = 1;
+		while (dropCount > 0) {
+			dropCount = 0;
+			int s = this->shapes.size();
+			for (int i = 0; i < s; ++ i) {
+				
+				 bool can_move = true;
+                                int move_count = 0;
+                                while(can_move){
+                                        for(int j=0;j<4;j++){
+
+						cout << "we made it into FIRST moves" << endl;
+                                                int n = this->shapes[i]->getMembers()[j].y/20 - 2;
+                                                int m = this->shapes[i]->getMembers()[j].x/20;
+
+                                                if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
+                                                        can_move = false;
+                                                        break;
+                                                }
+                                        }
+
+                                        if(can_move){
+						cout << "YES WE CAN MOVE " << endl;
+                                                move_count++;
+                                                if(move_count==1){
+                                                	++dropCount;
+							int g;
+							if (this->name == "g1") {
+								g = 1;
+							} else {
+								g = 2;
+							}
+							gd->clear(this->shapes[i]->getMembers(), g);
+                                                        td->clear(this->shapes[i]->getMembers(), g);
+							cout << "GD, DO You ever clear your line??" << endl;
+                                               
+					       	}
+                                                this->shapes[i]->move_down();
+                                        }
+                                }
+
+			}
+		}
+	}
 
 	return count;
 }
