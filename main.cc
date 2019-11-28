@@ -482,6 +482,7 @@ int main(int argc, char *argv[]){
 			cin >> file;
 			cout << "Calling nonrandom with " << file << endl;
 		} else if (s.substr(0, 2) == "re") {
+/*
 
 		//	u1stream.close();
                   //                      u2stream.close();
@@ -562,6 +563,7 @@ int main(int argc, char *argv[]){
 			//now print the textdisplay
 			g1.print();
 
+		*/	
 		} else if (s[0] == 's') {
 			string file = "";
 			cin >> file;
