@@ -203,11 +203,26 @@ void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 }
 
 void TextDisplay::update_level(int new_level, int grid_number){
-	if(grid_number == 1){
-		theDisplay[0][10] = ""+new_level;
+	string s = "";
+
+	if (new_level == 0) {
+		s = "0";
+	} else if (new_level == 1) {
+		s = "1";
+	} else if (new_level == 2) {
+		s = "2";
+	} else if (new_level == 3) {
+		s = "3";
+	} else if (new_level == 4) {
+		s = "4";
 	}
+
+	if(grid_number == 1){
+		theDisplay[0][10] = s;
+	}
+
 	else if (grid_number==2){
-		theDisplay[0][25] = ""+new_level;
+		theDisplay[0][25] = s;
 	}
 }
 

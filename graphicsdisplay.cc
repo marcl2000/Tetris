@@ -28,8 +28,9 @@ GraphicsDisplay::GraphicsDisplay(){
 }
 
 void GraphicsDisplay::restart() {
-	for(int i=0;i<11;i++){
-                for(int j=0;j<26;j++){
+	xw.fillRectangle(0,0,500, 520 ,0);
+        /*
+	for(int j=0;j<26;j++){
                         xw.fillRectangle(i*20, j*20, 20, 20, 0);
                 }
         }
@@ -39,6 +40,7 @@ void GraphicsDisplay::restart() {
 
                 }
         }
+	*/
 
 	//print the level and player strings
         xw.drawString(1, 20, "Level: ", 1);
@@ -46,7 +48,7 @@ void GraphicsDisplay::restart() {
         xw.drawString(1, 60, "-------------------------------------", 1);
         xw.drawString(1, 21*20, "_____________________________________", 1);
         xw.drawString(1, 22*20, "Next: ", 1);
-        xw.drawString(14*20 + 1, 20, "Level: ", 1);
+  	xw.drawString(14*20 + 1, 20, "Level: ", 1);
         xw.drawString(14*20 + 1, 40, "Score: ", 1);
         xw.drawString(14*20 + 1, 60, "-------------------------------------", 1);
         xw.drawString(14*20 + 1, 21*20, "_____________________________________", 1);
@@ -181,11 +183,28 @@ void GraphicsDisplay::clear_next(int grid_number) {
 }
 
 void GraphicsDisplay::update_level(int new_level, int grid_number){
+
+        string s = "";
+
+        if (new_level == 0) {
+                s = "0";
+        } else if (new_level == 1) {
+                s = "1";
+        } else if (new_level == 2) {
+                s = "2";
+        } else if (new_level == 3) {
+                s = "3";
+        } else if (new_level == 4) {
+                s = "4";
+        }
+	
 	if(grid_number == 1){
-		xw.drawString(1, 20, "Level: "+new_level, 1);
+		xw.fillRectangle(0, 0, 20*11, 20, 0);
+		xw.drawString(1, 20, "Level: "+s, 1);
 	}
 	else if(grid_number==2){
-		xw.drawString(14*20 + 1, 20, "Level: "+new_level, 1);
+		xw.fillRectangle(14*20, 0, 20*11, 20, 0);
+		xw.drawString(14*20 + 1, 20, "Level: "+s, 1);
 	}
 }
 
