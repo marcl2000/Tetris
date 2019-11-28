@@ -7,6 +7,8 @@
 #include "textdisplay.h"
 #include "level.h"
 #include "levelzero.h"
+#include "leveltwo.h"
+#include "levelone.h"
 #include "IShape.h"
 #include "JShape.h"
 #include "LShape.h"
@@ -67,6 +69,9 @@ int main(int argc, char *argv[]){
 	g1.set_td(td);
 	g2.set_td(td);
 
+	td->update_level(current_level, 1);
+	td->update_level(current_level, 2);
+
 	GraphicsDisplay *gd = nullptr;
 
 	//if the user wants graphics, then turn the display on
@@ -74,6 +79,8 @@ int main(int argc, char *argv[]){
 		gd = new GraphicsDisplay();
 		g1.set_gd(gd);
 		g2.set_gd(gd);
+		gd->update_level(current_level, 1);
+		gd->update_level(current_level, 2);
 	}
 
 	// Create filestreams for the blocks of each user
@@ -82,43 +89,80 @@ int main(int argc, char *argv[]){
 	string u1block;
 	string u2block;
 
-	u1stream >> u1block;
+	Level *zero = nullptr;
+	Shape *current = nullptr;
+	Shape *current2 = nullptr;
+	Shape *next1 = nullptr;
+	Shape *next2 = nullptr;
 
-	//create a shape (this really needs to be Level *)
-	Level *zero = new LevelZero();
-	Shape *current = zero->createShape(u1block, heavy_flag, wants_graphics);
+	if (current_level == 1) {
+		zero = new LevelOne();
+	} else if (current_level == 2) {
+		zero = new LevelTwo();
+	} else {
+		current_level = 0;
+		u1stream >> u1block;
 
-	if (wants_graphics) {
-		gd->update_shape(u1block, current->getMembers(), 1);
+		//create a shape (this really needs to be Level *)
+		zero = new LevelZero();
+		current = zero->createShape(u1block, heavy_flag, wants_graphics);
+
+		if (wants_graphics) {
+			gd->update_shape(u1block, current->getMembers(), 1);
+		}
+		td->update_shape(u1block, current->getMembers(), 1);
+
+		//get the next block in line
+		u1stream >> u1block;
+		next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+		if (wants_graphics) {
+			gd->update_next(u1block, next1->getMembers(), 1);
+		}
+		td->update_next(u1block, 1);  //
+
+		// Create a shape for user2
+		u2stream >> u2block;
+		current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+		if (wants_graphics) {
+			gd->update_shape(u2block, current2->getMembers(), 2);
+		}
+		td->update_shape(u2block, current2->getMembers(), 2);
+
+		//get the next block for user2
+		u2stream >> u2block;
+		next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+		if (wants_graphics) {
+			gd->update_next(u2block, next2->getMembers(), 2);
+		}
+		td->update_next(u2block, 2);
+
+		//now print the textdisplay
+		g1.print();
+
+	} 
+
+	if (!current_level == 0) {
+		current = zero->createShape("", heavy_flag, wants_graphics);
+		td->update_shape(current->getName(), current->getMembers(), 1);
+
+		current2 = zero->createShape("", heavy_flag, wants_graphics);
+		td->update_shape(current2->getName(), current2->getMembers(), 2);
+
+		next1 = zero->createShape("", heavy_flag, wants_graphics);
+		td->update_next(next1->getName(), 1);
+
+		next2 = zero->createShape("", heavy_flag, wants_graphics);
+		td->update_next(next2->getName(), 2);
+
+		if (wants_graphics) {
+			gd->update_shape(current->getName(), current->getMembers(), 1);
+			gd->update_shape(current2->getName(), current2->getMembers(), 2);
+			gd->update_next(next1->getName(), next1->getMembers(), 1);
+			gd->update_next(next2->getName(), next2->getMembers(), 2);
+		}
+
+		g1.print();
 	}
-	td->update_shape(u1block, current->getMembers(), 1);
-
-	//get the next block in line
-	u1stream >> u1block;
-	Shape *next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
-	if (wants_graphics) {
-		gd->update_next(u1block, next1->getMembers(), 1);
-	}
-	td->update_next(u1block, 1);  //
-
-	// Create a shape for user2
-	u2stream >> u2block;
-	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-	if (wants_graphics) {
-		gd->update_shape(u2block, current2->getMembers(), 2);
-	}
-	td->update_shape(u2block, current2->getMembers(), 2);
-
-	//get the next block for user2
-	u2stream >> u2block;
-	Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-	if (wants_graphics) {
-		gd->update_next(u2block, next2->getMembers(), 2);
-	}
-	td->update_next(u2block, 2);
-
-	//now print the textdisplay
-	g1.print();
 
 	while (true) {
 
@@ -270,7 +314,7 @@ int main(int argc, char *argv[]){
 					for(int i=0;i<4;i++){
 						int n = current->getMembers()[i].y/20 - 2;
 						int m = current->getMembers()[i].x/20;
-						
+
 						if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
 							break;
@@ -309,21 +353,29 @@ int main(int argc, char *argv[]){
 				// First set the next block to the current shape
 				current = next1;
 				if (wants_graphics) {
-					gd->update_shape(u1block, current->getMembers(),1);
+					gd->update_shape(current->getName(), current->getMembers(),1);
 				}
-				td->update_shape(u1block, current->getMembers(), 1);
-				u1stream >> u1block;
-				if (u1stream.eof()) {
-					// Clear the filestream and start reading from the beginning of the file
-					u1stream.clear( );
-					u1stream.seekg( 0, std::ios::beg);
+				td->update_shape(current->getName(), current->getMembers(), 1);
+
+				if (current_level == 0) {
 					u1stream >> u1block;
+					if (u1stream.eof()) {
+						// Clear the filestream and start reading from the beginning of the file
+						u1stream.clear( );
+						u1stream.seekg( 0, std::ios::beg);
+						u1stream >> u1block;
+
+						// Now display the next block
+						next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+					}
+				} else {
+					next1 = zero->createShape("", heavy_flag, wants_graphics);
+
+
 				}
 				if (wants_graphics) {
 					gd->clear_next(1);
 				}
-				// Now display the next block
-				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 
 				// Call fits function to see if the piece fits, if it doesn't the game is over
 				if (!g1.piece_fits(next1->getMembers())) {
@@ -331,16 +383,16 @@ int main(int argc, char *argv[]){
 					u1stream.close();
 					u2stream.close();
 					delete current;
-                                        delete current2;
-                                        delete next1;
-                                        delete next2;
+					delete current2;
+					delete next1;
+					delete next2;
 					delete zero;
 					return 0;	
 				}
 				if (wants_graphics) {
-					gd->update_next(u1block, next1->getMembers(),1);
+					gd->update_next(next1->getName(), next1->getMembers(),1);
 				}
-				td->update_next(u1block, 1);
+				td->update_next(next1->getName(), 1);
 				g1.print();
 
 			} else {
@@ -368,6 +420,7 @@ int main(int argc, char *argv[]){
 						current2->move_down();
 					}
 				}
+
 				if (wants_graphics) {
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				}
@@ -382,32 +435,39 @@ int main(int argc, char *argv[]){
 					(g2.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
 
-
 				//call lines_cleared to determine if lines are cleared and shifting needs to occur
 				int clearCount = g2.lines_cleared();
 
-				// Now calaculate the score
-				
-				if (wants_graphics) {
-					gd->clear_current(2);
-				}
-				
-				// Repeat the above process but for user2
+				// Now calculate the score
 				current2 = next2;
+
 				if (wants_graphics) {
-					gd->update_shape(u2block, next2->getMembers(),2);
+					gd->update_shape(current2->getName(), current2->getMembers(),2);
 				}
-				td->update_shape(u2block, current2->getMembers(), 2);
-				u2stream >> u2block;
-				if (u2stream.eof()) {
-					u2stream.clear( );
-					u2stream.seekg( 0, std::ios::beg);
+				td->update_shape(current2->getName(), current2->getMembers(), 2);
+
+
+				if (current_level == 0) {
+					// Repeat the above process but for user2
+					current2 = next2;
+					if (wants_graphics) {
+						gd->update_shape(current2->getName(), next2->getMembers(),2);
+					}
+					td->update_shape(current2->getName(), current2->getMembers(), 2);
 					u2stream >> u2block;
+					if (u2stream.eof()) {
+						u2stream.clear( );
+						u2stream.seekg( 0, std::ios::beg);
+						u2stream >> u2block;
+					}
+					next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+
+				} else {
+					next2 =  zero->createShape("", heavy_flag, wants_graphics);
 				}
 				if (wants_graphics) {
 					gd->clear_next(2);
 				}
-				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
 
 				//call the function to check if the game is over (does the next piece fit on the grid)
 				if (!g2.piece_fits(next2->getMembers())) {
@@ -421,9 +481,9 @@ int main(int argc, char *argv[]){
 					return 0;
 				}
 				if (wants_graphics) {
-					gd->update_next(u2block, next2->getMembers(),2);
+					gd->update_next(next2->getName(), next2->getMembers(),2);
 				}
-				td->update_next(u2block, 2);
+				td->update_next(next2->getName(), 2);
 				g2.print();
 			}
 			++turn;
@@ -470,15 +530,15 @@ int main(int argc, char *argv[]){
 			if (wants_graphics) {
 				gd->restart();
 			}
-			
+
 			g1.deleteShape();
 			g2.deleteShape();
-			
+
 			delete current;
 			delete current2;
 			delete next1;
 			delete next2;
-			
+
 			//set up the two grids regardless
 			g1.init("g1", wants_graphics);
 			g2.init("g2", wants_graphics);
@@ -487,49 +547,55 @@ int main(int argc, char *argv[]){
 			g1.set_td(td);
 			g2.set_td(td);
 
-			// Clear the filestream and start reading from the beginning of the file
-			u1stream.clear( );
-			u1stream.seekg( 0, std::ios::beg);
-			u1stream >> u1block;
+			if (current_level == 0) {
+				// Clear the filestream and start reading from the beginning of the file
+				u1stream.clear( );
+				u1stream.seekg( 0, std::ios::beg);
+				u1stream >> u1block;
 
-			u2stream.clear( );
-			u2stream.seekg( 0, std::ios::beg);
-			u2stream >> u2block;
+				u2stream.clear( );
+				u2stream.seekg( 0, std::ios::beg);
+				u2stream >> u2block;
 
 
-			//create a shape (this really needs to be Level *)
-			current = zero->createShape(u1block, heavy_flag, wants_graphics);
-			if (wants_graphics) {
-				gd->update_shape(u1block, current->getMembers(), 1);
+				//create a shape (this really needs to be Level *)
+				current = zero->createShape(u1block, heavy_flag, wants_graphics);
+
+				//get the next block in line
+				u1stream >> u1block;
+				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+
+				// Create a shape for user2
+				current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+
+				//get the next block for user2
+				u2stream >> u2block;
+				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+
+
+			} else {
+				current = zero->createShape("", heavy_flag, wants_graphics);
+				current2 = zero->createShape("", heavy_flag, wants_graphics);
+				next1 = zero->createShape("", heavy_flag, wants_graphics);
+				next2 = zero->createShape("", heavy_flag, wants_graphics);
 			}
-			td->update_shape(u1block, current->getMembers(), 1);
 
-			//get the next block in line
-			u1stream >> u1block;
-			next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 			if (wants_graphics) {
-				gd->update_next(u1block, next1->getMembers(), 1);
+				gd->update_shape(current->getName(), current->getMembers(), 1);
+				gd->update_next(next1->getName(), next1->getMembers(), 1);
+				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				gd->update_next(next2->getName(), next2->getMembers(), 2);
 			}
-			td->update_next(u1block, 1);  
 
-			// Create a shape for user2
-			current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-			if (wants_graphics) {
-				gd->update_shape(u2block, current2->getMembers(), 2);
-			}
-			td->update_shape(u2block, current2->getMembers(), 2);
-
-			//get the next block for user2
-			u2stream >> u2block;
-			next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-			if (wants_graphics) {
-				gd->update_next(u2block, next2->getMembers(), 2);
-			}
-			td->update_next(u2block, 2);
+			//Update the text display
+			td->update_shape(current->getName(), current->getMembers(), 1);
+			td->update_next(next1->getName(), 1);  
+			td->update_shape(current2->getName(), current2->getMembers(), 2);
+			td->update_next(next2->getName(), 2);
 
 			//now print the textdisplay
 			g1.print();
-			
+
 		} else if (s[0] == 's') {
 			string file = "";
 			cin >> file;
