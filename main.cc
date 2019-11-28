@@ -29,21 +29,22 @@ int main(int argc, char *argv[]){
 
 	bool wants_graphics = true;
 	bool heavy_flag = false;            //turning this on requires the user to clear a certain number of lines
-	int current_level = 0;
+	int current1_level = 0;
+	int current2_level = 0;
 
 	// If any command lines were given, interpret and apply them
 	for (int i = 0; i < argc; ++i) {
 		string cmd = argv[i];
 		if (cmd.substr(0,2) == "-t") {
 			wants_graphics = false;
-
 		} else if (cmd.substr(0, 3) == "-se") {
 			++i;
 			int seed = stoi(argv[i]); 
 		} else if (cmd.substr(0, 3) == "-st") {
 			++i;
 			int level = stoi(argv[i]);
-			current_level = level;
+			current1_level = level;
+			current2_level = level;
 		} else if (cmd == "-scriptfile1") {
 			++i;
 			string newFile = argv[i];
@@ -69,8 +70,8 @@ int main(int argc, char *argv[]){
 	g1.set_td(td);
 	g2.set_td(td);
 
-	td->update_level(current_level, 1);
-	td->update_level(current_level, 2);
+	//	td->update_level(current1_level, 1);
+	//	td->update_level(current2_level, 2);
 
 	GraphicsDisplay *gd = nullptr;
 
@@ -79,8 +80,8 @@ int main(int argc, char *argv[]){
 		gd = new GraphicsDisplay();
 		g1.set_gd(gd);
 		g2.set_gd(gd);
-		gd->update_level(current_level, 1);
-		gd->update_level(current_level, 2);
+		gd->update_level(current1_level, 1);
+		gd->update_level(current2_level, 2);
 	}
 
 	// Create filestreams for the blocks of each user
@@ -89,23 +90,24 @@ int main(int argc, char *argv[]){
 	string u1block;
 	string u2block;
 
-	Level *zero = nullptr;
+	Level *u1level = nullptr;
+	Level *u2level = nullptr;
 	Shape *current = nullptr;
 	Shape *current2 = nullptr;
 	Shape *next1 = nullptr;
 	Shape *next2 = nullptr;
 
-	if (current_level == 1) {
-		zero = new LevelOne();
-	} else if (current_level == 2) {
-		zero = new LevelTwo();
+	if (current1_level == 1) {
+		u1level = new LevelOne();
+	} else if (current1_level == 2) {
+		u1level = new LevelTwo();
 	} else {
-		current_level = 0;
+		current1_level = 0;
 		u1stream >> u1block;
 
 		//create a shape (this really needs to be Level *)
-		zero = new LevelZero();
-		current = zero->createShape(u1block, heavy_flag, wants_graphics);
+		u1level = new LevelZero();
+		current = u1level->createShape(u1block, heavy_flag, wants_graphics);
 
 		if (wants_graphics) {
 			gd->update_shape(u1block, current->getMembers(), 1);
@@ -114,15 +116,30 @@ int main(int argc, char *argv[]){
 
 		//get the next block in line
 		u1stream >> u1block;
-		next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+		next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
 		if (wants_graphics) {
 			gd->update_next(u1block, next1->getMembers(), 1);
 		}
-		td->update_next(u1block, 1);  //
+		td->update_next(u1block, 1);  
 
-		// Create a shape for user2
+		//now print the textdisplay
+		g1.print();
+
+
+	}
+
+	cout << "USER 2 LEVEL IS " << current2_level << endl;
+	if (current2_level == 1) {
+		u2level = new LevelOne();
+	} else if (current2_level == 2) {
+		u2level = new LevelTwo();
+	} else {
+		cout << "before seg fault"; 
+		current2_level = 0;
 		u2stream >> u2block;
-		current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+		
+		u2level = new LevelZero();
+		current2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
 		if (wants_graphics) {
 			gd->update_shape(u2block, current2->getMembers(), 2);
 		}
@@ -130,34 +147,41 @@ int main(int argc, char *argv[]){
 
 		//get the next block for user2
 		u2stream >> u2block;
-		next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+		next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
 		if (wants_graphics) {
 			gd->update_next(u2block, next2->getMembers(), 2);
 		}
 		td->update_next(u2block, 2);
-
 		//now print the textdisplay
-		g1.print();
+		g2.print();
+	}
 
-	} 
 
-	if (!current_level == 0) {
-		current = zero->createShape("", heavy_flag, wants_graphics);
+
+	if (!current1_level == 0) {
+		current = u1level->createShape("", heavy_flag, wants_graphics);
 		td->update_shape(current->getName(), current->getMembers(), 1);
 
-		current2 = zero->createShape("", heavy_flag, wants_graphics);
-		td->update_shape(current2->getName(), current2->getMembers(), 2);
-
-		next1 = zero->createShape("", heavy_flag, wants_graphics);
+		next1 = u1level->createShape("", heavy_flag, wants_graphics);
 		td->update_next(next1->getName(), 1);
-
-		next2 = zero->createShape("", heavy_flag, wants_graphics);
-		td->update_next(next2->getName(), 2);
 
 		if (wants_graphics) {
 			gd->update_shape(current->getName(), current->getMembers(), 1);
-			gd->update_shape(current2->getName(), current2->getMembers(), 2);
 			gd->update_next(next1->getName(), next1->getMembers(), 1);
+		}
+
+		g1.print();
+	}
+
+	if (!current2_level == 0) {
+		current2 = u2level->createShape("", heavy_flag, wants_graphics);
+		td->update_shape(current2->getName(), current2->getMembers(), 2);
+
+		next2 = u2level->createShape("", heavy_flag, wants_graphics);
+		td->update_next(next2->getName(), 2);
+
+		if (wants_graphics) {
+			gd->update_shape(current2->getName(), current2->getMembers(), 2);
 			gd->update_next(next2->getName(), next2->getMembers(), 2);
 		}
 
@@ -357,19 +381,18 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 
-				if (current_level == 0) {
+				if (current1_level == 0) {
 					u1stream >> u1block;
 					if (u1stream.eof()) {
 						// Clear the filestream and start reading from the beginning of the file
 						u1stream.clear( );
 						u1stream.seekg( 0, std::ios::beg);
 						u1stream >> u1block;
-
-						// Now display the next block
-						next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 					}
+						// Now display the next block
+						next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
 				} else {
-					next1 = zero->createShape("", heavy_flag, wants_graphics);
+					next1 = u1level->createShape("", heavy_flag, wants_graphics);
 
 
 				}
@@ -386,7 +409,8 @@ int main(int argc, char *argv[]){
 					delete current2;
 					delete next1;
 					delete next2;
-					delete zero;
+					delete u1level;
+					delete u2level;
 					return 0;	
 				}
 				if (wants_graphics) {
@@ -447,7 +471,7 @@ int main(int argc, char *argv[]){
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 
 
-				if (current_level == 0) {
+				if (current2_level == 0) {
 					// Repeat the above process but for user2
 					current2 = next2;
 					if (wants_graphics) {
@@ -460,10 +484,10 @@ int main(int argc, char *argv[]){
 						u2stream.seekg( 0, std::ios::beg);
 						u2stream >> u2block;
 					}
-					next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
 
 				} else {
-					next2 =  zero->createShape("", heavy_flag, wants_graphics);
+					next2 = u2level->createShape("", heavy_flag, wants_graphics);
 				}
 				if (wants_graphics) {
 					gd->clear_next(2);
@@ -471,13 +495,15 @@ int main(int argc, char *argv[]){
 
 				//call the function to check if the game is over (does the next piece fit on the grid)
 				if (!g2.piece_fits(next2->getMembers())) {
+					cout << "The winner is Player 1!" << endl;
 					u1stream.close();
 					u2stream.close();
 					delete current;
 					delete current2;
 					delete next1;
 					delete next2;
-					delete zero;
+					delete u1level;
+					delete u2level;
 					return 0;
 				}
 				if (wants_graphics) {
@@ -547,38 +573,40 @@ int main(int argc, char *argv[]){
 			g1.set_td(td);
 			g2.set_td(td);
 
-			if (current_level == 0) {
+			if (current1_level == 0) {
 				// Clear the filestream and start reading from the beginning of the file
 				u1stream.clear( );
 				u1stream.seekg( 0, std::ios::beg);
 				u1stream >> u1block;
 
+				//create a level shape for user 1 
+				current = u1level->createShape(u1block, heavy_flag, wants_graphics);
+
+				//get the next block in line
+				u1stream >> u1block;
+				next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
+
+			} else {
+				current = u1level->createShape("", heavy_flag, wants_graphics);
+				next1 = u1level->createShape("", heavy_flag, wants_graphics);
+			}
+
+			if (current2_level == 0) {
+
 				u2stream.clear( );
 				u2stream.seekg( 0, std::ios::beg);
 				u2stream >> u2block;
 
-
-				//create a shape (this really needs to be Level *)
-				current = zero->createShape(u1block, heavy_flag, wants_graphics);
-
-				//get the next block in line
-				u1stream >> u1block;
-				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
-
 				// Create a shape for user2
-				current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+				current2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
 
 				//get the next block for user2
 				u2stream >> u2block;
-				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-
-
+				next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
 			} else {
-				current = zero->createShape("", heavy_flag, wants_graphics);
-				current2 = zero->createShape("", heavy_flag, wants_graphics);
-				next1 = zero->createShape("", heavy_flag, wants_graphics);
-				next2 = zero->createShape("", heavy_flag, wants_graphics);
-			}
+				current2 = u2level->createShape("", heavy_flag, wants_graphics);
+				next2 = u2level->createShape("", heavy_flag, wants_graphics);
+			} 
 
 			if (wants_graphics) {
 				gd->update_shape(current->getName(), current->getMembers(), 1);
@@ -600,8 +628,8 @@ int main(int argc, char *argv[]){
 			string file = "";
 			cin >> file;
 		} else if (s == "I" || s == "J" || s == "L" || s == "O" || s == "S" || s == "Z" || s == "T") { //Commands for testing with different block types
-			Shape * newShape = zero->createShape(s, heavy_flag, wants_graphics);
 			if (turn %2 == 0) {
+				Shape * newShape = u1level->createShape(s, heavy_flag, wants_graphics);
 				td->clear(current->getMembers(), 1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
@@ -613,6 +641,7 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
+				Shape * newShape = u2level->createShape(s, heavy_flag, wants_graphics);
 				td->clear(current2->getMembers(), 2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
