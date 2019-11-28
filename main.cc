@@ -57,18 +57,22 @@ int main(int argc, char *argv[]){
 
 	//set up the two grids regardless
 	Grid g1;
-	g1.init("g1");
+	g1.init("g1", wants_graphics);
 	Grid g2;
-	g2.init("g2");
+	g2.init("g2", wants_graphics);
 
 	//set the td
 	g1.set_td(td);
 	g2.set_td(td);
 
+	GraphicsDisplay *gd = nullptr;
+
 	//if the user wants graphics, then turn the display on
-	GraphicsDisplay *gd = new GraphicsDisplay();
-	g1.set_gd(gd);
-	g2.set_gd(gd);
+	if (wants_graphics) {
+		gd = new GraphicsDisplay();
+		g1.set_gd(gd);
+		g2.set_gd(gd);
+	}
 
 	// Create filestreams for the blocks of each user
 	ifstream u1stream {user1file};
@@ -80,31 +84,39 @@ int main(int argc, char *argv[]){
 	cout << "user1's block is " << u1block << endl;
 
 	//create a shape (this really needs to be Level *)
-	LevelZero *zero = new LevelZero();
+	Level *zero = new LevelZero();
 	Shape *current = zero->createShape(u1block, heavy_flag, wants_graphics);
 
-	gd->update_shape(u1block, current->getMembers(), 1);
+	if (wants_graphics) {
+		gd->update_shape(u1block, current->getMembers(), 1);
+	}
 	td->update_shape(u1block, current->getMembers(), 1);
 
 	//get the next block in line
 	u1stream >> u1block;
 	cout << "U1 next IS " << u1block << endl;
 	Shape *next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
-	gd->update_next(u1block, next1->getMembers(), 1);
+	if (wants_graphics) {
+		gd->update_next(u1block, next1->getMembers(), 1);
+	}
 	td->update_next(u1block, 1);  //
 
 	// Create a shape for user2
 	u2stream >> u2block;
 	cout << "U2 Blocks is " << u2block << endl;
 	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-	gd->update_shape(u2block, current2->getMembers(), 2);
+	if (wants_graphics) {
+		gd->update_shape(u2block, current2->getMembers(), 2);
+	}
 	td->update_shape(u2block, current2->getMembers(), 2);
 
 	//get the next block for user2
 	u2stream >> u2block;
 	cout << "U2 next IS " << u2block << endl;
 	Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-	gd->update_next(u2block, next2->getMembers(), 2);
+	if (wants_graphics) {
+		gd->update_next(u2block, next2->getMembers(), 2);
+	}
 	td->update_next(u2block, 2);
 
 	//now print the textdisplay
@@ -151,38 +163,54 @@ int main(int argc, char *argv[]){
 		} else if (s.substr(0, 3) == "lef") {
 			if (turn%2 == 0) {
 				//gd->clear_current(1);
-				gd->clear(current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->clear(current->getMembers(), 1);
+				}
 				td->clear(current->getMembers(), 1);
 				current->move_left(steps);
-				gd->update_shape(current->getName(), current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
 				cout << "type is " << current2->getName() << endl;
 				//gd->clear_current(2);
-				gd->clear(current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->clear(current2->getMembers(), 2);
+				}
 				td->clear(current2->getMembers(), 2);
 				current2->move_left(steps);
-				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 			}
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
 				//gd->clear_current(1);
-				gd->clear(current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->clear(current->getMembers(), 1);
+				}
 				td->clear(current->getMembers(), 1);
 				current->move_right(steps);
-				gd->update_shape(current->getName(), current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
 				cout << "type is " << current2->getName() << endl;
 				//gd->clear_current(2);
-				gd->clear(current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->clear(current2->getMembers(), 2);
+				}
 				td->clear(current2->getMembers(), 2);
 				current2->move_right(steps);
-				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 			}
@@ -202,11 +230,15 @@ int main(int argc, char *argv[]){
 						}
 					}
 					if(can_drop){
-						gd->clear(current->getMembers(), 1);
+						if (wants_graphics) {
+							gd->clear(current->getMembers(), 1);
+						}
 						td->clear(current->getMembers(), 1);
 
 						current->move_down();
-						gd->update_shape(current->getName(), current->getMembers(), 1);
+						if (wants_graphics) {
+							gd->update_shape(current->getName(), current->getMembers(), 1);
+						}
 						td->update_shape(current->getName(), current->getMembers(), 1);
 					}
 				}
@@ -222,10 +254,14 @@ int main(int argc, char *argv[]){
 						}
 					}
 					if(can_drop){
-						gd->clear(current2->getMembers(), 2);
+						if (wants_graphics) {
+							gd->clear(current2->getMembers(), 2);
+						}
 						td->clear(current2->getMembers(), 2);
 						current2->move_down();
-						gd->update_shape(current2->getName(), current2->getMembers(), 2);
+						if (wants_graphics) {
+							gd->update_shape(current2->getName(), current2->getMembers(), 2);
+						}
 						td->update_shape(current2->getName(), current2->getMembers(), 2);
 					}
 				}
@@ -252,13 +288,17 @@ int main(int argc, char *argv[]){
 					if(can_move){
 						move_count++;
 						if(move_count==1){
-							gd->clear(current->getMembers(), 1);
+							if (wants_graphics) {
+								gd->clear(current->getMembers(), 1);
+							}
 							td->clear(current->getMembers(), 1);
 						}
 						current->move_down();
 					}
 				}
-				gd->update_shape(current->getName(), current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 
 				//after dropping, add this shape to the list of shapes and set the corresponding grid cells to filled
@@ -269,19 +309,20 @@ int main(int argc, char *argv[]){
 					int m = current->getMembers()[i].x/20;
 					(g1.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
-
-				gd->clear_current(1);
-
+				if (wants_graphics) {
+					gd->clear_current(1);
+				}
 				//call lines_cleared to determine if lines are cleared and shifting needs to occur************************
 				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
 				int clearCount = g1.lines_cleared();
-				 cout << "Clear count is " << clearCount << endl;
+				cout << "Clear count is " << clearCount << endl;
 				// calculatet the score later
-
 
 				// First set the next block to the current shape
 				current = next1;
-				gd->update_shape(u1block, current->getMembers(),1);
+				if (wants_graphics) {
+					gd->update_shape(u1block, current->getMembers(),1);
+				}
 				td->update_shape(u1block, current->getMembers(), 1);
 				u1stream >> u1block;
 				if (u1stream.eof()) {
@@ -290,11 +331,28 @@ int main(int argc, char *argv[]){
 					u1stream.seekg( 0, std::ios::beg);
 					u1stream >> u1block;
 				}
-				gd->clear_next(1);
+				if (wants_graphics) {
+					gd->clear_next(1);
+				}
 				cout << "user1's block is " << u1block << endl;
 				// Now display the next block
 				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
-				gd->update_next(u1block, next1->getMembers(),1);
+
+				// if fits
+				if (!g1.piece_fits(next1->getMembers())) {
+					cout << "The winner is Player 2!" << endl;
+					u1stream.close();
+					u2stream.close();
+					delete current;
+                                        delete current2;
+                                        delete next1;
+                                        delete next2;
+					delete zero;
+					return 0;	
+				}
+				if (wants_graphics) {
+					gd->update_next(u1block, next1->getMembers(),1);
+				}
 				td->update_next(u1block, 1);
 				g1.print();
 
@@ -314,13 +372,18 @@ int main(int argc, char *argv[]){
 					if(can_move){
 						move_count++;
 						if(move_count==1){
-							gd->clear(current2->getMembers(), 2);
+
+							if (wants_graphics) {
+								gd->clear(current2->getMembers(), 2);
+							}
 							td->clear(current2->getMembers(), 2);
 						}
 						current2->move_down();
 					}
 				}
-				gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 
 				//after dropping, add this shape to the list of shapes and set the corresponding grid cells to filled
@@ -337,14 +400,17 @@ int main(int argc, char *argv[]){
 				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
 				int clearCount = g2.lines_cleared();
 				cout << "Clear count is " << clearCount << endl;
-		
-				// Now calaculate teh score
 
-				gd->clear_current(2);
+				// Now calaculate the score
+				if (wants_graphics) {
+					gd->clear_current(2);
+				}
 				// Repeat the above process but for user2
 				cout << "User 2's old block is " << u2block << endl;
 				current2 = next2;
-				gd->update_shape(u2block, next2->getMembers(),2);
+				if (wants_graphics) {
+					gd->update_shape(u2block, next2->getMembers(),2);
+				}
 				td->update_shape(u2block, current2->getMembers(), 2);
 				u2stream >> u2block;
 				if (u2stream.eof()) {
@@ -352,10 +418,27 @@ int main(int argc, char *argv[]){
 					u2stream.seekg( 0, std::ios::beg);
 					u2stream >> u2block;
 				}
-				gd->clear_next(2);
+				if (wants_graphics) {
+					gd->clear_next(2);
+				}
 				cout << "user2's block is " << u2block << endl;
 				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
-				gd->update_next(u2block, next2->getMembers(),2);
+
+				// if fits
+				if (!g2.piece_fits(next2->getMembers())) {
+					cout << "The winner is Player 1!" << endl;
+					u1stream.close();
+					u2stream.close();
+					delete current;
+					delete current2;
+					delete next1;
+					delete next2;
+					delete zero;
+					return 0;
+				}
+				if (wants_graphics) {
+					gd->update_next(u2block, next2->getMembers(),2);
+				}
 				td->update_next(u2block, 2);
 				g2.print();
 			}
@@ -366,19 +449,27 @@ int main(int argc, char *argv[]){
 			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
 				if(turn % 2 == 0){   //first player's block
-					gd->clear(current->getMembers(), 1);
+					if (wants_graphics) {
+						gd->clear(current->getMembers(), 1);
+					}
 					td->clear(current->getMembers(), 1);
 					current->clockwise();
-					gd->update_shape(current->getName(), current->getMembers(), 1);
+					if (wants_graphics) {
+						gd->update_shape(current->getName(), current->getMembers(), 1);
+					}
 					td->update_shape(current->getName(), current->getMembers(), 1);
 					g1.print();
 				}
 
 				else{  //second player's block
-					gd->clear(current2->getMembers(), 2);
+					if (wants_graphics) {
+						gd->clear(current2->getMembers(), 2);
+					}
 					td->clear(current2->getMembers(), 2);
 					current2->clockwise();
-					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+					if (wants_graphics) {
+						gd->update_shape(current2->getName(), current2->getMembers(), 2);
+					}
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
 					g1.print();
 				}
@@ -391,29 +482,115 @@ int main(int argc, char *argv[]){
 			cin >> file;
 			cout << "Calling nonrandom with " << file << endl;
 		} else if (s.substr(0, 2) == "re") {
-			cout << "Restarting" << endl;
-			//delete the current grids!!!!! and reinitialize them
+
+		//	u1stream.close();
+                  //                      u2stream.close();
+                    //                    delete current;
+                      //                  delete current2;
+                        //                delete next1;
+                          //              delete next2;
+//                                        delete zero;
+
+		//	Level *zero = new Level zero;
+
+			delete td;
+//			TextDisplay *td = new TextDisplay;
+//			td->init();
+			if (wants_graphics) {
+				delete gd;
+				gd->restart();
+			}
+			//set up the two grids regardless
+			g1.deleteShape();
+			g2.deleteShape();
+			
+			//make the textdisplay
+	TextDisplay *td = new TextDisplay();
+	td->init();
+
+			g1.init("g1", wants_graphics);
+			g2.init("g2", wants_graphics);
+
+			//set the td
+			g1.set_td(td);
+			g2.set_td(td);
+			g1.print();
+
+
+			// Clear the filestream and start reading from the beginning of the file
+			u1stream.clear( );
+			u1stream.seekg( 0, std::ios::beg);
+			u1stream >> u1block;
+
+
+			u2stream.clear( );
+			u2stream.seekg( 0, std::ios::beg);
+			u2stream >> u2block;
+
+
+			//create a shape (this really needs to be Level *)
+			current = zero->createShape(u1block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_shape(u1block, current->getMembers(), 1);
+			}
+			td->update_shape(u1block, current->getMembers(), 1);
+
+			//get the next block in line
+			u1stream >> u1block;
+			cout << "U1 next IS " << u1block << endl;
+			next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_next(u1block, next1->getMembers(), 1);
+			}
+			td->update_next(u1block, 1);  
+
+			// Create a shape for user2
+			current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_shape(u2block, current2->getMembers(), 2);
+			}
+			td->update_shape(u2block, current2->getMembers(), 2);
+
+			//get the next block for user2
+			u2stream >> u2block;
+			next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_next(u2block, next2->getMembers(), 2);
+			}
+			td->update_next(u2block, 2);
+
+			//now print the textdisplay
+			g1.print();
 
 		} else if (s[0] == 's') {
 			string file = "";
 			cin >> file;
-			cout << "Sequence of blocks is in " << file << endl;
-		} else if (s == "I") { //Commands for testing with different block types
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "J") {
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "L") {
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "O") {
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "S") {
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "Z") {
-			cout << "Making " << s << " block" << endl;
-		} else if (s == "T") {
-			cout << "Making " << s << " block" << endl;
+		} else if (s == "I" || s == "J" || s == "L" || s == "O" || s == "S" || s == "Z" || s == "T") { //Commands for testing with different block types
+			Shape * newShape = zero->createShape(s, heavy_flag, wants_graphics);
+			if (turn %2 == 0) {
+				td->clear(current->getMembers(), 1);
+				if (wants_graphics) {
+					gd->clear(current->getMembers(), 1);
+				}
+				current = newShape;
+				if (wants_graphics) {
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+				}
+				td->update_shape(current->getName(), current->getMembers(), 1);
+				g1.print();
+			} else {
+				td->clear(current2->getMembers(), 2);
+				if (wants_graphics) {
+					gd->clear(current2->getMembers(), 2);
+				}
+				current2 = newShape;
+				if (wants_graphics) {
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				}
+				td->update_shape(current2->getName(), current2->getMembers(), 2);
+				g1.print();
+			}
 		}
-
 		steps = 1;
 		numSteps = "";
 	}

@@ -8,15 +8,38 @@
 using namespace std;
 
 Grid::~Grid(){
+	if (gd_on) {
+		cout << "GD WAS NOT TURNED OFF" << endl;
+	} else {
+		cout << "GD WAs TURNED OFF" << endl;
+	}
 	if(this->name == "g1"){
 		delete td;
-		delete gd;
+	
+		if (gd_on) {
+			cout << "INNER" << endl;
+			delete gd;
+		}
+	}
+	int size = this->shapes.size();
+	for (int i = 0; i < size; ++i) {
+		delete this->shapes[i];
+	}
+}
+
+void Grid::deleteShape() {
+	int size = this->shapes.size();
+	for (int i = 0; i < size; ++i) {
+		delete this->shapes[i];
 	}
 }
 
 //called by the main twice
-void Grid::init(string name){
+void Grid::init(string name, bool gd_on){
 	this->name = name;
+	this->gd_on = gd_on;
+	vector <Shape *> s;
+	this->shapes = s;
 
 	//create lines and push them into the vector of lines contained in grid
 	for(int i=0;i<18;i++){
@@ -38,9 +61,21 @@ void Grid::change_blind(bool b){
 }
 
 //called by the main to determine if the game is over
-bool Grid::piece_fits(string name){
-	bool temp = true;
-	return temp;//temporay placeholder, delete once code is added
+bool Grid::piece_fits(vector<Coord> coords){
+	//If overlapping any piece on the grid, we are done for sure
+
+	bool can_move = true;
+	for(int i=0;i<4;i++){
+		int n = coords[i].y/20 - 3;
+		int m = coords[i].x/20;
+
+		if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
+			can_move = false;
+			break;
+		}
+	}
+	
+	return can_move;
 }
 
 vector<Line>& Grid::get_lines(){
@@ -82,27 +117,27 @@ int Grid::lines_cleared(){
 			dropCount = 0;
 			int s = this->shapes.size();
 			for (int i = 0; i < s; ++ i) {
-				
-				 bool can_move = true;
-                                int move_count = 0;
-                                while(can_move){
-                                        for(int j=0;j<4;j++){
+
+				bool can_move = true;
+				int move_count = 0;
+				while(can_move){
+					for(int j=0;j<4;j++){
 
 						cout << "we made it into FIRST moves" << endl;
-                                                int n = this->shapes[i]->getMembers()[j].y/20 - 2;
-                                                int m = this->shapes[i]->getMembers()[j].x/20;
+						int n = this->shapes[i]->getMembers()[j].y/20 - 2;
+						int m = this->shapes[i]->getMembers()[j].x/20;
+								
+						if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
+							can_move = false;
+							break;
+						}
+					}
 
-                                                if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
-                                                        can_move = false;
-                                                        break;
-                                                }
-                                        }
-
-                                        if(can_move){
+					if(can_move){
 						cout << "YES WE CAN MOVE " << endl;
-                                                move_count++;
-                                                if(move_count==1){
-                                                	++dropCount;
+						move_count++;
+						if(move_count==1){
+							++dropCount;
 							int g;
 							if (this->name == "g1") {
 								g = 1;
@@ -110,13 +145,13 @@ int Grid::lines_cleared(){
 								g = 2;
 							}
 							gd->clear(this->shapes[i]->getMembers(), g);
-                                                        td->clear(this->shapes[i]->getMembers(), g);
+							td->clear(this->shapes[i]->getMembers(), g);
 							cout << "GD, DO You ever clear your line??" << endl;
-                                               
-					       	}
-                                                this->shapes[i]->move_down();
-                                        }
-                                }
+
+						}
+						this->shapes[i]->move_down();
+					}
+				}
 
 			}
 		}

@@ -30,9 +30,10 @@ class Grid {
 
 	public:
 		~Grid();
-		void init(std::string name);
+		void deleteShape();
+		void init(std::string name, bool gd_on);
 		void change_blind(bool b);
-		bool piece_fits(std::string name);    //if this returns false, then the game is over
+		bool piece_fits(std::vector<Coord> coords);    //if this returns false, then the game is over
 		void add_shape(Shape *sh);
 		std::vector<Line>& get_lines();
 		void print();

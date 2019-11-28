@@ -207,8 +207,14 @@ void TextDisplay::clear(vector<Coord> coords, int grid_number) {
  	if (grid_number == 2) {
 		n = 14;
 	}	
-
+	
+	
 	int size = coords.size();
+
+	cout << "SIZE ISSSSSSSS " << size << endl;
+	for (int i = 0; i < size; ++i) {
+		cout << coords[i].x << " , " << coords[i].y << endl;
+	}
         for(int i =0; i<size;i++){
                 theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
         }
