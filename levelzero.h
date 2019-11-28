@@ -8,7 +8,7 @@
 
 class LevelZero : public Level {
 	public:
-		~LevelZero() {}
+		~LevelZero(){}
 		Shape* createShape(std::string name, bool heavy_flag, bool gd_on) override;
 };
 

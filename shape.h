@@ -9,24 +9,16 @@
 
 class Shape {
 
-	std::string type_name;	
-	std::vector<Cell> members;
-	bool heavy_flag;
-	bool gd_on;
-
 	public:
-		~Shape(){}
-		Shape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on):
-		       	type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on} {}
+		virtual ~Shape(){}
 
-		void move_left(int n);
-		void move_right(int n);
-		void move_down();
-		void drop();
-		void clockwise();
-		void counterclockwise();
-		std::vector<Coord> getMembers();
-		std::string getName();
+		virtual void move_left(int n){}
+		virtual void move_right(int n){}
+		virtual void move_down(){}
+		virtual void clockwise(){}
+		virtual void counterclockwise(){}
+		virtual std::vector<Coord> getMembers();
+		virtual std::string getName();
 };
 
 #endif
