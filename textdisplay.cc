@@ -189,32 +189,14 @@ void TextDisplay::update_shape(string name, vector<Coord> coords, int grid_numbe
 	}
 }
 
-/*
-void TextDisplay::delete_shape(vector<Coord> coords, int grid_number){
-	int n = 0;
-	if(grid_number == 2){
-		n = 14;
-	}
-
-	int size = coords.size();
-	for(int i =0; i<size;i++){
-		theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
-	}
-}
-*/
 void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 	int n = 0;
  	if (grid_number == 2) {
 		n = 14;
 	}	
 	
-	
 	int size = coords.size();
 
-	cout << "SIZE ISSSSSSSS " << size << endl;
-	for (int i = 0; i < size; ++i) {
-		cout << coords[i].x << " , " << coords[i].y << endl;
-	}
         for(int i =0; i<size;i++){
                 theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
         }

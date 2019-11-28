@@ -8,16 +8,11 @@
 using namespace std;
 
 Grid::~Grid(){
-	if (gd_on) {
-		cout << "GD WAS NOT TURNED OFF" << endl;
-	} else {
-		cout << "GD WAs TURNED OFF" << endl;
-	}
+	
 	if(this->name == "g1"){
 		delete td;
-	
+
 		if (gd_on) {
-			cout << "INNER" << endl;
 			delete gd;
 		}
 	}
@@ -74,7 +69,7 @@ bool Grid::piece_fits(vector<Coord> coords){
 			break;
 		}
 	}
-	
+
 	return can_move;
 }
 
@@ -123,10 +118,9 @@ int Grid::lines_cleared(){
 				while(can_move){
 					for(int j=0;j<4;j++){
 
-						cout << "we made it into FIRST moves" << endl;
 						int n = this->shapes[i]->getMembers()[j].y/20 - 2;
 						int m = this->shapes[i]->getMembers()[j].x/20;
-								
+
 						if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
 							break;
@@ -134,7 +128,6 @@ int Grid::lines_cleared(){
 					}
 
 					if(can_move){
-						cout << "YES WE CAN MOVE " << endl;
 						move_count++;
 						if(move_count==1){
 							++dropCount;
@@ -146,7 +139,6 @@ int Grid::lines_cleared(){
 							}
 							gd->clear(this->shapes[i]->getMembers(), g);
 							td->clear(this->shapes[i]->getMembers(), g);
-							cout << "GD, DO You ever clear your line??" << endl;
 
 						}
 						this->shapes[i]->move_down();

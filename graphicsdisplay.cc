@@ -162,14 +162,6 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
 
 }
 
-//called by Line class from within is_filled(), once it realizes it must delete itself
-//void GraphicsDisplay::update_line(vector<Coord> coords, int grid_number) {
-
-	//for each of these coordinates, the colour must be set back to white
-	//for(int i=0;i<11;i++){
-
-//}
-
 void GraphicsDisplay::clear_current(int grid_number) {
 	int n = 14*20;
 	if (grid_number == 1) {

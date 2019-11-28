@@ -33,28 +33,23 @@ int main(int argc, char *argv[]){
 	for (int i = 0; i < argc; ++i) {
 		string cmd = argv[i];
 		if (cmd.substr(0,2) == "-t") {
-			cout << "Running only in text mode" << endl;
 			wants_graphics = false;
 
 		} else if (cmd.substr(0, 3) == "-se") {
 			++i;
 			int seed = stoi(argv[i]); 
-			cout << "Setting the random number's generator seed to " << seed << endl;
 		} else if (cmd.substr(0, 3) == "-st") {
 			++i;
 			int level = stoi(argv[i]);
-			cout << "Starting at level  " << level << endl;
 			current_level = level;
 		} else if (cmd == "-scriptfile1") {
 			++i;
 			string newFile = argv[i];
 			user1file = newFile;
-			cout << "Replacing scriptfile1 with " << argv[i] << endl;
 		} else if (cmd == "-scriptfile2") {
 			++i;
 			string newFile = argv[i];
 			user2file = newFile;
-			cout << "Replacing scriptfile2 with " << argv[i] << endl;
 		}
 	}
 
@@ -88,7 +83,6 @@ int main(int argc, char *argv[]){
 	string u2block;
 
 	u1stream >> u1block;
-	cout << "user1's block is " << u1block << endl;
 
 	//create a shape (this really needs to be Level *)
 	Level *zero = new LevelZero();
@@ -101,7 +95,6 @@ int main(int argc, char *argv[]){
 
 	//get the next block in line
 	u1stream >> u1block;
-	cout << "U1 next IS " << u1block << endl;
 	Shape *next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 	if (wants_graphics) {
 		gd->update_next(u1block, next1->getMembers(), 1);
@@ -110,7 +103,6 @@ int main(int argc, char *argv[]){
 
 	// Create a shape for user2
 	u2stream >> u2block;
-	cout << "U2 Blocks is " << u2block << endl;
 	Shape *current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
 	if (wants_graphics) {
 		gd->update_shape(u2block, current2->getMembers(), 2);
@@ -119,7 +111,6 @@ int main(int argc, char *argv[]){
 
 	//get the next block for user2
 	u2stream >> u2block;
-	cout << "U2 next IS " << u2block << endl;
 	Shape * next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
 	if (wants_graphics) {
 		gd->update_next(u2block, next2->getMembers(), 2);
@@ -169,7 +160,6 @@ int main(int argc, char *argv[]){
 			}
 		} else if (s.substr(0, 3) == "lef") {
 			if (turn%2 == 0) {
-				//gd->clear_current(1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -181,8 +171,6 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
-				cout << "type is " << current2->getName() << endl;
-				//gd->clear_current(2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -196,7 +184,6 @@ int main(int argc, char *argv[]){
 			}
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
-				//gd->clear_current(1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -208,8 +195,6 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
-				cout << "type is " << current2->getName() << endl;
-				//gd->clear_current(2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -222,7 +207,6 @@ int main(int argc, char *argv[]){
 				g2.print();
 			}
 		} else if (s.substr(0, 2) == "do") {
-			cout << "Moving down by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
 				//check to see if the block can be moved down safely
 				if(turn%2 == 0){
@@ -286,7 +270,7 @@ int main(int argc, char *argv[]){
 					for(int i=0;i<4;i++){
 						int n = current->getMembers()[i].y/20 - 2;
 						int m = current->getMembers()[i].x/20;
-						cout << "Coords are " << n << " , " << m << endl;
+						
 						if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
 							break;
@@ -319,10 +303,7 @@ int main(int argc, char *argv[]){
 				if (wants_graphics) {
 					gd->clear_current(1);
 				}
-				//call lines_cleared to determine if lines are cleared and shifting needs to occur************************
-				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
 				int clearCount = g1.lines_cleared();
-				cout << "Clear count is " << clearCount << endl;
 				// calculatet the score later
 
 				// First set the next block to the current shape
@@ -341,11 +322,10 @@ int main(int argc, char *argv[]){
 				if (wants_graphics) {
 					gd->clear_next(1);
 				}
-				cout << "user1's block is " << u1block << endl;
 				// Now display the next block
 				next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 
-				// if fits
+				// Call fits function to see if the piece fits, if it doesn't the game is over
 				if (!g1.piece_fits(next1->getMembers())) {
 					cout << "The winner is Player 2!" << endl;
 					u1stream.close();
@@ -370,7 +350,6 @@ int main(int argc, char *argv[]){
 					for(int i=0;i<4;i++){
 						int n = current2->getMembers()[i].y/20 - 2;
 						int m = current2->getMembers()[i].x/20;
-   cout << "Coords are " << n << " , " << m << endl;
 
 						if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
@@ -404,17 +383,16 @@ int main(int argc, char *argv[]){
 				}
 
 
-				//call lines_cleared to determine if lines are cleared and shifting needs to occur*******************
-				//call the function to check if the game is over (does the next piece fit on the grid)???????????????
+				//call lines_cleared to determine if lines are cleared and shifting needs to occur
 				int clearCount = g2.lines_cleared();
-				cout << "Clear count is " << clearCount << endl;
 
 				// Now calaculate the score
+				
 				if (wants_graphics) {
 					gd->clear_current(2);
 				}
+				
 				// Repeat the above process but for user2
-				cout << "User 2's old block is " << u2block << endl;
 				current2 = next2;
 				if (wants_graphics) {
 					gd->update_shape(u2block, next2->getMembers(),2);
@@ -429,12 +407,10 @@ int main(int argc, char *argv[]){
 				if (wants_graphics) {
 					gd->clear_next(2);
 				}
-				cout << "user2's block is " << u2block << endl;
 				next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
 
-				// if fits
+				//call the function to check if the game is over (does the next piece fit on the grid)
 				if (!g2.piece_fits(next2->getMembers())) {
-					cout << "The winner is Player 1!" << endl;
 					u1stream.close();
 					u2stream.close();
 					delete current;
@@ -452,9 +428,7 @@ int main(int argc, char *argv[]){
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
-			cout << "Rotating counter clockwise by " << steps << " steps" << endl;
 		} else if (s.substr(0, 2) == "cl") {                     
-			cout << "Rotating clockwise by " << steps << " steps" << endl;
 			for(int i=0;i<steps;i++){
 				if(turn % 2 == 0){   //first player's block
 					if (wants_graphics) {
@@ -484,22 +458,27 @@ int main(int argc, char *argv[]){
 			}
 
 		} else if (s.substr(0, 2) == "ra") {
-			cout << "Calling random" << endl;
 		} else if (s[0] == 'n') {
 			string file = "";
 			cin >> file;
-			cout << "Calling nonrandom with " << file << endl;
 		} else if (s.substr(0, 2) == "re") {
 			turn = 0;
 			delete td;
-			TextDisplay *td = new TextDisplay;
+			td = new TextDisplay;
 			td->init();
+
 			if (wants_graphics) {
 				gd->restart();
 			}
-
+			
 			g1.deleteShape();
 			g2.deleteShape();
+			
+			delete current;
+			delete current2;
+			delete next1;
+			delete next2;
+			
 			//set up the two grids regardless
 			g1.init("g1", wants_graphics);
 			g2.init("g2", wants_graphics);
@@ -507,8 +486,6 @@ int main(int argc, char *argv[]){
 			//set the td
 			g1.set_td(td);
 			g2.set_td(td);
-//			g1.print();
-
 
 			// Clear the filestream and start reading from the beginning of the file
 			u1stream.clear( );
@@ -529,7 +506,6 @@ int main(int argc, char *argv[]){
 
 			//get the next block in line
 			u1stream >> u1block;
-			cout << "U1 next IS " << u1block << endl;
 			next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
 			if (wants_graphics) {
 				gd->update_next(u1block, next1->getMembers(), 1);
