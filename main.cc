@@ -286,7 +286,7 @@ int main(int argc, char *argv[]){
 					for(int i=0;i<4;i++){
 						int n = current->getMembers()[i].y/20 - 2;
 						int m = current->getMembers()[i].x/20;
-
+						cout << "Coords are " << n << " , " << m << endl;
 						if((n >= 18) || ((g1.get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
 							break;
@@ -370,6 +370,7 @@ int main(int argc, char *argv[]){
 					for(int i=0;i<4;i++){
 						int n = current2->getMembers()[i].y/20 - 2;
 						int m = current2->getMembers()[i].x/20;
+   cout << "Coords are " << n << " , " << m << endl;
 
 						if((n >= 18) || ((g2.get_lines()[n].get_cells()[m]).isFilled())){
 							can_move = false;
@@ -489,7 +490,72 @@ int main(int argc, char *argv[]){
 			cin >> file;
 			cout << "Calling nonrandom with " << file << endl;
 		} else if (s.substr(0, 2) == "re") {
-/*
+			turn = 0;
+			delete td;
+			TextDisplay *td = new TextDisplay;
+			td->init();
+			if (wants_graphics) {
+				gd->restart();
+			}
+
+			g1.deleteShape();
+			g2.deleteShape();
+			//set up the two grids regardless
+			g1.init("g1", wants_graphics);
+			g2.init("g2", wants_graphics);
+
+			//set the td
+			g1.set_td(td);
+			g2.set_td(td);
+//			g1.print();
+
+
+			// Clear the filestream and start reading from the beginning of the file
+			u1stream.clear( );
+			u1stream.seekg( 0, std::ios::beg);
+			u1stream >> u1block;
+
+			u2stream.clear( );
+			u2stream.seekg( 0, std::ios::beg);
+			u2stream >> u2block;
+
+
+			//create a shape (this really needs to be Level *)
+			current = zero->createShape(u1block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_shape(u1block, current->getMembers(), 1);
+			}
+			td->update_shape(u1block, current->getMembers(), 1);
+
+			//get the next block in line
+			u1stream >> u1block;
+			cout << "U1 next IS " << u1block << endl;
+			next1 = zero->createShape(u1block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_next(u1block, next1->getMembers(), 1);
+			}
+			td->update_next(u1block, 1);  
+
+			// Create a shape for user2
+			current2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_shape(u2block, current2->getMembers(), 2);
+			}
+			td->update_shape(u2block, current2->getMembers(), 2);
+
+			//get the next block for user2
+			u2stream >> u2block;
+			next2 = zero->createShape(u2block, heavy_flag, wants_graphics);
+			if (wants_graphics) {
+				gd->update_next(u2block, next2->getMembers(), 2);
+			}
+			td->update_next(u2block, 2);
+
+			//now print the textdisplay
+			g1.print();
+			
+		/*	
+			
 
 		//	u1stream.close();
                   //                      u2stream.close();
