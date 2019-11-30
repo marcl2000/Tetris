@@ -134,37 +134,37 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
         if(name == "I"){
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 2);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 2);
                 }
         } else if (name == "J") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 3);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 3);
                 }
         } else if (name == "S") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 4);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 4);
                 }
         } else if (name == "L") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 5);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 5);
                 }
         } else if (name == "O") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 6);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 6);
                 }
         } else if (name == "T") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 7);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 7);
                 }
         } else if (name == "Z") {
                 int size = coords.size();
                 for(int i=0;i<size;i++){
-                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 17, 20, 20, 8);
+                        this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 8);
                 }
         }
 

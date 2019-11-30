@@ -48,10 +48,115 @@ void TShape::move_down(){
 	}
 }
 
+void TShape::clockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == - 2 * 20) {
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
 
-void TShape::clockwise(){}
+		// The second coordinate is the same
 
-void TShape::counterclockwise(){}
+		Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y + 20);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == -40) {
+		cout << "POS CALLED" << endl;
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y + 40);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 2 * 20){
+		Coord one(this->members[0].getCoord().x - 40, this->members[0].getCoord().y);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y - 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y - 40);
+		this->members[3].setCoord(four);
+
+	} else {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 40, this->members[3].getCoord().y + 20);
+		this->members[3].setCoord(four);
+
+	}
+}
+
+void TShape::counterclockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == - 2 * 20) {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y + 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 40, this->members[3].getCoord().y - 20);
+
+		this->members[3].setCoord(four);               
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == 40) {
+		cout << "POS CALLED" << endl;
+		Coord one(this->members[0].getCoord().x + 40, this->members[0].getCoord().y);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y + 40);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 2 * 20){
+		Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y - 40);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y - 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y);
+		this->members[3].setCoord(four);
+	} else {
+		Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y + 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y + 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y - 20);
+		this->members[3].setCoord(four);
+
+	}
+
+}
 
 vector<Coord> TShape::getMembers(){
 	vector<Coord> coords;

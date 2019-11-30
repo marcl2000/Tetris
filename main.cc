@@ -63,7 +63,7 @@ int main(int argc, char *argv[]){
 	//set up the two grids regardless
 	Grid g1;
 	g1.set_td(td);
-	
+
 	Grid g2;
 	g2.set_td(td);
 
@@ -664,6 +664,32 @@ int main(int argc, char *argv[]){
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
+			if(turn % 2 == 0){   //first player's block
+				if (wants_graphics) {
+					gd->clear(current->getMembers(), 1);
+				}
+				td->clear(current->getMembers(), 1);
+				current->counterclockwise();
+				if (wants_graphics) {
+					gd->update_shape(current->getName(), current->getMembers(), 1);
+				}
+				td->update_shape(current->getName(), current->getMembers(), 1);
+				g1.print();
+			}
+
+			else{  //second player's block
+				if (wants_graphics) {
+					gd->clear(current2->getMembers(), 2);
+				}
+				td->clear(current2->getMembers(), 2);
+				current2->counterclockwise();
+				if (wants_graphics) {
+					gd->update_shape(current2->getName(), current2->getMembers(), 2);
+				}
+				td->update_shape(current2->getName(), current2->getMembers(), 2);
+				g1.print();
+			}
+
 		} else if (s.substr(0, 2) == "cl") {                     
 			for(int i=0;i<steps;i++){
 				if(turn % 2 == 0){   //first player's block

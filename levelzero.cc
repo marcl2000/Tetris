@@ -40,10 +40,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 	}
 
 	if(name == "J"){
-		Coord one(0, 6*20);
-		Coord two(0, 7*20);
-		Coord three(20, 7*20);
-		Coord four(40, 7*20);
+		Coord one(0, 5*20);
+		Coord two(0, 6*20);
+		Coord three(20, 6*20);
+		Coord four(40, 6*20);
 		Cell c1("J", one, true);
 		Cell c2("J", two, true);
 		Cell c3("J", three, true);
@@ -58,10 +58,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 	}
 
 	   if(name == "S"){
-		Coord one(0, 7*20);
-		Coord two(20, 7*20);
-		Coord three(20, 6*20);
-		Coord four(40, 6*20);
+		Coord one(0, 6*20);
+		Coord two(20, 6*20);
+		Coord three(20, 5*20);
+		Coord four(40, 5*20);
                 Cell c1("S", one, true);
                 Cell c2("S", two, true);
                 Cell c3("S", three, true);
@@ -76,10 +76,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
         }
 
 	if(name == "L"){
-                Coord one(0, 7*20);
-                Coord two(20, 7*20);
-                Coord three(40, 7*20);
-                Coord four(40, 6*20);
+                Coord one(0, 6*20);
+                Coord two(20, 6*20);
+                Coord three(40, 6*20);
+                Coord four(40, 5*20);
                 Cell c1("L", one, true);
                 Cell c2("L", two, true);
                 Cell c3("L", three, true);
@@ -94,10 +94,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
 	}
 
 	if(name == "O"){
-                Coord one(0, 7*20);
-                Coord two(20, 7*20);
-                Coord three(0, 6*20);
-                Coord four(20, 6*20);
+                Coord one(0, 6*20);
+                Coord two(20, 6*20);
+                Coord three(0, 5*20);
+                Coord four(20, 5*20);
                 Cell c1("O", one, true);
                 Cell c2("O", two, true);
                 Cell c3("O", three, true);
@@ -112,10 +112,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
         }
 	
 	if(name == "Z"){
-                Coord one(0, 6*20);
-                Coord two(20, 7*20);
+                Coord one(0, 5*20);
+                Coord two(20, 5*20);
                 Coord three(20, 6*20);
-                Coord four(40, 7*20);
+                Coord four(40, 6*20);
                 Cell c1("Z", one, true);
                 Cell c2("Z", two, true);
                 Cell c3("Z", three, true);
@@ -130,10 +130,10 @@ Shape* LevelZero::createShape(string name, bool heavy_flag, bool gd_on){
         }
 
 	if(name == "T"){
-                Coord one(0, 6*20);
-                Coord two(20, 6*20);
-                Coord three(20, 7*20);
-                Coord four(40, 6*20);
+                Coord one(0, 5*20);
+                Coord two(20, 5*20);
+                Coord three(20, 6*20);
+                Coord four(40, 5*20);
                 Cell c1("T", one, true);
                 Cell c2("T", two, true);
                 Cell c3("T", three, true);

@@ -48,9 +48,111 @@ void JShape::move_down(){
 	}
 }
 
-void JShape::clockwise(){}
+void JShape::clockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == -40) {
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
 
-void JShape::counterclockwise(){}
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y - 40);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 40, this->members[3].getCoord().y);
+		this->members[3].setCoord(four);	
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == -40) {
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y + 40);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 40, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y - 20);
+		this->members[3].setCoord(four);
+
+	} else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 40) {
+		Coord one(this->members[0].getCoord().x - 40, this->members[0].getCoord().y);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y - 20);
+		this->members[3].setCoord(four);
+	} else {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y + 40);
+		this->members[3].setCoord(four);
+	}
+}
+
+void JShape::counterclockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == -40) {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y + 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y - 40);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == 40) {
+                Coord one(this->members[0].getCoord().x + 40, this->members[0].getCoord().y);
+                this->members[0].setCoord(one);
+
+                Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y - 20);
+                this->members[1].setCoord(two);
+
+                Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y);
+                this->members[2].setCoord(three);
+
+                Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y + 20);
+                this->members[3].setCoord(four);
+
+        }  else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 40) { 
+		 Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y - 40);
+                this->members[0].setCoord(one);
+
+                Coord two(this->members[1].getCoord().x - 40, this->members[1].getCoord().y - 20);
+                this->members[1].setCoord(two);
+
+                Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y);
+                this->members[2].setCoord(three);
+
+                Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y + 20);
+                this->members[3].setCoord(four);
+	} else {
+		 Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y + 20);
+                this->members[0].setCoord(one);
+
+                Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y + 40);
+                this->members[1].setCoord(two);
+
+                Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y + 20);
+                this->members[2].setCoord(three);
+
+                Coord four(this->members[3].getCoord().x + 40, this->members[3].getCoord().y);
+                this->members[3].setCoord(four);
+	}
+}
 
 vector<Coord> JShape::getMembers(){
 	vector<Coord> coords;
@@ -68,6 +170,6 @@ string JShape::getName(){
 }
 
 std::vector<Cell>& JShape::getCells(){
-        return this->members;
+	return this->members;
 }
 
