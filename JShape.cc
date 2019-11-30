@@ -67,3 +67,7 @@ string JShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& JShape::getCells(){
+        return this->members;
+}
+

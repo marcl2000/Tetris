@@ -62,12 +62,9 @@ int main(int argc, char *argv[]){
 
 	//set up the two grids regardless
 	Grid g1;
-	g1.init("g1", wants_graphics);
-	Grid g2;
-	g2.init("g2", wants_graphics);
-
-	//set the td
 	g1.set_td(td);
+	
+	Grid g2;
 	g2.set_td(td);
 
 	td->update_level(current1_level, 1);
@@ -83,6 +80,9 @@ int main(int argc, char *argv[]){
 		gd->update_level(current1_level, 1);
 		gd->update_level(current2_level, 2);
 	}
+	g1.init("g1", wants_graphics);
+	g2.init("g2", wants_graphics);
+
 
 	// Create filestreams for the blocks of each user
 	ifstream u1stream {user1file};
@@ -612,6 +612,7 @@ int main(int argc, char *argv[]){
 				int clearCount = g2.lines_cleared();
 
 				// Now calculate the score
+
 				current2 = next2;
 
 				if (wants_graphics) {

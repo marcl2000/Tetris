@@ -19,6 +19,7 @@ class Shape {
 		virtual void counterclockwise(){}
 		virtual std::vector<Coord> getMembers();
 		virtual std::string getName();
+		virtual std::vector<Cell>& getCells();
 };
 
 #endif

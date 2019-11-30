@@ -37,18 +37,17 @@ bool Line::isFilled(int grid_num){
 
 	//if it is filled, make sure to update both the textdisplay and graphicsdisplay, and set each cell in the line to not_filled
 	if(temp){
-		cout << "IN TEMP" << endl;
+
 		vector<Cell> &mem = this->get_cells();
 		int n = mem.size();
-		for (int i = 0; i < n; ++i) {
-			mem[i].set_filled(false);
-		}	
-		cout << "hehre" << endl;
-		cout << "GETMEMBERS SIZE IS " << this->getMembers().size() << endl;
+			
 		td->clear(this->getMembers(), grid_num);
+
 		gd->clear(this->getMembers(), grid_num);
 
-		
+		for (int i = 0; i < 11; ++i) {
+			mem[i].set_filled(false);
+		}	
 	}
 	
 	return temp;
@@ -62,7 +61,6 @@ vector<Coord> Line::getMembers(){
 	vector<Coord> coords;
 	for(int i=0;i<11;i++){
 		if(this->contents[i].isFilled()){
-			cout << "going in " << endl;
 			coords.emplace_back(this->contents[i].getCoord());
 		}
 	}

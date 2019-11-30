@@ -147,3 +147,7 @@ string SShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& SShape::getCells(){
+        return this->members;
+}
+

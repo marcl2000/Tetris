@@ -8,7 +8,7 @@
 using namespace std;
 
 Grid::~Grid(){
-	
+
 	if(this->name == "g1"){
 		delete td;
 
@@ -46,8 +46,6 @@ void Grid::init(string name, bool gd_on){
 
 		lines.emplace_back(l);
 	}
-
-	//td->setDisplay(position, this);
 }	
 
 //called by the main when the user wants to play the blind option
@@ -101,6 +99,7 @@ int Grid::lines_cleared(){
 	//loop through the vector of lines and check how many are filled
 	for(int i=0;i<18;i++){
 		if(this->lines[i].isFilled(grid)){
+			cout<<"a line was cleared"<<endl;
 			count++;
 		}
 	}
@@ -111,23 +110,28 @@ int Grid::lines_cleared(){
 		while (dropCount > 0) {
 			dropCount = 0;
 			int s = this->shapes.size();
-			for (int i = 0; i < s; ++ i) {
+			cout<<"we have "<<s<<" shapes to check"<<endl;
 
+			for (int i = 0; i < s; i++) {
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
 					for(int j=0;j<4;j++){
 
-						int n = this->shapes[i]->getMembers()[j].y/20 - 2;
-						int m = this->shapes[i]->getMembers()[j].x/20;
+						if(this->shapes[i]->getCells()[j].isFilled()){
+							int n = this->shapes[i]->getMembers()[j].y/20 - 2;
+							int m = this->shapes[i]->getMembers()[j].x/20;
 
-						if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
-							can_move = false;
-							break;
+							if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
+								can_move = false;
+								break;
+							}
 						}
 					}
 
 					if(can_move){
+						cout<<"I CAN MOVE :)"<<endl;
+
 						move_count++;
 						if(move_count==1){
 							++dropCount;
@@ -141,7 +145,22 @@ int Grid::lines_cleared(){
 							td->clear(this->shapes[i]->getMembers(), g);
 
 						}
+						for(int j=0;j<4;j++){
+							if(this->shapes[i]->getCells()[j].isFilled()){
+								int n = this->shapes[i]->getMembers()[j].y/20 - 2;
+								int m = this->shapes[i]->getMembers()[j].x/20;
+
+								this->get_lines()[n].get_cells()[m].set_filled(true);
+								this->get_lines()[n-1].get_cells()[m].set_filled(false);
+							}
+						}
 						this->shapes[i]->move_down();
+						if(name == "g1"){
+							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
+						}
+						else{
+							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
+						}
 					}
 				}
 

@@ -27,6 +27,7 @@ class SShape: public Shape {
 	void counterclockwise() override;
 	std::vector<Coord> getMembers() override;
 	std::string getName() override;
+	std::vector<Cell>& getCells() override;
 };
 
 #endif

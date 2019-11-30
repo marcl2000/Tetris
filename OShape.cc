@@ -67,3 +67,7 @@ string OShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& OShape::getCells(){
+        return this->members;
+}
+

@@ -68,3 +68,7 @@ string ZShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& ZShape::getCells(){
+        return this->members;
+}
+

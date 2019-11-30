@@ -1,6 +1,7 @@
 #include "shape.h"
 #include "coord.h"
 #include <vector>
+#include "cell.h"
 
 using namespace std;
 
@@ -14,5 +15,9 @@ string Shape::getName(){
 	return temp;
 }
 
+vector<Cell>& Shape::getCells(){
+	vector<Cell> temp;
+	return temp;
+}
 
 

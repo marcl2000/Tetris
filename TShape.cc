@@ -68,3 +68,7 @@ string TShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& TShape::getCells(){
+        return this->members;
+}
+

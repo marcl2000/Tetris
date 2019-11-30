@@ -67,3 +67,7 @@ string LShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& LShape::getCells(){
+        return this->members;
+}
+

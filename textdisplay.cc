@@ -197,10 +197,36 @@ void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 	
 	int size = coords.size();
 
-        for(int i =0; i<size;i++){
-                theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
-        }
+	if(!(size == 11)){
+        	for(int i =0; i<size;i++){
+                	theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
+        	}
+	}
+	else{
+		for(int i=0;i<size; i++){
+			theDisplay[coords[i].x + 3][coords[i].y + n] = " ";
+		}
+	}
 }
+/*
+void TextDisplay::clear_line(vector<Coord> coords, int grid_number) {
+	int n = 0;
+	if(grid_number == 2){
+		n = 14;
+	}
+
+	int size = coords.size();
+	cout<<"size is: "<<this->theDisplay.size()<<endl;
+
+	//cout<<"the display: "<<theDisplay[17][0]<<endl;
+	cout<<"test: "<<theDisplay[22][0]<<endl;
+
+	for(int i =0; i<size;i++){
+		cout<<"coords are: "<<coords[i].x<<" "<<coords[i].y + n<<endl;
+		theDisplay[coords[i].x][coords[i].y + n] = " ";
+	}
+}
+*/
 
 void TextDisplay::update_level(int new_level, int grid_number){
 	string s = "";

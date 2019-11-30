@@ -137,4 +137,8 @@ string IShape::getName(){
 	return this->type_name;
 }
 
+std::vector<Cell>& IShape::getCells(){
+	return this->members;
+}
+
 

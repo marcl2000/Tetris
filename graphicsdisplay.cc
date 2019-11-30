@@ -111,10 +111,16 @@ void GraphicsDisplay::clear(std::vector<Coord> coords, int grid_number){
 	}
 
 	int size = coords.size();
-	for(int i=0;i<size;i++){
-		this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 0);
+	if(!(size == 11)){
+		for(int i=0;i<size;i++){
+			this->xw.fillRectangle(coords[i].x + n, coords[i].y, 20, 20, 0);
+		}
 	}
-	
+	else{
+		for(int i=0;i<size;i++){
+			this->xw.fillRectangle(coords[i].y*20, (coords[i].x+3)*20 + n, 20, 20, 0);
+		}
+	}
 }
 
 void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_number){
@@ -167,9 +173,9 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
 void GraphicsDisplay::clear_current(int grid_number) {
 	int n = 14*20;
 	if (grid_number == 1) {
-		this->xw.fillRectangle(0, 5*20, 80, 80, 0);
+		this->xw.fillRectangle(0, 5*20, 80, 60, 0);
 	} else {
-		this->xw.fillRectangle(n, 5*20, 80, 80, 0);
+		this->xw.fillRectangle(n, 5*20, 80, 60, 0);
 	}
 }
 
