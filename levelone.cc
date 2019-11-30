@@ -17,10 +17,10 @@ using namespace std;
 Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on){
 
 	Shape *newShape;
-	Coord one(0, 6*20);
-	Coord two(20, 6*20);
-	Coord three(20, 7*20);
-	Coord four(40, 6*20);
+	Coord one(0, 5*20);
+	Coord two(20, 5*20);
+	Coord three(20, 6*20);
+	Coord four(40, 5*20);
 	Cell c1("T", one, true);
 	Cell c2("T", two, true);
 	Cell c3("T", three, true);

@@ -117,10 +117,24 @@ void IShape::clockwise(){
 			}
 		}
 	}
+
+
+        //if heavy is on, then this rotate should drop the shape by 1
+        if(this->heavy_flag){
+                for(int i=0;i<4;i++){
+                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+                        this->members[i].setCoord(c);
+                }
+        }
+
 }
 
+// For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise 
+// has the same effect as rotating counterclockwise
 
-void IShape::counterclockwise(){}
+void IShape::counterclockwise(){
+	this->clockwise();
+}
 
 vector<Coord> IShape::getMembers(){
 	vector<Coord> coords;

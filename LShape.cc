@@ -48,9 +48,131 @@ void LShape::move_down(){
 	}
 }
 
-void LShape::clockwise(){}
+void LShape::clockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == -40) {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 40);
+		this->members[0].setCoord(one);
 
-void LShape::counterclockwise(){}
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y - 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x - 40, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y + 20);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == -40) {
+		Coord one(this->members[0].getCoord().x + 40, this->members[0].getCoord().y + 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y);
+		this->members[3].setCoord(four);
+
+	}  else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 40) {
+		Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y + 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y - 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y - 40);
+		this->members[3].setCoord(four);
+	} else {
+		Coord one(this->members[0].getCoord().x - 20, this->members[0].getCoord().y);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 20, this->members[2].getCoord().y + 40);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 40, this->members[3].getCoord().y + 20);
+		this->members[3].setCoord(four);
+	}
+
+
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
+
+}
+
+void LShape::counterclockwise(){
+	if (this->members[0].getCoord().x - this->members[3].getCoord().x == -40) {
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y - 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y - 40);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x - 40, this->members[3].getCoord().y - 20);
+		this->members[3].setCoord(four);
+	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == 40) {
+		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x - 20, this->members[2].getCoord().y + 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x, this->members[3].getCoord().y + 40);
+		this->members[3].setCoord(four);
+
+	}  else if (this->members[0].getCoord().x - this->members[3].getCoord().x == 40) {
+		Coord one(this->members[0].getCoord().x - 40, this->members[0].getCoord().y - 20);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 20);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y);
+		this->members[3].setCoord(four);
+	} else {
+		Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y + 40);
+		this->members[0].setCoord(one);
+
+		Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y + 20);
+		this->members[1].setCoord(two);
+
+		Coord three(this->members[2].getCoord().x + 40, this->members[2].getCoord().y);
+		this->members[2].setCoord(three);
+
+		Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y - 20);
+		this->members[3].setCoord(four);
+	}
+
+
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
+
+}
 
 vector<Coord> LShape::getMembers(){
 	vector<Coord> coords;
@@ -68,6 +190,6 @@ string LShape::getName(){
 }
 
 std::vector<Cell>& LShape::getCells(){
-        return this->members;
+	return this->members;
 }
 

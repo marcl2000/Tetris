@@ -100,6 +100,16 @@ void TShape::clockwise(){
 		this->members[3].setCoord(four);
 
 	}
+
+
+        //if heavy is on, then this rotate should drop the shape by 1
+        if(this->heavy_flag){
+                for(int i=0;i<4;i++){
+                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+                        this->members[i].setCoord(c);
+                }
+        }
+
 }
 
 void TShape::counterclockwise(){
@@ -156,6 +166,16 @@ void TShape::counterclockwise(){
 
 	}
 
+
+        //if heavy is on, then this rotate should drop the shape by 1
+        if(this->heavy_flag){
+                for(int i=0;i<4;i++){
+                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+                        this->members[i].setCoord(c);
+                }
+        }
+
+
 }
 
 vector<Coord> TShape::getMembers(){
@@ -174,6 +194,6 @@ string TShape::getName(){
 }
 
 std::vector<Cell>& TShape::getCells(){
-        return this->members;
+	return this->members;
 }
 

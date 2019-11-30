@@ -48,9 +48,22 @@ void OShape::move_down(){
 	}
 }
 
-void OShape::clockwise(){}
+// Since O is a square, rotating it in either direction does not change its appearance
+void OShape::clockwise(){
 
-void OShape::counterclockwise(){}
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
+
+}
+
+void OShape::counterclockwise(){
+	this->clockwise();
+}
 
 vector<Coord> OShape::getMembers(){
 	vector<Coord> coords;
@@ -68,6 +81,6 @@ string OShape::getName(){
 }
 
 std::vector<Cell>& OShape::getCells(){
-        return this->members;
+	return this->members;
 }
 

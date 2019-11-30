@@ -116,7 +116,11 @@ void SShape::clockwise(){
 	}
 }
 
-void SShape::counterclockwise(){}
+// For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise
+// has the same effect as rotating counterclockwise
+void SShape::counterclockwise(){
+	this->clockwise();
+}
 
 vector<Coord> SShape::getMembers(){
 	vector<Coord> coords;
