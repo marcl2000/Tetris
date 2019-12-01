@@ -128,9 +128,6 @@ int main(int argc, char *argv[]){
 		}
 		td->update_next(u1block, 1);  
 
-		//now print the textdisplay
-		g1.print();
-
 
 	}
 
@@ -146,7 +143,7 @@ int main(int argc, char *argv[]){
 
 		u2level = new LevelZero();
 		current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
-		
+
 		if (wants_graphics) {
 			gd->update_shape(u2block, current2->getMembers(), 2);
 		}
@@ -425,7 +422,31 @@ int main(int argc, char *argv[]){
 					gd->clear(current->getMembers(), 1);
 				}
 				td->clear(current->getMembers(), 1);
-				current->move_right(steps);
+
+				//if there is anything in the way, decrease steps
+				int true_steps = 0;
+				bool temp = true;
+
+				while(steps*20+current->getMembers()[0].x > 10*20 || steps*20+current->getMembers()[1].x > 10*20 || 
+						steps*20+current->getMembers()[2].x > 10*20 || steps*20+current->getMembers()[3].x > 10*20){
+					--steps;
+				}
+
+				for(int i=0;i<steps;i++){
+					for(int j=0;j<4;j++){
+						int n = current->getMembers()[j].x/20 + i+1;
+						int m = current->getMembers()[j].y/20 - 3;
+
+						if((g1.get_lines()[m].get_cells()[n]).isFilled()){
+							temp = false;
+						}
+					}
+					if(temp){
+						++true_steps;
+					}
+				}
+
+				current->move_right(true_steps);
 				if (wants_graphics) {
 					gd->update_shape(current->getName(), current->getMembers(), 1);
 				}
@@ -436,13 +457,37 @@ int main(int argc, char *argv[]){
 					gd->clear(current2->getMembers(), 2);
 				}
 				td->clear(current2->getMembers(), 2);
-				current2->move_right(steps);
+
+				int true_steps = 0;
+				bool temp = true;
+
+				while(steps*20+current2->getMembers()[0].x > 10*20 || steps*20+current2->getMembers()[1].x > 10*20 ||
+						steps*20+current2->getMembers()[2].x > 10*20 || steps*20+current2->getMembers()[3].x > 10*20){
+					--steps;
+				}
+
+				for(int i=0;i<steps;i++){
+					for(int j=0;j<4;j++){
+						int n = current2->getMembers()[j].x/20 + i+1;
+						int m = current2->getMembers()[j].y/20 - 3;
+
+						if((g2.get_lines()[m].get_cells()[n]).isFilled()){
+							temp = false;
+						}
+					}
+					if(temp){
+						++true_steps;
+					}
+				}
+
+				current2->move_right(true_steps);
 				if (wants_graphics) {
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 			}
+
 		} else if (s.substr(0, 2) == "do") {
 			for(int i=0;i<steps;i++){
 				//check to see if the block can be moved down safely
@@ -535,7 +580,7 @@ int main(int argc, char *argv[]){
 				for(int i=0;i<4;i++){
 					int n = current->getMembers()[i].y/20 - 3;
 					int m = current->getMembers()[i].x/20;
-				
+
 					(g1.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
 
@@ -692,6 +737,7 @@ int main(int argc, char *argv[]){
 					gd->clear(current->getMembers(), 1);
 				}
 				td->clear(current->getMembers(), 1);
+
 				current->counterclockwise();
 				if (wants_graphics) {
 					gd->update_shape(current->getName(), current->getMembers(), 1);

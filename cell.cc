@@ -22,7 +22,7 @@ void Cell::setCoord(Coord c){
 	this->coordinates = c;
 }
 
-void Cell::set_ID(int n){
-	this->shape_ID = n;
+string Cell::getName(){
+	return this->name;
 }
 
