@@ -135,3 +135,16 @@ std::vector<Cell>& ZShape::getCells(){
 	return this->members;
 }
 
+int ZShape::getLevel(){
+       return this->level_placed;
+}
+
+void ZShape::setScored(){
+       this->scored = true;
+}
+
+bool ZShape::wasScored(){
+        return this->scored;
+}
+
+

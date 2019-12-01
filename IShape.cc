@@ -153,3 +153,15 @@ std::vector<Cell>& IShape::getCells(){
 	return this->members;
 }
 
+int IShape::getLevel(){
+       return this->level_placed;
+}
+
+bool IShape::wasScored(){
+	return this->scored;
+}
+
+void IShape::setScored(){
+       this->scored = true;
+}
+

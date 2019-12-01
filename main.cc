@@ -71,8 +71,11 @@ int main(int argc, char *argv[]){
 	Grid g2;
 	g2.set_td(td);
 
+	//update the scores and levels
 	td->update_level(current1_level, 1);
 	td->update_level(current2_level, 2);
+	td->update_score(0, 1);
+	td->update_score(0, 2);
 
 	GraphicsDisplay *gd = nullptr;
 
@@ -83,6 +86,8 @@ int main(int argc, char *argv[]){
 		g2.set_gd(gd);
 		gd->update_level(current1_level, 1);
 		gd->update_level(current2_level, 2);
+		gd->update_score(0, 1);
+		gd->update_score(0, 2);
 	}
 	g1.init("g1", wants_graphics);
 	g2.init("g2", wants_graphics);
@@ -231,9 +236,6 @@ int main(int argc, char *argv[]){
 				steps = steps * (-1);
 			}
 
-			//	else if (s[5] == 'u') {
-
-			//		}i
 			if (turn%2==0) {
 				current1_level += steps;
 
@@ -587,8 +589,26 @@ int main(int argc, char *argv[]){
 				if (wants_graphics) {
 					gd->clear_current(1);
 				}
-				int clearCount = g1.lines_cleared();
-				// calculatet the score later
+				vector<int> result = g1.lines_cleared();
+				
+				//with this information, calculate the score for player 1
+				score1 += (current1_level + result.back())*(current1_level + result.back());
+				result.pop_back();
+
+				//now, do the pieces cleared this turn
+				int size = result.size();
+				for(int p=0;p<size;p++){
+					int level = result.back()+1;
+					level *= level;
+					score1 += level;
+					result.pop_back();
+				}
+
+				//update the displays
+				if(wants_graphics){
+					gd->update_score(score1, 1);
+				}
+				td->update_score(score1, 1);
 
 				// First set the next block to the current shape
 				current = next1;
@@ -676,11 +696,26 @@ int main(int argc, char *argv[]){
 					(g2.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
 
-				//call lines_cleared to determine if lines are cleared and shifting needs to occur
-				int clearCount = g2.lines_cleared();
-
-				// Now calculate the score
-
+				 vector<int> result = g2.lines_cleared();
+				 //with this information, calculate the score for player 2
+				 score2 += (current2_level + result.back())*(current2_level + result.back());
+				 result.pop_back();
+				 
+				 //now, do the pieces cleared this turn
+				 int size = result.size();
+				 for(int p=0;p<size;p++){
+					 int level = result.back()+1;
+					 level *= level;
+					 score2 += level;
+					 result.pop_back();
+				}
+				
+				//update the displays
+				if(wants_graphics){
+					gd->update_score(score2, 2);
+				}
+				td->update_score(score2, 2);
+				
 				current2 = next2;
 
 				if (wants_graphics) {

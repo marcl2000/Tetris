@@ -213,4 +213,16 @@ std::vector<Cell>& JShape::getCells(){
 	return this->members;
 }
 
+int JShape::getLevel(){
+       return this->level_placed;
+}
+
+void JShape::setScored(){
+       this->scored = true;
+}
+
+bool JShape::wasScored(){
+        return this->scored;
+}
+
 

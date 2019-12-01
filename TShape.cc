@@ -193,3 +193,16 @@ std::vector<Cell>& TShape::getCells(){
 	return this->members;
 }
 
+int TShape::getLevel(){
+       return this->level_placed;
+}
+
+void TShape::setScored(){
+       this->scored = true;
+}
+
+bool TShape::wasScored(){
+        return this->scored;
+}
+
+

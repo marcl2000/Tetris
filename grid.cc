@@ -46,9 +46,9 @@ void Grid::init(string name, bool gd_on){
 	for(int i=0;i<18;i++){
 
 		Line l;               //update the textdisplay with these cells that are created in line
-		l.init(i);
+		l.init(i, gd_on);
 		l.set_td(this->td);
-		l.set_gd(this->gd);
+		l.set_gd(this->gd);   //this will be nullptr if gd_on = false
 
 		lines.emplace_back(l);
 	}
@@ -91,10 +91,11 @@ void Grid::print(){
 }
 
 //called by the main (on the grid)
-int Grid::lines_cleared(){
+vector<int> Grid::lines_cleared(){
 	//lines will actually be cleared in the line class
 	int count = 0;
 	int grid = 0;
+	vector<int> result;
 
 	if (name == "g1") {
 		grid = 1;
@@ -106,7 +107,7 @@ int Grid::lines_cleared(){
 	for(int i=0;i<18;i++){
 		if(this->lines[i].isFilled(grid)){
 			count++;
-			
+
 			//set the shape cells to false
 			int size = shapes.size();
 			for(int j=0;j<size;j++){
@@ -118,9 +119,26 @@ int Grid::lines_cleared(){
 						//use get_level, a shape function
 					}
 				}
+
+				bool pieces_left = false;
+				for(int k=0;k<4;k++){
+					if(shapes[j]->getCells()[k].isFilled()){
+							pieces_left = true;
+							break;
+					}
+				}
+				if(!pieces_left && !shapes[j]->wasScored()){
+					result.emplace_back(shapes[j]->getLevel());
+					
+					//set the piece to scored
+					shapes[j]->setScored();
+				}
 			}
 		}
 	}
+
+	//now, add the count
+	result.emplace_back(count);
 
 	//now, shift all the pieces downwards if there were any lines cleared (make sure to make each cell filled again
 	if(count>0){
@@ -161,7 +179,7 @@ int Grid::lines_cleared(){
 
 							bool to_check = true;
 							for(int h=0;h<4;h++){
-								
+
 								if(((shapes[i]->getCells()[p].getCoord().y - shapes[i]->getCells()[h].getCoord().y) == -20) 
 										&& (shapes[i]->getCells()[p].getCoord().x - shapes[i]->getCells()[h].getCoord().x == 0)
 										&& (shapes[i]->getCells()[h].isFilled())){
@@ -180,19 +198,19 @@ int Grid::lines_cleared(){
 
 					if(can_move){
 
-						//move_count++;
-						//if(move_count==1){
-							++dropCount;
-							int g;
-							if (this->name == "g1") {
-								g = 1;
-							} else {
-								g = 2;
-							}
-							gd->clear(this->shapes[i]->getMembers(), g);
-							td->clear(this->shapes[i]->getMembers(), g);
+						++dropCount;
+						int g;
+						if (this->name == "g1") {
+							g = 1;
+						} else {
+							g = 2;
+						}
 
-						//}
+						if(gd_on){
+							gd->clear(this->shapes[i]->getMembers(), g);
+						}
+						td->clear(this->shapes[i]->getMembers(), g);
+
 
 						int shift2 = 0;
 						for(int j=0;j<4;j++){
@@ -213,12 +231,16 @@ int Grid::lines_cleared(){
 						this->shapes[i]->move_down();
 
 						if(name == "g1"){
-							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
+							if(gd_on){
+								gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
+							}
 
 							td->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
 						}
 						else{
-							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
+							if(gd_on){
+								gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
+							}
 							td->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
 						}
 
@@ -229,7 +251,7 @@ int Grid::lines_cleared(){
 		}
 	}
 
-	return count;
+	return result;
 }
 
 //called by the main when it is determined that the user wants graphics

@@ -191,3 +191,16 @@ std::vector<Cell>& LShape::getCells(){
 	return this->members;
 }
 
+int LShape::getLevel(){
+       return this->level_placed;
+}
+
+void LShape::setScored(){
+       this->scored = true;
+}
+
+bool LShape::wasScored(){
+        return this->scored;
+}
+
+

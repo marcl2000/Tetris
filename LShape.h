@@ -15,6 +15,7 @@ class LShape: public Shape {
 	bool heavy_flag;
 	bool gd_on;
 	int level_placed;
+	bool scored = false;
 
 	public:
 	~LShape() {}
@@ -29,6 +30,9 @@ class LShape: public Shape {
 	std::vector<Coord> getMembers() override;
 	std::string getName() override;
 	std::vector<Cell>& getCells() override;
+	int getLevel() override;
+	bool wasScored() override;
+	void setScored() override;
 
 };
 

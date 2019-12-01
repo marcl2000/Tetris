@@ -19,9 +19,10 @@ class Line {
 	int row_number;
 	TextDisplay *td;
 	GraphicsDisplay *gd;
+	bool gd_on;
 
 	public:
-		void init(int i);
+		void init(int i, bool gd_on);
 		bool isFilled(int grid_num);
 		std::vector<Cell>& get_cells();
 		void set_td(TextDisplay *td);

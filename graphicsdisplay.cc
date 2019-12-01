@@ -216,11 +216,15 @@ void GraphicsDisplay::update_level(int new_level, int grid_number){
 }
 
 void GraphicsDisplay::update_score(int new_score, int grid_number){
+	string s = to_string(new_score);
+
 	if(grid_number == 1){
-		xw.drawString(1, 40, "Score: "+new_score, 1);
+		xw.fillRectangle(0, 20, 20*11, 20, 0);
+		xw.drawString(1, 40, "Score: "+s, 1);
 	}
 	else if(grid_number == 2){
-		xw.drawString(14*20 + 1, 40, "Score: "+new_score, 1);
+		xw.fillRectangle(14*20, 20, 20*11, 20, 0);
+		xw.drawString(14*20 + 1, 40, "Score: "+s, 1);
 	}
 }
 

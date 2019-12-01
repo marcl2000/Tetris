@@ -139,3 +139,15 @@ std::vector<Cell>& SShape::getCells(){
 	return this->members;
 }
 
+int SShape::getLevel(){
+       return this->level_placed;
+}
+
+void SShape::setScored(){
+       this->scored = true;
+}
+
+bool SShape::wasScored(){
+        return this->scored;
+}
+

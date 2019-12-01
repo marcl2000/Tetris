@@ -21,6 +21,9 @@ class Shape {
 		virtual std::string getName();
 		virtual std::vector<Cell>& getCells();
 		virtual void set_ID(int n){}
+		virtual int getLevel();
+		virtual bool wasScored();
+		virtual void setScored(){}
 };
 
 #endif

@@ -82,3 +82,15 @@ std::vector<Cell>& OShape::getCells(){
 	return this->members;
 }
 
+int OShape::getLevel(){
+       return this->level_placed;
+}
+
+void OShape::setScored(){
+       this->scored = true;
+}
+
+bool OShape::wasScored(){
+        return this->scored;
+}
+

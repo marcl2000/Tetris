@@ -6,8 +6,9 @@
 
 using namespace std;
 
-void Line::init(int i){
+void Line::init(int i, bool gd_on){
 	this->row_number = i;
+	this->gd_on = gd_on;
 
 	//set the contents (all cells must be set to false)
 	for(int j=0;j<11;j++){
@@ -43,7 +44,9 @@ bool Line::isFilled(int grid_num){
 			
 		td->clear(this->getMembers(), grid_num);
 
-		gd->clear(this->getMembers(), grid_num);
+		if(gd_on){
+			gd->clear(this->getMembers(), grid_num);
+		}
 
 		for (int i = 0; i < 11; ++i) {
 			mem[i].set_filled(false);

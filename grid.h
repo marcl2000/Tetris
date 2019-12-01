@@ -38,7 +38,7 @@ class Grid {
 		void add_shape(Shape *sh);
 		std::vector<Line>& get_lines();
 		void print();
-		int lines_cleared();
+		std::vector<int> lines_cleared();
 		void set_gd(GraphicsDisplay *gd);
 		void set_td(TextDisplay *td);
 };

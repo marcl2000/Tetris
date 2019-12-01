@@ -19,5 +19,11 @@ vector<Cell>& Shape::getCells(){
 	vector<Cell> temp;
 	return temp;
 }
+int Shape::getLevel(){
+       return 0;
+}
 
+bool Shape::wasScored(){
+	return true;
+}
 

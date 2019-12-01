@@ -28,7 +28,6 @@ void TextDisplay::init(){
 	theDisplay[0][17] = "e";
 	theDisplay[0][18] = "l";
 	theDisplay[0][19] = ":";
-	theDisplay[0][25] = "0";
 
 	theDisplay[1][0] = "S";
 	theDisplay[1][1] = "c";
@@ -43,7 +42,6 @@ void TextDisplay::init(){
 	theDisplay[1][17] = "r";
 	theDisplay[1][18] = "e";
 	theDisplay[1][19] = ":";
-	theDisplay[1][25] = "0";
 
 	for(int i=0;i<11;i++){
 		theDisplay[2][i] = "-";
@@ -190,25 +188,6 @@ void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 		}
 	}
 }
-/*
-   void TextDisplay::clear_line(vector<Coord> coords, int grid_number) {
-   int n = 0;
-   if(grid_number == 2){
-   n = 14;
-   }
-
-   int size = coords.size();
-   cout<<"size is: "<<this->theDisplay.size()<<endl;
-
-//cout<<"the display: "<<theDisplay[17][0]<<endl;
-cout<<"test: "<<theDisplay[22][0]<<endl;
-
-for(int i =0; i<size;i++){
-cout<<"coords are: "<<coords[i].x<<" "<<coords[i].y + n<<endl;
-theDisplay[coords[i].x][coords[i].y + n] = " ";
-}
-}
-*/
 
 void TextDisplay::update_level(int new_level, int grid_number){
 	string s = "";
@@ -230,16 +209,18 @@ void TextDisplay::update_level(int new_level, int grid_number){
 	}
 
 	else if (grid_number==2){
-		theDisplay[0][25] = s;
+		theDisplay[0][24] = s;
 	}
 }
 
 void TextDisplay::update_score(int new_score, int grid_number){
+	string s = to_string(new_score);
+
 	if(grid_number == 1){
-		theDisplay[1][10] = ""+new_score;
+		theDisplay[1][10] = s;
 	}
 	else if(grid_number == 2){
-		theDisplay[1][25] = ""+new_score;
+		theDisplay[1][24] = s;
 	}
 }
 
