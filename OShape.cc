@@ -13,7 +13,6 @@ void OShape::move_left(int n){
 		int newx = this->members[i].getCoord().x - n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {
@@ -28,7 +27,6 @@ void OShape::move_right(int n){
 		int newx = this->members[i].getCoord().x + n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {

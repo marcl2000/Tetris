@@ -31,6 +31,7 @@ class Grid {
 	public:
 		~Grid();
 		void deleteShape();
+		void clear_cells();
 		void init(std::string name, bool gd_on);
 		void change_blind(bool b);
 		bool piece_fits(std::vector<Coord> coords);    //if this returns false, then the game is over

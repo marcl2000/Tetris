@@ -9,7 +9,7 @@ class Level {
 
 	public:
 		virtual ~Level() {}
-		virtual Shape* createShape(std::string name, bool heavy_flag, bool gd_on);
+		virtual Shape* createShape(std::string name, bool heavy_flag, bool gd_on, int level_made);
 
 };
 

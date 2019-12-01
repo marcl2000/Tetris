@@ -9,31 +9,52 @@
 using namespace std;
 
 void JShape::move_left(int n){
+	int move_count = 0;
+
 	for (int i=0; i < 4; ++i) {
 		int newx = this->members[i].getCoord().x - n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
+		move_count++;
 	}
 
 	for (int i=0; i < 4; ++i) {
 		while (this->members[i].getCoord().x < 0) {
 			this->move_right(1);
+			move_count--;
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20*move_count);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void JShape::move_right(int n){
+	int move_count = 0;
+
 	for (int i=0; i < 4; ++i) {
 		int newx = this->members[i].getCoord().x + n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
+		move_count++;
 	}
 
 	for (int i=0; i < 4; ++i) {
 		while (this->members[i].getCoord().x > 10 * 20) {
 			this->move_left(1);
+			move_count--;
+		}
+	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20*move_count);
+			this->members[i].setCoord(c);
 		}
 	}
 }
@@ -101,13 +122,13 @@ void JShape::clockwise(){
 	}
 
 
-        //if heavy is on, then this rotate should drop the shape by 1
-        if(this->heavy_flag){
-                for(int i=0;i<4;i++){
-                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
-                        this->members[i].setCoord(c);
-                }
-        }
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
 
 }
 
@@ -162,14 +183,14 @@ void JShape::counterclockwise(){
 		Coord four(this->members[3].getCoord().x + 40, this->members[3].getCoord().y);
 		this->members[3].setCoord(four);
 	}
-	
-        //if heavy is on, then this rotate should drop the shape by 1
-        if(this->heavy_flag){
-                for(int i=0;i<4;i++){
-                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
-                        this->members[i].setCoord(c);
-                }
-        }
+
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
 
 }
 
@@ -191,4 +212,5 @@ string JShape::getName(){
 std::vector<Cell>& JShape::getCells(){
 	return this->members;
 }
+
 

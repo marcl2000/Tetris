@@ -27,6 +27,7 @@ class Line {
 		void set_td(TextDisplay *td);
 		void set_gd(GraphicsDisplay *gd);
 		std::vector<Coord> getMembers();
+		void clear_cells();
 };
 
 #endif

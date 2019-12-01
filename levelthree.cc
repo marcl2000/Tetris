@@ -2,7 +2,7 @@
 #include <vector>
 #include <cstddef>
 #include "level.h"
-#include "levelone.h"
+#include "levelthree.h"
 #include "shape.h"
 #include "IShape.h"
 #include "JShape.h"
@@ -14,16 +14,16 @@
 
 using namespace std;
 
-Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level_made){
+Shape* LevelThree::createShape(string name, bool heavy_flag, bool gd_on, int level_made){
 
 	Shape *newShape;
 
 	//generate a random number
 	double random = (double) rand() / (RAND_MAX);
 
-	random *= 12;
+	random *= 9;
 
-	if(random > 11){
+	if(random > 7){
 		//make an S block
 		Coord one(0, 6*20);
 		Coord two(20, 6*20);
@@ -39,10 +39,12 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new SShape("S", members, heavy_flag, gd_on, level_made);
+
+		//for level three, heavy flag is always on
+		newShape = new SShape("S", members, true, gd_on, level_made);
 	}
 
-	else if(random > 10){
+	else if(random > 5){
 		//make a Z block
 		Coord one(0, 5*20);
 		Coord two(20, 5*20);
@@ -58,10 +60,10 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new ZShape("Z", members, heavy_flag, gd_on, level_made);
+		newShape = new ZShape("Z", members, true, gd_on, level_made);
 	}
 
-	else if(random > 8){
+	else if(random > 4){
 		//create a T block
 		Coord one(0, 5*20);
 		Coord two(20, 5*20);
@@ -71,16 +73,15 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		Cell c2("T", two, true);
 		Cell c3("T", three, true);
 		Cell c4("T", four, true);
-
 		vector<Cell> members;
 		members.emplace_back(c1);
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new TShape("T", members, heavy_flag, gd_on, level_made);
+		newShape = new TShape("T", members, true, gd_on, level_made);
 	}
 
-	else if(random > 6){
+	else if(random > 3){
 		//create an O block
 		Coord one(0, 6*20);
 		Coord two(20, 6*20);
@@ -96,10 +97,10 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new OShape("O", members, heavy_flag, gd_on, level_made);
+		newShape = new OShape("O", members, true, gd_on, level_made);
 	}
 
-	else if(random > 4){
+	else if(random > 2){
 		//create an I block
 		Coord one(0, 6*20);
 		Coord two(20, 6*20);
@@ -115,10 +116,10 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new IShape("I", members, heavy_flag, gd_on, level_made);
+		newShape = new IShape("I", members, true, gd_on, level_made);
 	}
 
-	else if(random > 2){
+	else if(random > 1){
 		//create an L block
 		Coord one(0, 6*20);
 		Coord two(20, 6*20);
@@ -134,7 +135,7 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new LShape("L", members, heavy_flag, gd_on, level_made);
+		newShape = new LShape("L", members, true, gd_on, level_made);
 	}
 
 	else{
@@ -153,9 +154,9 @@ Shape* LevelOne::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new JShape("J", members, heavy_flag, gd_on, level_made);
+		newShape = new JShape("J", members, true, gd_on, level_made);
 	}
 
-	return newShape;	
+	return newShape;
 }
 

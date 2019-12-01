@@ -13,7 +13,6 @@ void TShape::move_left(int n){
 		int newx = this->members[i].getCoord().x - n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {
@@ -28,7 +27,6 @@ void TShape::move_right(int n){
 		int newx = this->members[i].getCoord().x + n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {
@@ -61,7 +59,6 @@ void TShape::clockwise(){
 		Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y + 20);
 		this->members[3].setCoord(four);
 	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == -40) {
-		cout << "POS CALLED" << endl;
 		Coord one(this->members[0].getCoord().x + 20, this->members[0].getCoord().y + 40);
 		this->members[0].setCoord(one);
 
@@ -102,13 +99,13 @@ void TShape::clockwise(){
 	}
 
 
-        //if heavy is on, then this rotate should drop the shape by 1
-        if(this->heavy_flag){
-                for(int i=0;i<4;i++){
-                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
-                        this->members[i].setCoord(c);
-                }
-        }
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
 
 }
 
@@ -127,7 +124,6 @@ void TShape::counterclockwise(){
 
 		this->members[3].setCoord(four);               
 	} else if (this->members[0].getCoord().y - this->members[3].getCoord().y == 40) {
-		cout << "POS CALLED" << endl;
 		Coord one(this->members[0].getCoord().x + 40, this->members[0].getCoord().y);
 		this->members[0].setCoord(one);
 
@@ -167,13 +163,13 @@ void TShape::counterclockwise(){
 	}
 
 
-        //if heavy is on, then this rotate should drop the shape by 1
-        if(this->heavy_flag){
-                for(int i=0;i<4;i++){
-                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
-                        this->members[i].setCoord(c);
-                }
-        }
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
 
 
 }

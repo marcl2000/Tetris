@@ -11,6 +11,7 @@ class Cell {
 	std::string name;
 	Coord coordinates;
 	bool is_filled;
+	int shape_ID;
 
 	public:
 		Cell(std::string name, Coord coordinates, bool is_filled): name{name}, coordinates{coordinates}, is_filled{is_filled} {}
@@ -18,6 +19,7 @@ class Cell {
 		bool isFilled();
 		Coord getCoord();
 		void setCoord(Coord c);
+		void set_ID(int n);
 };
 
 #endif

@@ -9,6 +9,7 @@
 #include "levelzero.h"
 #include "leveltwo.h"
 #include "levelone.h"
+#include "levelthree.h"
 #include "IShape.h"
 #include "JShape.h"
 #include "LShape.h"
@@ -31,6 +32,9 @@ int main(int argc, char *argv[]){
 	bool heavy_flag = false;            //turning this on requires the user to clear a certain number of lines
 	int current1_level = 0;
 	int current2_level = 0;
+
+	int score1 = 0;
+	int score2 = 0;
 
 	// If any command lines were given, interpret and apply them
 	for (int i = 0; i < argc; ++i) {
@@ -101,13 +105,15 @@ int main(int argc, char *argv[]){
 		u1level = new LevelOne();
 	} else if (current1_level == 2) {
 		u1level = new LevelTwo();
+	} else if (current1_level == 3){
+		u1level = new LevelThree();
 	} else {
 		current1_level = 0;
 		u1stream >> u1block;
 
 		//create a shape (this really needs to be Level *)
 		u1level = new LevelZero();
-		current = u1level->createShape(u1block, heavy_flag, wants_graphics);
+		current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 
 		if (wants_graphics) {
 			gd->update_shape(u1block, current->getMembers(), 1);
@@ -116,7 +122,7 @@ int main(int argc, char *argv[]){
 
 		//get the next block in line
 		u1stream >> u1block;
-		next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
+		next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 		if (wants_graphics) {
 			gd->update_next(u1block, next1->getMembers(), 1);
 		}
@@ -132,12 +138,15 @@ int main(int argc, char *argv[]){
 		u2level = new LevelOne();
 	} else if (current2_level == 2) {
 		u2level = new LevelTwo();
+	} else if (current2_level == 3){
+		u2level = new LevelThree();
 	} else {
 		current2_level = 0;
 		u2stream >> u2block;
 
 		u2level = new LevelZero();
-		current2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+		current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+		
 		if (wants_graphics) {
 			gd->update_shape(u2block, current2->getMembers(), 2);
 		}
@@ -145,7 +154,7 @@ int main(int argc, char *argv[]){
 
 		//get the next block for user2
 		u2stream >> u2block;
-		next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+		next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
 		if (wants_graphics) {
 			gd->update_next(u2block, next2->getMembers(), 2);
 		}
@@ -157,10 +166,11 @@ int main(int argc, char *argv[]){
 
 
 	if (!current1_level == 0) {
-		current = u1level->createShape("", heavy_flag, wants_graphics);
+		current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+
 		td->update_shape(current->getName(), current->getMembers(), 1);
 
-		next1 = u1level->createShape("", heavy_flag, wants_graphics);
+		next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
 		td->update_next(next1->getName(), 1);
 
 		if (wants_graphics) {
@@ -172,10 +182,11 @@ int main(int argc, char *argv[]){
 	}
 
 	if (!current2_level == 0) {
-		current2 = u2level->createShape("", heavy_flag, wants_graphics);
+		current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+
 		td->update_shape(current2->getName(), current2->getMembers(), 2);
 
-		next2 = u2level->createShape("", heavy_flag, wants_graphics);
+		next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
 		td->update_next(next2->getName(), 2);
 
 		if (wants_graphics) {
@@ -231,8 +242,8 @@ int main(int argc, char *argv[]){
 
 				// If user levels up on our highest level, then set the level to
 				// the highest level we have implemented
-				if (current1_level > 2) {
-					current1_level = 2;
+				if (current1_level > 3) {
+					current1_level = 3;
 				}
 				if (current1_level <  0) {
 					current1_level = 0;
@@ -257,13 +268,15 @@ int main(int argc, char *argv[]){
 					u1level = new LevelOne();
 				} else if (current1_level == 2) {
 					u1level = new LevelTwo();
+				} else if (current1_level == 3){
+					u1level = new LevelThree();
 				} else {
 					current1_level = 0;
 					u1stream >> u1block;
 
 					//create a shape (this really needs to be Level *)
 					u1level = new LevelZero();
-					current = u1level->createShape(u1block, heavy_flag, wants_graphics);
+					current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 
 					if (wants_graphics) {
 						gd->update_shape(u1block, current->getMembers(), 1);
@@ -272,7 +285,7 @@ int main(int argc, char *argv[]){
 
 					//get the next block in line
 					u1stream >> u1block;
-					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
+					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 					if (wants_graphics) {
 						gd->update_next(u1block, next1->getMembers(), 1);
 					}
@@ -283,10 +296,11 @@ int main(int argc, char *argv[]){
 				}
 
 				if (!current1_level == 0) {
-					current = u1level->createShape("", heavy_flag, wants_graphics);
+					current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+
 					td->update_shape(current->getName(), current->getMembers(), 1);
 
-					next1 = u1level->createShape("", heavy_flag, wants_graphics);
+					next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
 					td->update_next(next1->getName(), 1);
 
 					if (wants_graphics) {
@@ -309,8 +323,8 @@ int main(int argc, char *argv[]){
 
 				// If user levels up on our highest level, then set the level to
 				// the highest level we have implemented
-				if (current2_level > 2) {
-					current2_level = 2;
+				if (current2_level > 3) {
+					current2_level = 3;
 				}
 
 				if (current2_level < 0) {
@@ -334,12 +348,15 @@ int main(int argc, char *argv[]){
 					u2level = new LevelOne();
 				} else if (current2_level == 2) {
 					u2level = new LevelTwo();
+				} else if (current2_level == 3){
+					u2level = new LevelThree();
 				} else {
 					current2_level = 0;
 					u2stream >> u2block;
 
 					u2level = new LevelZero();
-					current2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+					current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+
 					if (wants_graphics) {
 						gd->update_shape(u2block, current2->getMembers(), 2);
 					}
@@ -347,7 +364,7 @@ int main(int argc, char *argv[]){
 
 					//get the next block for user2
 					u2stream >> u2block;
-					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
 					if (wants_graphics) {
 						gd->update_next(u2block, next2->getMembers(), 2);
 					}
@@ -357,10 +374,11 @@ int main(int argc, char *argv[]){
 				}
 
 				if (!current2_level == 0) {
-					current2 = u2level->createShape("", heavy_flag, wants_graphics);
+					current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
 
-					next2 = u2level->createShape("", heavy_flag, wants_graphics);
+					next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
 					td->update_next(next2->getName(), 2);
 
 					if (wants_graphics) {
@@ -399,6 +417,8 @@ int main(int argc, char *argv[]){
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 			}
+
+
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
 				if (wants_graphics) {
@@ -515,8 +535,10 @@ int main(int argc, char *argv[]){
 				for(int i=0;i<4;i++){
 					int n = current->getMembers()[i].y/20 - 3;
 					int m = current->getMembers()[i].x/20;
+				
 					(g1.get_lines()[n].get_cells()[m]).set_filled(true);
 				}
+
 				if (wants_graphics) {
 					gd->clear_current(1);
 				}
@@ -525,6 +547,7 @@ int main(int argc, char *argv[]){
 
 				// First set the next block to the current shape
 				current = next1;
+
 				if (wants_graphics) {
 					gd->update_shape(current->getName(), current->getMembers(),1);
 				}
@@ -539,9 +562,9 @@ int main(int argc, char *argv[]){
 						u1stream >> u1block;
 					}
 					// Now display the next block
-					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
+					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 				} else {
-					next1 = u1level->createShape("", heavy_flag, wants_graphics);
+					next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
 
 
 				}
@@ -634,10 +657,10 @@ int main(int argc, char *argv[]){
 						u2stream.seekg( 0, std::ios::beg);
 						u2stream >> u2block;
 					}
-					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
 
 				} else {
-					next2 = u2level->createShape("", heavy_flag, wants_graphics);
+					next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
 				}
 				if (wants_graphics) {
 					gd->clear_next(2);
@@ -738,6 +761,10 @@ int main(int argc, char *argv[]){
 			g1.deleteShape();
 			g2.deleteShape();
 
+			//set all cells on the grid to false
+			g1.clear_cells();
+			g2.clear_cells();
+
 			delete current;
 			delete current2;
 			delete next1;
@@ -758,15 +785,16 @@ int main(int argc, char *argv[]){
 				u1stream >> u1block;
 
 				//create a level shape for user 1 
-				current = u1level->createShape(u1block, heavy_flag, wants_graphics);
+				current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 
 				//get the next block in line
 				u1stream >> u1block;
-				next1 = u1level->createShape(u1block, heavy_flag, wants_graphics);
+				next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
 
 			} else {
-				current = u1level->createShape("", heavy_flag, wants_graphics);
-				next1 = u1level->createShape("", heavy_flag, wants_graphics);
+				current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+
+				next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
 			}
 
 			if (current2_level == 0) {
@@ -776,14 +804,15 @@ int main(int argc, char *argv[]){
 				u2stream >> u2block;
 
 				// Create a shape for user2
-				current2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+				current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
 
 				//get the next block for user2
 				u2stream >> u2block;
-				next2 = u2level->createShape(u2block, heavy_flag, wants_graphics);
+				next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
 			} else {
-				current2 = u2level->createShape("", heavy_flag, wants_graphics);
-				next2 = u2level->createShape("", heavy_flag, wants_graphics);
+				current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+
+				next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
 			} 
 
 			if (wants_graphics) {
@@ -807,26 +836,29 @@ int main(int argc, char *argv[]){
 			cin >> file;
 		} else if (s == "I" || s == "J" || s == "L" || s == "O" || s == "S" || s == "Z" || s == "T") { //Commands for testing with different block types
 			if (turn %2 == 0) {
-				Shape * newShape = u1level->createShape(s, heavy_flag, wants_graphics);
+				Shape * newShape = u1level->createShape(s, heavy_flag, wants_graphics, current1_level);
+
 				td->clear(current->getMembers(), 1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
 				delete current;
 				current = newShape;
+
 				if (wants_graphics) {
 					gd->update_shape(current->getName(), current->getMembers(), 1);
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
-				Shape * newShape = u2level->createShape(s, heavy_flag, wants_graphics);
+				Shape * newShape = u2level->createShape(s, heavy_flag, wants_graphics, current2_level);
 				td->clear(current2->getMembers(), 2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
 				delete current2;
 				current2 = newShape;
+
 				if (wants_graphics) {
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				}

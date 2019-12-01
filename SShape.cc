@@ -13,7 +13,6 @@ void SShape::move_left(int n){
 		int newx = this->members[i].getCoord().x - n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {
@@ -28,7 +27,6 @@ void SShape::move_right(int n){
 		int newx = this->members[i].getCoord().x + n * 20;
 		Coord c(newx, this->members[i].getCoord().y);
 		this->members[i].setCoord(c);
-		cout << "New coords are " << c.x << " , " << c.y << endl;
 	}
 
 	for (int i=0; i < 4; ++i) {
@@ -110,7 +108,7 @@ void SShape::clockwise(){
 	//if heavy is on, then this rotate should drop the shape by 1
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
-			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
 			this->members[i].setCoord(c);
 		}
 	}

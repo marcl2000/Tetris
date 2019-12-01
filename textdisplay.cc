@@ -139,68 +139,50 @@ void TextDisplay::update_shape(string name, vector<Coord> coords, int grid_numbe
 		n = 14;
 	}
 
-	if(name == "I"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "I";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "I";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "I";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "I";
-	}
-	else if(name == "J"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "J";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "J";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "J";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "J";
+	int size = coords.size();
+	for(int i=0;i<size;i++){
+		if(name == "I"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "I";
+		}
+		else if(name == "J"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "J";
 
-	}
-	else if(name == "L"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "L";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "L";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "L";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "L";
+		}
+		else if(name == "L"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "L";
 
-	}
-	else if(name == "O"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "O";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "O";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "O";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "O";
+		}
+		else if(name == "O"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "O";
 
-	}
-	else if(name == "S"){
-		theDisplay[coords[0].y/20][coords[0].x/20+n] = "S";
-		theDisplay[coords[1].y/20][coords[1].x/20+n] = "S";
-		theDisplay[coords[2].y/20][coords[2].x/20+n] = "S";
-		theDisplay[coords[3].y/20][coords[3].x/20+n] = "S";
+		}
+		else if(name == "S"){
+			theDisplay[coords[i].y/20][coords[i].x/20+n] = "S";
 
-	}
-	else if(name == "Z"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "Z";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "Z";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "Z";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "Z";
+		}
+		else if(name == "Z"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "Z";
 
-	}
-	else if(name == "T"){
-		theDisplay[coords[0].y/20][coords[0].x/20 +n] = "T";
-		theDisplay[coords[1].y/20][coords[1].x/20 +n] = "T";
-		theDisplay[coords[2].y/20][coords[2].x/20 +n] = "T";
-		theDisplay[coords[3].y/20][coords[3].x/20 +n] = "T";
+		}
+		else if(name == "T"){
+			theDisplay[coords[i].y/20][coords[i].x/20 +n] = "T";
 
+		}
 	}
 }
 
 void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 	int n = 0;
- 	if (grid_number == 2) {
+	if (grid_number == 2) {
 		n = 14;
 	}	
-	
+
 	int size = coords.size();
 
 	if(!(size == 11)){
-        	for(int i =0; i<size;i++){
-                	theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
-        	}
+		for(int i =0; i<size;i++){
+			theDisplay[coords[i].y/20][coords[i].x/20 + n] = " ";
+		}
 	}
 	else{
 		for(int i=0;i<size; i++){
@@ -209,22 +191,22 @@ void TextDisplay::clear(vector<Coord> coords, int grid_number) {
 	}
 }
 /*
-void TextDisplay::clear_line(vector<Coord> coords, int grid_number) {
-	int n = 0;
-	if(grid_number == 2){
-		n = 14;
-	}
+   void TextDisplay::clear_line(vector<Coord> coords, int grid_number) {
+   int n = 0;
+   if(grid_number == 2){
+   n = 14;
+   }
 
-	int size = coords.size();
-	cout<<"size is: "<<this->theDisplay.size()<<endl;
+   int size = coords.size();
+   cout<<"size is: "<<this->theDisplay.size()<<endl;
 
-	//cout<<"the display: "<<theDisplay[17][0]<<endl;
-	cout<<"test: "<<theDisplay[22][0]<<endl;
+//cout<<"the display: "<<theDisplay[17][0]<<endl;
+cout<<"test: "<<theDisplay[22][0]<<endl;
 
-	for(int i =0; i<size;i++){
-		cout<<"coords are: "<<coords[i].x<<" "<<coords[i].y + n<<endl;
-		theDisplay[coords[i].x][coords[i].y + n] = " ";
-	}
+for(int i =0; i<size;i++){
+cout<<"coords are: "<<coords[i].x<<" "<<coords[i].y + n<<endl;
+theDisplay[coords[i].x][coords[i].y + n] = " ";
+}
 }
 */
 

@@ -118,7 +118,8 @@ void GraphicsDisplay::clear(std::vector<Coord> coords, int grid_number){
 	}
 	else{
 		for(int i=0;i<size;i++){
-			this->xw.fillRectangle(coords[i].y*20, (coords[i].x+3)*20 + n, 20, 20, 0);
+			this->xw.fillRectangle(coords[i].y*20 + n, (coords[i].x+3)*20, 20, 20, 0);
+			//cout<<"what we cleared: "<<coords[i].y*20<<" "<<(coords[i].x+3)*20 + n<<endl;
 		}
 	}
 }

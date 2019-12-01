@@ -29,6 +29,12 @@ void Grid::deleteShape() {
 	}
 }
 
+void Grid::clear_cells(){
+	for(int i=0;i<18;i++){
+		this->lines[i].clear_cells();
+	}
+}
+
 //called by the main twice
 void Grid::init(string name, bool gd_on){
 	this->name = name;
@@ -99,8 +105,20 @@ int Grid::lines_cleared(){
 	//loop through the vector of lines and check how many are filled
 	for(int i=0;i<18;i++){
 		if(this->lines[i].isFilled(grid)){
-			cout<<"a line was cleared"<<endl;
 			count++;
+			
+			//set the shape cells to false
+			int size = shapes.size();
+			for(int j=0;j<size;j++){
+				for(int k=0;k<4;k++){
+					if(shapes[j]->getCells()[k].getCoord().y/20 - 3 == i){
+						shapes[j]->getCells()[k].set_filled(false);
+
+						//this is where you would check to see if the entire piece has been set to false. if so, then add it to the score?
+						//use get_level, a shape function
+					}
+				}
+			}
 		}
 	}
 
@@ -109,31 +127,61 @@ int Grid::lines_cleared(){
 		int dropCount = 1;
 		while (dropCount > 0) {
 			dropCount = 0;
-			int s = this->shapes.size();
-			cout<<"we have "<<s<<" shapes to check"<<endl;
 
+			int s = this->shapes.size();
 			for (int i = 0; i < s; i++) {
+
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
-					for(int j=0;j<4;j++){
 
-						if(this->shapes[i]->getCells()[j].isFilled()){
-							int n = this->shapes[i]->getMembers()[j].y/20 - 2;
-							int m = this->shapes[i]->getMembers()[j].x/20;
+					//do not move any pieces that are completely wiped out
+					int filled_count = 0;
+					for(int k=0;k<4;k++){
+						if(this->shapes[i]->getCells()[k].isFilled()){
+							++filled_count;
+						}
+					}
+					if(filled_count == 0){
+						can_move = false;
+					}
 
-							if((n >= 18) || ((this->get_lines()[n].get_cells()[m]).isFilled())){
+					int shift=0;
+
+					//for pieces that still have cells on the board...
+					for(int p=0;p<4;p++){
+
+						if(!(this->shapes[i]->getCells()[p].isFilled())){
+							shift++;
+						}
+
+						if(this->shapes[i]->getCells()[p].isFilled()){
+							int n = this->shapes[i]->getMembers()[p-shift].y/20 - 2;
+							int m = this->shapes[i]->getMembers()[p-shift].x/20;
+
+							bool to_check = true;
+							for(int h=0;h<4;h++){
+								
+								if(((shapes[i]->getCells()[p].getCoord().y - shapes[i]->getCells()[h].getCoord().y) == -20) 
+										&& (shapes[i]->getCells()[p].getCoord().x - shapes[i]->getCells()[h].getCoord().x == 0)
+										&& (shapes[i]->getCells()[h].isFilled())){
+									to_check = false;
+									break;
+								}
+							}
+
+							if((n >= 18) || (((this->get_lines()[n].get_cells()[m]).isFilled()) && to_check)){
 								can_move = false;
 								break;
 							}
+
 						}
 					}
 
 					if(can_move){
-						cout<<"I CAN MOVE :)"<<endl;
 
-						move_count++;
-						if(move_count==1){
+						//move_count++;
+						//if(move_count==1){
 							++dropCount;
 							int g;
 							if (this->name == "g1") {
@@ -144,23 +192,36 @@ int Grid::lines_cleared(){
 							gd->clear(this->shapes[i]->getMembers(), g);
 							td->clear(this->shapes[i]->getMembers(), g);
 
-						}
+						//}
+
+						int shift2 = 0;
 						for(int j=0;j<4;j++){
+
+							if(!(this->shapes[i]->getCells()[j].isFilled())){
+								++shift2;
+							}
+
 							if(this->shapes[i]->getCells()[j].isFilled()){
-								int n = this->shapes[i]->getMembers()[j].y/20 - 2;
-								int m = this->shapes[i]->getMembers()[j].x/20;
+								int n = this->shapes[i]->getMembers()[j-shift2].y/20 - 2;
+								int m = this->shapes[i]->getMembers()[j-shift2].x/20;
 
 								this->get_lines()[n].get_cells()[m].set_filled(true);
 								this->get_lines()[n-1].get_cells()[m].set_filled(false);
 							}
 						}
+
 						this->shapes[i]->move_down();
+
 						if(name == "g1"){
 							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
+
+							td->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 1);
 						}
 						else{
 							gd->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
+							td->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
 						}
+
 					}
 				}
 

@@ -20,6 +20,7 @@ class Shape {
 		virtual std::vector<Coord> getMembers();
 		virtual std::string getName();
 		virtual std::vector<Cell>& getCells();
+		virtual void set_ID(int n){}
 };
 
 #endif

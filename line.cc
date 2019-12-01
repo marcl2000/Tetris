@@ -67,3 +67,8 @@ vector<Coord> Line::getMembers(){
 	return coords;
 }
 
+void Line::clear_cells(){
+	for(int i=0;i<11;i++){
+		this->contents[i].set_filled(false);
+	}
+}

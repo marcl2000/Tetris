@@ -14,11 +14,12 @@ class IShape: public Shape {
 	std::vector<Cell> members;
 	bool heavy_flag;
 	bool gd_on;
+	int level_placed;
 
 	public:
 	~IShape() {}
-	IShape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on):
-		type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on} {}
+	IShape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on, int level_placed):
+		type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on}, level_placed {level_placed} {}
 	
 	void move_left(int n) override;
 	void move_right(int n) override;
