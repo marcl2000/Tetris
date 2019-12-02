@@ -20,6 +20,14 @@ void OShape::move_left(int n){
 			this->move_right(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void OShape::move_right(int n){
@@ -34,6 +42,14 @@ void OShape::move_right(int n){
 			this->move_left(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void OShape::move_down(){
@@ -83,14 +99,14 @@ std::vector<Cell>& OShape::getCells(){
 }
 
 int OShape::getLevel(){
-       return this->level_placed;
+	return this->level_placed;
 }
 
 void OShape::setScored(){
-       this->scored = true;
+	this->scored = true;
 }
 
 bool OShape::wasScored(){
-        return this->scored;
+	return this->scored;
 }
 

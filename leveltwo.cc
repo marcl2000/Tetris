@@ -14,7 +14,7 @@
 
 using namespace std;
 
-Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level_made){
+Shape* LevelTwo::createShape(string name, bool bonus_heavy, bool gd_on, int level_made){
 
 	Shape *newShape;
 
@@ -39,7 +39,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new IShape("I", members, heavy_flag, gd_on, level_made);
+		newShape = new IShape("I", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else if(random > 5){
@@ -58,7 +58,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new JShape("J", members, heavy_flag, gd_on, level_made);
+		newShape = new JShape("J", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else if(random > 4){
@@ -77,7 +77,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new LShape("L", members, heavy_flag, gd_on, level_made);
+		newShape = new LShape("L", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else if(random > 3){
@@ -96,7 +96,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new OShape("O", members, heavy_flag, gd_on, level_made);
+		newShape = new OShape("O", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else if(random > 2){
@@ -115,7 +115,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new SShape("S", members, heavy_flag, gd_on, level_made);
+		newShape = new SShape("S", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else if(random > 1){
@@ -134,7 +134,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new ZShape("Z", members, heavy_flag, gd_on, level_made);
+		newShape = new ZShape("Z", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	else{
@@ -153,7 +153,7 @@ Shape* LevelTwo::createShape(string name, bool heavy_flag, bool gd_on, int level
 		members.emplace_back(c2);
 		members.emplace_back(c3);
 		members.emplace_back(c4);
-		newShape = new TShape("T", members, heavy_flag, gd_on, level_made);
+		newShape = new TShape("T", members, false, bonus_heavy, gd_on, level_made);
 	}
 
 	return newShape;

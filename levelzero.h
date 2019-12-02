@@ -9,7 +9,7 @@
 class LevelZero : public Level {
 	public:
 		~LevelZero(){}
-		Shape* createShape(std::string name, bool heavy_flag, bool gd_on, int level_made) override;
+		Shape* createShape(std::string name, bool bonus_heavy, bool gd_on, int level_made) override;
 };
 
 #endif

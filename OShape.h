@@ -13,14 +13,15 @@ class OShape: public Shape {
 	std::string type_name;
 	std::vector<Cell> members;
 	bool heavy_flag;
+	bool bonus_heavy;
 	bool gd_on;
 	int level_placed;
 	bool scored = false;
 
 	public:
 	~OShape() {}
-	OShape(std::string name, std::vector<Cell> members, bool heavy_flag, bool gd_on, int level_placed):
-		type_name{name}, members{members}, heavy_flag{heavy_flag}, gd_on{gd_on}, level_placed {level_placed} {}
+	OShape(std::string name, std::vector<Cell> members, bool heavy_flag, bool bonus_heavy, bool gd_on, int level_placed):
+		type_name{name}, members{members}, heavy_flag{heavy_flag}, bonus_heavy{bonus_heavy}, gd_on{gd_on}, level_placed {level_placed} {}
 
 	void move_left(int n) override;
 	void move_right(int n) override;

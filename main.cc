@@ -29,7 +29,10 @@ int main(int argc, char *argv[]){
 	int turn = 0;
 
 	bool wants_graphics = true;
-	bool heavy_flag = false;            //turning this on requires the user to clear a certain number of lines
+
+	bool bonus_heavy1 = false;            //turning this on requires the user to clear a certain number of lines
+	bool bonus_heavy2 = false;
+	
 	int current1_level = 0;
 	int current2_level = 0;
 
@@ -118,7 +121,7 @@ int main(int argc, char *argv[]){
 
 		//create a shape (this really needs to be Level *)
 		u1level = new LevelZero();
-		current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+		current = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 		if (wants_graphics) {
 			gd->update_shape(u1block, current->getMembers(), 1);
@@ -127,7 +130,7 @@ int main(int argc, char *argv[]){
 
 		//get the next block in line
 		u1stream >> u1block;
-		next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+		next1 = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 		if (wants_graphics) {
 			gd->update_next(u1block, next1->getMembers(), 1);
 		}
@@ -147,7 +150,7 @@ int main(int argc, char *argv[]){
 		u2stream >> u2block;
 
 		u2level = new LevelZero();
-		current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+		current2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 		if (wants_graphics) {
 			gd->update_shape(u2block, current2->getMembers(), 2);
@@ -156,7 +159,7 @@ int main(int argc, char *argv[]){
 
 		//get the next block for user2
 		u2stream >> u2block;
-		next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+		next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 		if (wants_graphics) {
 			gd->update_next(u2block, next2->getMembers(), 2);
 		}
@@ -168,11 +171,11 @@ int main(int argc, char *argv[]){
 
 
 	if (!current1_level == 0) {
-		current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+		current = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 
 		td->update_shape(current->getName(), current->getMembers(), 1);
 
-		next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+		next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 		td->update_next(next1->getName(), 1);
 
 		if (wants_graphics) {
@@ -184,11 +187,11 @@ int main(int argc, char *argv[]){
 	}
 
 	if (!current2_level == 0) {
-		current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+		current2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 
 		td->update_shape(current2->getName(), current2->getMembers(), 2);
 
-		next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+		next2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 		td->update_next(next2->getName(), 2);
 
 		if (wants_graphics) {
@@ -275,7 +278,7 @@ int main(int argc, char *argv[]){
 
 					//create a shape (this really needs to be Level *)
 					u1level = new LevelZero();
-					current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+					current = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 					if (wants_graphics) {
 						gd->update_shape(u1block, current->getMembers(), 1);
@@ -284,7 +287,7 @@ int main(int argc, char *argv[]){
 
 					//get the next block in line
 					u1stream >> u1block;
-					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+					next1 = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 					if (wants_graphics) {
 						gd->update_next(u1block, next1->getMembers(), 1);
 					}
@@ -295,11 +298,11 @@ int main(int argc, char *argv[]){
 				}
 
 				if (!current1_level == 0) {
-					current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+					current = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 
 					td->update_shape(current->getName(), current->getMembers(), 1);
 
-					next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+					next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 					td->update_next(next1->getName(), 1);
 
 					if (wants_graphics) {
@@ -354,7 +357,7 @@ int main(int argc, char *argv[]){
 					u2stream >> u2block;
 
 					u2level = new LevelZero();
-					current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+					current2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 					if (wants_graphics) {
 						gd->update_shape(u2block, current2->getMembers(), 2);
@@ -363,7 +366,7 @@ int main(int argc, char *argv[]){
 
 					//get the next block for user2
 					u2stream >> u2block;
-					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+					next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 					if (wants_graphics) {
 						gd->update_next(u2block, next2->getMembers(), 2);
 					}
@@ -373,11 +376,11 @@ int main(int argc, char *argv[]){
 				}
 
 				if (!current2_level == 0) {
-					current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+					current2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
 
-					next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+					next2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 					td->update_next(next2->getName(), 2);
 
 					if (wants_graphics) {
@@ -592,23 +595,26 @@ int main(int argc, char *argv[]){
 				vector<int> result = g1.lines_cleared();
 				
 				//with this information, calculate the score for player 1
-				score1 += (current1_level + result.back())*(current1_level + result.back());
-				result.pop_back();
 
-				//now, do the pieces cleared this turn
-				int size = result.size();
-				for(int p=0;p<size;p++){
-					int level = result.back()+1;
-					level *= level;
-					score1 += level;
+				if(result.back() > 0){
+					score1 += (current1_level + result.back())*(current1_level + result.back());
 					result.pop_back();
-				}
 
-				//update the displays
-				if(wants_graphics){
-					gd->update_score(score1, 1);
+					//now, do the pieces cleared this turn
+					int size = result.size();
+					for(int p=0;p<size;p++){
+						int level = result.back()+1;
+						level *= level;
+						score1 += level;
+						result.pop_back();
+					}
+
+					//update the displays
+					if(wants_graphics){
+						gd->update_score(score1, 1);
+					}
+					td->update_score(score1, 1);
 				}
-				td->update_score(score1, 1);
 
 				// First set the next block to the current shape
 				current = next1;
@@ -627,9 +633,9 @@ int main(int argc, char *argv[]){
 						u1stream >> u1block;
 					}
 					// Now display the next block
-					next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+					next1 = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 				} else {
-					next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+					next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 
 
 				}
@@ -655,6 +661,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_next(next1->getName(), 1);
 				g1.print();
+
+
+				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
 
 			} else {
 				bool can_move = true;
@@ -697,24 +706,27 @@ int main(int argc, char *argv[]){
 				}
 
 				 vector<int> result = g2.lines_cleared();
+
 				 //with this information, calculate the score for player 2
-				 score2 += (current2_level + result.back())*(current2_level + result.back());
-				 result.pop_back();
+				 if(result.back() > 0){
+				 	score2 += (current2_level + result.back())*(current2_level + result.back());
+				 	result.pop_back();
 				 
-				 //now, do the pieces cleared this turn
-				 int size = result.size();
-				 for(int p=0;p<size;p++){
-					 int level = result.back()+1;
-					 level *= level;
-					 score2 += level;
-					 result.pop_back();
-				}
+				 	//now, do the pieces cleared this turn
+				 	int size = result.size();
+				 	for(int p=0;p<size;p++){
+						int level = result.back()+1;
+					 	level *= level;
+					 	score2 += level;
+					 	result.pop_back();
+					}
 				
-				//update the displays
-				if(wants_graphics){
-					gd->update_score(score2, 2);
-				}
-				td->update_score(score2, 2);
+					//update the displays
+					if(wants_graphics){
+						gd->update_score(score2, 2);
+					}
+					td->update_score(score2, 2);
+				 }
 				
 				current2 = next2;
 
@@ -737,10 +749,10 @@ int main(int argc, char *argv[]){
 						u2stream.seekg( 0, std::ios::beg);
 						u2stream >> u2block;
 					}
-					next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+					next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 				} else {
-					next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+					next2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 				}
 				if (wants_graphics) {
 					gd->clear_next(2);
@@ -764,6 +776,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_next(next2->getName(), 2);
 				g2.print();
+
+				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
+
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
@@ -866,16 +881,16 @@ int main(int argc, char *argv[]){
 				u1stream >> u1block;
 
 				//create a level shape for user 1 
-				current = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+				current = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 				//get the next block in line
 				u1stream >> u1block;
-				next1 = u1level->createShape(u1block, heavy_flag, wants_graphics, current1_level);
+				next1 = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 			} else {
-				current = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+				current = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 
-				next1 = u1level->createShape("", heavy_flag, wants_graphics, current1_level);
+				next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 			}
 
 			if (current2_level == 0) {
@@ -885,15 +900,15 @@ int main(int argc, char *argv[]){
 				u2stream >> u2block;
 
 				// Create a shape for user2
-				current2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+				current2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 				//get the next block for user2
 				u2stream >> u2block;
-				next2 = u2level->createShape(u2block, heavy_flag, wants_graphics, current2_level);
+				next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 			} else {
-				current2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+				current2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 
-				next2 = u2level->createShape("", heavy_flag, wants_graphics, current2_level);
+				next2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 			} 
 
 			if (wants_graphics) {
@@ -917,7 +932,7 @@ int main(int argc, char *argv[]){
 			cin >> file;
 		} else if (s == "I" || s == "J" || s == "L" || s == "O" || s == "S" || s == "Z" || s == "T") { //Commands for testing with different block types
 			if (turn %2 == 0) {
-				Shape * newShape = u1level->createShape(s, heavy_flag, wants_graphics, current1_level);
+				Shape * newShape = u1level->createShape(s, bonus_heavy1, wants_graphics, current1_level);
 
 				td->clear(current->getMembers(), 1);
 				if (wants_graphics) {
@@ -932,7 +947,7 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 			} else {
-				Shape * newShape = u2level->createShape(s, heavy_flag, wants_graphics, current2_level);
+				Shape * newShape = u2level->createShape(s, bonus_heavy2, wants_graphics, current2_level);
 				td->clear(current2->getMembers(), 2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);

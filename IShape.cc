@@ -20,6 +20,14 @@ void IShape::move_left(int n){
 			this->move_right(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void IShape::move_right(int n){
@@ -34,6 +42,14 @@ void IShape::move_right(int n){
 			this->move_left(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void IShape::move_down(){
@@ -117,13 +133,13 @@ void IShape::clockwise(){
 	}
 
 
-        //if heavy is on, then this rotate should drop the shape by 1
-        if(this->heavy_flag){
-                for(int i=0;i<4;i++){
-                        Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
-                        this->members[i].setCoord(c);
-                }
-        }
+	//if heavy is on, then this rotate should drop the shape by 1
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
 
 }
 
@@ -154,7 +170,7 @@ std::vector<Cell>& IShape::getCells(){
 }
 
 int IShape::getLevel(){
-       return this->level_placed;
+	return this->level_placed;
 }
 
 bool IShape::wasScored(){
@@ -162,6 +178,6 @@ bool IShape::wasScored(){
 }
 
 void IShape::setScored(){
-       this->scored = true;
+	this->scored = true;
 }
 

@@ -20,6 +20,14 @@ void SShape::move_left(int n){
 			this->move_right(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void SShape::move_right(int n){
@@ -34,6 +42,14 @@ void SShape::move_right(int n){
 			this->move_left(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void SShape::move_down(){
@@ -140,14 +156,14 @@ std::vector<Cell>& SShape::getCells(){
 }
 
 int SShape::getLevel(){
-       return this->level_placed;
+	return this->level_placed;
 }
 
 void SShape::setScored(){
-       this->scored = true;
+	this->scored = true;
 }
 
 bool SShape::wasScored(){
-        return this->scored;
+	return this->scored;
 }
 

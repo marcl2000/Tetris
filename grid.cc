@@ -114,9 +114,6 @@ vector<int> Grid::lines_cleared(){
 				for(int k=0;k<4;k++){
 					if(shapes[j]->getCells()[k].getCoord().y/20 - 3 == i){
 						shapes[j]->getCells()[k].set_filled(false);
-
-						//this is where you would check to see if the entire piece has been set to false. if so, then add it to the score?
-						//use get_level, a shape function
 					}
 				}
 
@@ -129,6 +126,7 @@ vector<int> Grid::lines_cleared(){
 				}
 				if(!pieces_left && !shapes[j]->wasScored()){
 					result.emplace_back(shapes[j]->getLevel());
+					cout<<shapes[j]->getName()<<" was scored at level "<<shapes[j]->getLevel()<<endl;
 					
 					//set the piece to scored
 					shapes[j]->setScored();

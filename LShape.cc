@@ -20,6 +20,14 @@ void LShape::move_left(int n){
 			this->move_right(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void LShape::move_right(int n){
@@ -34,6 +42,14 @@ void LShape::move_right(int n){
 			this->move_left(1);
 		}
 	}
+
+	if(this->heavy_flag){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void LShape::move_down(){
@@ -161,7 +177,6 @@ void LShape::counterclockwise(){
 		this->members[3].setCoord(four);
 	}
 
-
 	//if heavy is on, then this rotate should drop the shape by 1
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
@@ -192,15 +207,15 @@ std::vector<Cell>& LShape::getCells(){
 }
 
 int LShape::getLevel(){
-       return this->level_placed;
+	return this->level_placed;
 }
 
 void LShape::setScored(){
-       this->scored = true;
+	this->scored = true;
 }
 
 bool LShape::wasScored(){
-        return this->scored;
+	return this->scored;
 }
 
 
