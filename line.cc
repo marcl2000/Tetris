@@ -40,7 +40,6 @@ bool Line::isFilled(int grid_num){
 	if(temp){
 
 		vector<Cell> &mem = this->get_cells();
-		int n = mem.size();
 			
 		td->clear(this->getMembers(), grid_num);
 

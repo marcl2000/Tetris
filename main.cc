@@ -407,6 +407,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
+
+				//IF BONUS HEAVY OR ON LEVEL THREE, CHECK IF THIS MOVE WOULD END THE GAME
+
 			} else {
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
@@ -418,6 +421,8 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
+
+				//SAME HERE
 			}
 
 
@@ -457,6 +462,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
+
+				//SAME HERE
+
 			} else {
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
@@ -491,6 +499,8 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
+
+				//SAME HERE
 			}
 
 		} else if (s.substr(0, 2) == "do") {
@@ -794,6 +804,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
+
+				//SAME HERE
+				//ALSO CHECK IF ROTATING WOULD BE ON TOP OF ANOTHER PIECE, OTHERWISE MOVE IT BACK TO THE ORIGINAL POSITION
 			}
 
 			else{  //second player's block
@@ -807,6 +820,9 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g1.print();
+
+				//SAME HERE
+				//ALSO CHECK IF ROTATING WOULD BE ON TOP OF ANOTHER PIECE, OTHERWISE MOVE IT BACK TO THE ORIGINAL POSITION
 			}
 
 		} else if (s.substr(0, 2) == "cl") {                     
@@ -822,6 +838,9 @@ int main(int argc, char *argv[]){
 					}
 					td->update_shape(current->getName(), current->getMembers(), 1);
 					g1.print();
+
+					//SAME HERE
+					//ALSO CHECK...
 				}
 
 				else{  //second player's block
@@ -835,6 +854,9 @@ int main(int argc, char *argv[]){
 					}
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
 					g1.print();
+
+					//SAME HERE
+					//ALSO CHECK...
 				}
 			}
 

@@ -28,6 +28,13 @@ void OShape::move_left(int n){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void OShape::move_right(int n){
@@ -46,6 +53,13 @@ void OShape::move_right(int n){
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
 			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
 			this->members[i].setCoord(c);
 		}
 	}
@@ -69,6 +83,13 @@ void OShape::clockwise(){
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
 			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 1);
+			this->members[i].setCoord(c);
+		}
+	}
+
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
 			this->members[i].setCoord(c);
 		}
 	}

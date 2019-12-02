@@ -28,6 +28,12 @@ void IShape::move_left(int n){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
 }
 
 void IShape::move_right(int n){
@@ -50,6 +56,12 @@ void IShape::move_right(int n){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
 }
 
 void IShape::move_down(){
@@ -132,7 +144,6 @@ void IShape::clockwise(){
 		}
 	}
 
-
 	//if heavy is on, then this rotate should drop the shape by 1
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
@@ -141,6 +152,13 @@ void IShape::clockwise(){
 		}
 	}
 
+	//if the bonus flag is on, then also drop the shape by 2
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}	
+	}
 }
 
 // For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise 

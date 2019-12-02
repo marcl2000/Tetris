@@ -28,6 +28,13 @@ void LShape::move_left(int n){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void LShape::move_right(int n){
@@ -46,6 +53,13 @@ void LShape::move_right(int n){
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
 			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20);
+			this->members[i].setCoord(c);
+		}
+	}
+
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
 			this->members[i].setCoord(c);
 		}
 	}
@@ -123,6 +137,13 @@ void LShape::clockwise(){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void LShape::counterclockwise(){
@@ -185,6 +206,12 @@ void LShape::counterclockwise(){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
 }
 
 vector<Coord> LShape::getMembers(){

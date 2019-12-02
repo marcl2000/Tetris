@@ -32,6 +32,13 @@ void JShape::move_left(int n){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void JShape::move_right(int n){
@@ -54,6 +61,13 @@ void JShape::move_right(int n){
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
 			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 20*move_count);
+			this->members[i].setCoord(c);
+		}
+	}
+
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
 			this->members[i].setCoord(c);
 		}
 	}
@@ -130,6 +144,13 @@ void JShape::clockwise(){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 void JShape::counterclockwise(){
@@ -192,6 +213,13 @@ void JShape::counterclockwise(){
 		}
 	}
 
+	if(this->bonus_heavy){
+		for(int i=0;i<4;i++){
+			Coord c(this->members[i].getCoord().x, this->members[i].getCoord().y + 40);
+			this->members[i].setCoord(c);
+		}
+	}
+
 }
 
 vector<Coord> JShape::getMembers(){
@@ -214,15 +242,15 @@ std::vector<Cell>& JShape::getCells(){
 }
 
 int JShape::getLevel(){
-       return this->level_placed;
+	return this->level_placed;
 }
 
 void JShape::setScored(){
-       this->scored = true;
+	this->scored = true;
 }
 
 bool JShape::wasScored(){
-        return this->scored;
+	return this->scored;
 }
 
 

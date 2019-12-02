@@ -148,7 +148,6 @@ vector<int> Grid::lines_cleared(){
 			for (int i = 0; i < s; i++) {
 
 				bool can_move = true;
-				int move_count = 0;
 				while(can_move){
 
 					//do not move any pieces that are completely wiped out
@@ -195,7 +194,6 @@ vector<int> Grid::lines_cleared(){
 					}
 
 					if(can_move){
-
 						++dropCount;
 						int g;
 						if (this->name == "g1") {
