@@ -745,14 +745,14 @@ int main(int argc, char *argv[]){
 				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
 				if (clear_count >= 2) {
 					cout << "====================================================" << endl;
-						cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
+					cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
 					cout << "You have earned the ability to hinder your opponent!" << endl;
 					cout << "Choose from the following bonus actions: " << endl;
 					cout << "		blind" << endl;
 					cout << "		heavy" << endl;
 					cout << "		force" << endl;
 					cout << "====================================================" << endl;
-						cout << "Please enter your choice below:" << endl;
+					cout << "Please enter your choice below:" << endl;
 					string choice;
 
 					while (true) {
@@ -772,6 +772,7 @@ int main(int argc, char *argv[]){
 								cin >> s;
 								if (s == "I" || s == "J" || s == "L" || s == "O" || s == "Z" || s == "S" || s == "T") {
 									Level *l = new LevelZero(seed);
+									td->clear(current2->getMembers(), 2);	
 									delete current2;
 									current2 = l->createShape(s, bonus_heavy2, wants_graphics, current2_level);
 									current2->change_level(current2_level);
@@ -779,15 +780,15 @@ int main(int argc, char *argv[]){
 
 									if (wants_graphics) {
 										gd->clear(current2->getMembers(), 2);
+										gd->clear_current(2);
 									}
-									td->clear(current2->getMembers(), 2);		
 
 									delete l;
 									if (wants_graphics) {
 										gd->update_shape(current2->getName(), current2->getMembers(), 2);
 									}
 									td->update_shape(current2->getName(), current2->getMembers(), 2);
-
+									g1.print();
 									break;
 								} else {
 									cout << "That is not a valid choice." << endl;
@@ -922,14 +923,14 @@ int main(int argc, char *argv[]){
 				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
 				if (clear_count >= 2) {
 					cout << "====================================================" << endl;
-						cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
+					cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
 					cout << "You have earned the ability to hinder your opponent!" << endl;
 					cout << "Choose from the following bonus actions: " << endl;
 					cout << "               blind" << endl;
 					cout << "               heavy" << endl;
 					cout << "               force" << endl;
 					cout << "====================================================" << endl;
-						cout << "Please enter your choice below:" << endl;
+					cout << "Please enter your choice below:" << endl;
 					string choice;
 
 					while (true) {
@@ -949,6 +950,7 @@ int main(int argc, char *argv[]){
 								cin >> s;
 								if (s == "I" || s == "J" || s == "L" || s == "O" || s == "Z" || s == "S" || s == "T") {
 									Level *l = new LevelZero(seed);
+									td->clear(current->getMembers(), 1);
 									delete current;
 									current = l->createShape(s, bonus_heavy1, wants_graphics, current1_level);
 									current->change_level(current1_level);
@@ -956,15 +958,15 @@ int main(int argc, char *argv[]){
 
 									if (wants_graphics) {
 										gd->clear(current->getMembers(), 1);
+										gd->clear_current(1);
 									}
-									td->clear(current->getMembers(), 1);
 
 									delete l;
 									if (wants_graphics) {
 										gd->update_shape(current->getName(), current->getMembers(), 1);
 									}
 									td->update_shape(current->getName(), current->getMembers(), 1);
-
+									g1.print();
 									break;
 
 								} else {
