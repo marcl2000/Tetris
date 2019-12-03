@@ -798,7 +798,7 @@ int main(int argc, char *argv[]){
 				}
 				td->clear(current->getMembers(), 1);
 
-				current->counterclockwise();
+				current->counterclockwise(g1);
 				if (wants_graphics) {
 					gd->update_shape(current->getName(), current->getMembers(), 1);
 				}
@@ -814,7 +814,7 @@ int main(int argc, char *argv[]){
 					gd->clear(current2->getMembers(), 2);
 				}
 				td->clear(current2->getMembers(), 2);
-				current2->counterclockwise();
+				current2->counterclockwise(g2);
 				if (wants_graphics) {
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				}
@@ -832,7 +832,7 @@ int main(int argc, char *argv[]){
 						gd->clear(current->getMembers(), 1);
 					}
 					td->clear(current->getMembers(), 1);
-					current->clockwise();
+					current->clockwise(g1);
 					if (wants_graphics) {
 						gd->update_shape(current->getName(), current->getMembers(), 1);
 					}
@@ -848,7 +848,7 @@ int main(int argc, char *argv[]){
 						gd->clear(current2->getMembers(), 2);
 					}
 					td->clear(current2->getMembers(), 2);
-					current2->clockwise();
+					current2->clockwise(g2);
 					if (wants_graphics) {
 						gd->update_shape(current2->getName(), current2->getMembers(), 2);
 					}

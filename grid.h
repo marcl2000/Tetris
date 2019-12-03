@@ -5,12 +5,13 @@
 #include <cstddef>
 #include "cell.h"
 #include "line.h"
-#include "shape.h"
 #include <string>
 
 //forward declarations
 class TextDisplay;
 class GraphicsDisplay;
+class Shape;
+class Line;
 
 class Grid {
 
@@ -41,6 +42,7 @@ class Grid {
 		std::vector<int> lines_cleared();
 		void set_gd(GraphicsDisplay *gd);
 		void set_td(TextDisplay *td);
+		bool isFilled(Coord c);
 };
 #endif
 

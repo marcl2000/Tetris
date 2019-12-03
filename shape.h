@@ -6,6 +6,9 @@
 #include "coord.h"
 #include <string>
 #include "cell.h"
+#include "grid.h"
+
+class Grid;
 
 class Shape {
 
@@ -15,8 +18,8 @@ class Shape {
 		virtual void move_left(int n){}
 		virtual void move_right(int n){}
 		virtual void move_down(){}
-		virtual void clockwise(){}
-		virtual void counterclockwise(){}
+		virtual void clockwise(Grid &g){}
+		virtual void counterclockwise(Grid &g){}
 		virtual std::vector<Coord> getMembers();
 		virtual std::string getName();
 		virtual std::vector<Cell>& getCells();

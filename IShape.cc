@@ -5,6 +5,7 @@
 #include "shape.h"
 #include "cell.h"
 #include "level.h"
+#include "grid.h"
 
 using namespace std;
 
@@ -74,74 +75,75 @@ void IShape::move_down(){
 	}
 }
 
-void IShape::clockwise(){
+void IShape::clockwise(Grid &g){
 	if(this->members[0].getCoord().y == this->members[1].getCoord().y){
 		//we are horizontal and it can always be rotated
-
 		//check if in position 1 or 3
 		if(this->members[0].getCoord().x < this->members[1].getCoord().x){
-
 			Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 3*20);
-			this->members[0].setCoord(one);
-
 			Coord two(this->members[1].getCoord().x - 1*20, this->members[1].getCoord().y - 2*20);
-			this->members[1].setCoord(two);
-
 			Coord three(this->members[2].getCoord().x - 2*20, this->members[2].getCoord().y - 1*20);
-			this->members[2].setCoord(three);
-
 			Coord four(this->members[3].getCoord().x -3*20, this->members[3].getCoord().y);
-			this->members[3].setCoord(four);
+
+			if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+				this->members[0].setCoord(one);
+				this->members[1].setCoord(two);
+				this->members[2].setCoord(three);
+				this->members[3].setCoord(four);
+			}
+
 		}
 		else{
 			Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y - 3*20);
-			this->members[3].setCoord(one);
-
 			Coord two(this->members[2].getCoord().x - 1*20, this->members[2].getCoord().y - 2*20);
-			this->members[2].setCoord(two);
-
 			Coord three(this->members[1].getCoord().x - 2*20, this->members[1].getCoord().y - 1*20);
-			this->members[1].setCoord(three);
-
 			Coord four(this->members[0].getCoord().x -3*20, this->members[0].getCoord().y);
-			this->members[0].setCoord(four);
+
+			if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+				this->members[3].setCoord(one);
+				this->members[2].setCoord(two);
+				this->members[1].setCoord(three);
+				this->members[0].setCoord(four);
+			}
 
 		}
 	}
 	else{
 		//we are vertical, check if it can be rotated
-		if(this->members[0].getCoord().x <= 7){
+		if(this->members[0].getCoord().x <= 140){
 
 			//check if in position 2 or 4
 			if(this->members[0].getCoord().y > this->members[1].getCoord().y){
 
 				Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y);
-				this->members[0].setCoord(one);
-
 				Coord two(this->members[1].getCoord().x + 1*20, this->members[1].getCoord().y + 1*20);
-				this->members[1].setCoord(two);
-
 				Coord three(this->members[2].getCoord().x + 2*20, this->members[2].getCoord().y + 2*20);
-				this->members[2].setCoord(three);
-
 				Coord four(this->members[3].getCoord().x + 3*20, this->members[3].getCoord().y + 3*20);
-				this->members[3].setCoord(four);
+
+				if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+					this->members[0].setCoord(one);
+					this->members[1].setCoord(two);
+					this->members[2].setCoord(three);
+					this->members[3].setCoord(four);
+				}
+
 			}
 			else{
 				Coord one(this->members[3].getCoord().x, this->members[3].getCoord().y);
-				this->members[3].setCoord(one);
-
 				Coord two(this->members[2].getCoord().x + 1*20, this->members[2].getCoord().y + 1*20);
-				this->members[2].setCoord(two);
-
 				Coord three(this->members[1].getCoord().x + 2*20, this->members[1].getCoord().y + 2*20);
-				this->members[1].setCoord(three);
-
 				Coord four(this->members[0].getCoord().x + 3*20, this->members[0].getCoord().y + 3*20);
-				this->members[0].setCoord(four);
+
+				if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+					this->members[3].setCoord(one);
+					this->members[2].setCoord(two);
+					this->members[1].setCoord(three);
+					this->members[0].setCoord(four);
+				}
 
 			}
 		}
+
 	}
 
 	//if heavy is on, then this rotate should drop the shape by 1
@@ -164,8 +166,8 @@ void IShape::clockwise(){
 // For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise 
 // has the same effect as rotating counterclockwise
 
-void IShape::counterclockwise(){
-	this->clockwise();
+void IShape::counterclockwise(Grid &g){
+	this->clockwise(g);
 }
 
 vector<Coord> IShape::getMembers(){

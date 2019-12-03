@@ -5,6 +5,7 @@
 #include "shape.h"
 #include "cell.h"
 #include "level.h"
+#include "grid.h"
 
 using namespace std;
 
@@ -77,7 +78,7 @@ void OShape::move_down(){
 }
 
 // Since O is a square, rotating it in either direction does not change its appearance
-void OShape::clockwise(){
+void OShape::clockwise(Grid &g){
 
 	//if heavy is on, then this rotate should drop the shape by 1
 	if(this->heavy_flag){
@@ -96,8 +97,8 @@ void OShape::clockwise(){
 
 }
 
-void OShape::counterclockwise(){
-	this->clockwise();
+void OShape::counterclockwise(Grid &g){
+	this->clockwise(g);
 }
 
 vector<Coord> OShape::getMembers(){

@@ -26,8 +26,8 @@ class LShape: public Shape {
 	void move_left(int n) override;
 	void move_right(int n) override;
 	void move_down() override;
-	void clockwise() override;
-	void counterclockwise() override;
+	void clockwise(Grid &g) override;
+	void counterclockwise(Grid &) override;
 	std::vector<Coord> getMembers() override;
 	std::string getName() override;
 	std::vector<Cell>& getCells() override;

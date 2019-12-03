@@ -120,14 +120,14 @@ vector<int> Grid::lines_cleared(){
 				bool pieces_left = false;
 				for(int k=0;k<4;k++){
 					if(shapes[j]->getCells()[k].isFilled()){
-							pieces_left = true;
-							break;
+						pieces_left = true;
+						break;
 					}
 				}
 				if(!pieces_left && !shapes[j]->wasScored()){
 					result.emplace_back(shapes[j]->getLevel());
 					cout<<shapes[j]->getName()<<" was scored at level "<<shapes[j]->getLevel()<<endl;
-					
+
 					//set the piece to scored
 					shapes[j]->setScored();
 				}
@@ -259,3 +259,11 @@ void Grid::set_td(TextDisplay *td){
 	this->td = td;
 }
 
+bool Grid::isFilled(Coord c) {
+	int x = c.x / 20;
+	int y = c.y / 20 - 3;
+	if (lines[y].get_cells()[x].isFilled()) {
+		return true;
+	}
+	return false;
+}

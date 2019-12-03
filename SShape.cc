@@ -5,6 +5,7 @@
 #include "shape.h"
 #include "cell.h"
 #include "level.h"
+#include "grid.h"
 
 using namespace std;
 
@@ -76,62 +77,65 @@ void SShape::move_down(){
 	}
 }
 
-void SShape::clockwise(){
+void SShape::clockwise(Grid &g){
 
-	// Check if it is horizontal, then it can be rotated always
+	// Check if it is horizointal, then it can be rotated always
 	if (this->members[0].getCoord().x - this->members[3].getCoord().x == - 2 * 20) {
 		if (this->members[0].getCoord().y > this->members[3].getCoord().y) {
 			Coord one(this->members[0].getCoord().x, this->members[0].getCoord().y - 2 * 20);
-			this->members[0].setCoord(one);
-
 			Coord two(this->members[1].getCoord().x - 1 * 20, this->members[1].getCoord().y - 1 * 20);
-			this->members[1].setCoord(two);
-
-			//Third coordinate stays the same
-
+			Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y);
 			Coord four(this->members[3].getCoord().x - 1 * 20, this->members[3].getCoord().y + 1 * 20);
-			this->members[3].setCoord(four);
+
+			if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+				this->members[0].setCoord(one);
+				this->members[1].setCoord(two);
+				this->members[2].setCoord(three);
+				this->members[3].setCoord(four);
+			}
 		} else {
 			Coord one(this->members[3].getCoord().x - 1 * 20, this->members[3].getCoord().y);
-			this->members[3].setCoord(one);
-
 			Coord two(this->members[2].getCoord().x, this->members[2].getCoord().y + 1 * 20);
-			this->members[2].setCoord(two);
-
 			Coord three(this->members[1].getCoord().x + 1 * 20, this->members[1].getCoord().y);
-			this->members[1].setCoord(three);
-
 			Coord four(this->members[0].getCoord().x + 2 * 20, this->members[0].getCoord().x + 1 * 20);
-			this->members[0].setCoord(four);
+
+			if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+				this->members[3].setCoord(one);
+				this->members[2].setCoord(two);
+				this->members[1].setCoord(three);
+				this->members[0].setCoord(four);
+			}
 
 		}
 	}
 
 	else {
-		if (this->members[0].getCoord().y - this->members[3].getCoord().y == -2 * 20) {
-			Coord one(this->members[0].getCoord().x + 2 *20 , this->members[0].getCoord().y + 1 * 20);
-			this->members[0].setCoord(one);
+		if (this->members[0].getCoord().x < 200 && this->members[3].getCoord().x < 200) {
+			if (this->members[0].getCoord().y - this->members[3].getCoord().y == -2 * 20) {
+				Coord one(this->members[0].getCoord().x + 2 *20 , this->members[0].getCoord().y + 1 * 20);
+				Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y);
+				Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 1 *20);
+				Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y);
+				
+				if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+					this->members[0].setCoord(one);
+					this->members[1].setCoord(two);
+					this->members[2].setCoord(three);
+					this->members[3].setCoord(four);
+				}
+			} else {
+				Coord one(this->members[0].getCoord().x - 2 * 20, this->members[0].getCoord().y - 20);
+				Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y);
+				Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y - 20);
+				Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y );
 
-			Coord two(this->members[1].getCoord().x + 20, this->members[1].getCoord().y);
-			this->members[1].setCoord(two);
-
-			Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y + 1 *20);
-			this->members[2].setCoord(three);
-
-			Coord four(this->members[3].getCoord().x - 20, this->members[3].getCoord().y);
-			this->members[3].setCoord(four);
-		} else {
-			Coord one(this->members[0].getCoord().x - 2 * 20, this->members[0].getCoord().y - 20);
-			this->members[0].setCoord(one);
-
-			Coord two(this->members[1].getCoord().x - 20, this->members[1].getCoord().y);
-			this->members[1].setCoord(two);
-
-			Coord three(this->members[2].getCoord().x, this->members[2].getCoord().y - 20);
-			this->members[2].setCoord(three);
-
-			Coord four(this->members[3].getCoord().x + 20, this->members[3].getCoord().y );
-			this->members[3].setCoord(four);
+				if (!g.isFilled(one) && !g.isFilled(two) && !g.isFilled(three) && !g.isFilled(four)) {
+					this->members[0].setCoord(one);
+					this->members[1].setCoord(two);
+					this->members[2].setCoord(three);
+					this->members[3].setCoord(four);
+				}
+			}
 		}
 	}
 
@@ -153,8 +157,8 @@ void SShape::clockwise(){
 
 // For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise
 // has the same effect as rotating counterclockwise
-void SShape::counterclockwise(){
-	this->clockwise();
+void SShape::counterclockwise(Grid &g){
+	this->clockwise(g);
 }
 
 vector<Coord> SShape::getMembers(){
