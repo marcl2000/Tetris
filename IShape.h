@@ -23,7 +23,7 @@ class IShape: public Shape {
 	~IShape() {}
 	IShape(std::string name, std::vector<Cell> members, bool heavy_flag, bool bonus_heavy, bool gd_on, int level_placed):
 		type_name{name}, members{members}, heavy_flag{heavy_flag}, bonus_heavy{bonus_heavy}, gd_on{gd_on}, level_placed {level_placed} {}
-	
+
 	void move_left(int n) override;
 	void move_right(int n) override;
 	void move_down() override;
@@ -35,6 +35,8 @@ class IShape: public Shape {
 	int getLevel() override;
 	bool wasScored() override;
 	void setScored() override;
+	void change_level(int level) override;
+	void change_heavy() override;
 };
 
 #endif

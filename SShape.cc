@@ -192,3 +192,10 @@ bool SShape::wasScored(){
 	return this->scored;
 }
 
+void SShape::change_level(int level) {
+        this->level_placed = level;
+}
+
+void SShape::change_heavy() {
+        bonus_heavy = true;
+}

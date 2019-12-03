@@ -132,3 +132,10 @@ bool OShape::wasScored(){
 	return this->scored;
 }
 
+void OShape::change_level(int level) {
+        this->level_placed = level;
+}
+
+void OShape::change_heavy() {
+        bonus_heavy = true;
+}

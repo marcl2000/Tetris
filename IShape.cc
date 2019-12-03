@@ -201,3 +201,10 @@ void IShape::setScored(){
 	this->scored = true;
 }
 
+void IShape::change_level(int level) {
+	this->level_placed = level;
+}
+
+void IShape::change_heavy() {
+	bonus_heavy = true;
+}

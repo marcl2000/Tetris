@@ -254,4 +254,10 @@ bool LShape::wasScored(){
 	return this->scored;
 }
 
+void LShape::change_level(int level) {
+        this->level_placed = level;
+}
 
+void LShape::change_heavy() {
+        bonus_heavy = true;
+}

@@ -31,6 +31,7 @@ bool Line::isFilled(int grid_num){
 	bool temp = true;
 	for(int i=0;i<11;i++){
 		if(!this->contents[i].isFilled()){
+			cout << "THE CELL IS : " << contents[i].getCoord().x << " , " << contents[i].getCoord().y << endl;
 			temp = false;
 			break;
 		}

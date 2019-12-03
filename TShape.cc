@@ -256,4 +256,10 @@ bool TShape::wasScored(){
 	return this->scored;
 }
 
+void TShape::change_level(int level) {
+        this->level_placed = level;
+}
 
+void TShape::change_heavy() {
+        bonus_heavy = true;
+}

@@ -35,7 +35,8 @@ class ZShape: public Shape {
 	int getLevel() override;
 	bool wasScored() override;
 	void setScored() override;
-
+	void change_level(int level) override;
+	void change_heavy() override;
 };
 
 #endif

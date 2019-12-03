@@ -190,4 +190,10 @@ bool ZShape::wasScored(){
 	return this->scored;
 }
 
+void ZShape::change_level(int level) {
+        this->level_placed = level;
+}
 
+void ZShape::change_heavy() {
+        bonus_heavy = true;
+}

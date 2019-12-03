@@ -265,4 +265,10 @@ bool JShape::wasScored(){
 	return this->scored;
 }
 
+void JShape::change_level(int level) {
+        this->level_placed = level;
+}
 
+void JShape::change_heavy() {
+        bonus_heavy = true;
+}
