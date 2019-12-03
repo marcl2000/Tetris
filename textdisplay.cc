@@ -120,15 +120,47 @@ void TextDisplay::update_next(string name, int grid_number){
 	}
 }
 
-void TextDisplay::print(bool blind_flag) {
-	cout<<endl;
-	for (int i = 0; i < 25; ++i) {
-		for(int j=0;j<26;j++){
-			cout<<theDisplay[i][j];
+void TextDisplay::print(bool blind_flag, int g) {
+	if (!blind_flag) {
+		cout<<endl;
+		for (int i = 0; i < 25; ++i) {
+			for(int j=0;j<26;j++){
+				cout<<theDisplay[i][j];
+			}
+			cout<<endl;
 		}
 		cout<<endl;
+	} else if (g == 1) {
+		cout<<endl;
+		for (int i = 0; i < 25; ++i) {
+			for(int j=0;j<26;j++){
+				if ((8 <= i) && (i <= 17) && (2 <= j) && (j <= 8)) {
+					cout<<"?";	   
+				} else {
+					cout<<theDisplay[i][j];
+				}
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+
+	} else {
+		cout<<endl;
+		for (int i = 0; i < 25; ++i) {
+			for(int j=0;j<26;j++){
+				if ((8 <= i) && (i <= 17) && (16 <= j) && (j <= 22)) {
+					cout<<"?";
+				} else {
+					cout<<theDisplay[i][j];
+				}
+			}
+			cout<<endl;
+		}
+		cout<<endl;
+
+
+
 	}
-	cout<<endl;
 }
 
 void TextDisplay::update_shape(string name, vector<Coord> coords, int grid_number){

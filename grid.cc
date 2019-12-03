@@ -87,7 +87,12 @@ void Grid::add_shape(Shape * sh){
 
 //called by the main (is passed on to textdisplay)
 void Grid::print(){
-	this->td->print(this->blind_flag);
+	if (blind_flag) {cout << "We are true" << endl; } else {cout << "We are false" << endl;};
+	if (this->name == "g1") {
+		this->td->print(this->blind_flag, 1);
+	} else {
+		this->td->print(this->blind_flag, 2);
+	}
 }
 
 //called by the main (on the grid)

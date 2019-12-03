@@ -22,7 +22,9 @@ class Grid {
 	std::vector<Line> lines; 
 	std::vector<Shape *> shapes;
 
+	public:
 	bool blind_flag = false;
+	private:
 	bool gd_on = true;            //the command line arg -text turns this off
 	
 	//unique pointers

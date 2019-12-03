@@ -407,7 +407,9 @@ int main(int argc, char *argv[]){
 			}
 		} else if (s.substr(0, 3) == "lef") {
 			if (turn%2 == 0) {
+				  g1.change_blind(blind1);
 				if (wants_graphics) {
+
 					gd->clear(current->getMembers(), 1);
 				}
 				td->clear(current->getMembers(), 1);
@@ -436,6 +438,7 @@ int main(int argc, char *argv[]){
 				}
 
 			} else {
+				  g2.change_blind(blind2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -468,6 +471,8 @@ int main(int argc, char *argv[]){
 
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
+
+				  g1.change_blind(blind1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -520,6 +525,7 @@ int main(int argc, char *argv[]){
 				}
 
 			} else {
+				  g2.change_blind(blind2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -575,6 +581,7 @@ int main(int argc, char *argv[]){
 			for(int i=0;i<steps;i++){
 				//check to see if the block can be moved down safely
 				if(turn%2 == 0){
+					  g1.change_blind(blind1);
 					bool can_drop = true;
 					for(int i=0;i<4;i++){
 						int n = current->getMembers()[i].y/20 - 2;
@@ -597,8 +604,10 @@ int main(int argc, char *argv[]){
 						}
 						td->update_shape(current->getName(), current->getMembers(), 1);
 					}
+					g1.print();
 				}
 				else{
+					  g2.change_blind(blind2);
 					bool can_drop = true;
 					for(int i =0;i<4;i++){
 						int n = current2->getMembers()[i].y/20 - 2;
@@ -620,15 +629,21 @@ int main(int argc, char *argv[]){
 						}
 						td->update_shape(current2->getName(), current2->getMembers(), 2);
 					}
+					g2.print();
 				}
 			}
-			g1.print();
+		
 
 		} else if (s.substr(0, 2) == "dr") {
 
+		//	blind1 = fa/lse;
+                  //              g1.change_blind(blind1);
+//
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
 			if (turn % 2 == 0) {
+		                        blind1 = false;
+                                g1.change_blind(blind1);
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
@@ -739,6 +754,8 @@ int main(int argc, char *argv[]){
 					gd->update_next(next1->getName(), next1->getMembers(),1);
 				}
 				td->update_next(next1->getName(), 1);
+				  //blind1 = false;
+                                //g1.change_blind(blind1);
 				g1.print();
 
 
@@ -760,6 +777,7 @@ int main(int argc, char *argv[]){
 						if (choice[0] == 'b') {
 							blind2 = true;
 							g2.change_blind(blind2);							
+							g2.print();
 							break;
 						} else if (choice[0] == 'h') {
 							bonus_heavy2 = true;
@@ -805,10 +823,14 @@ int main(int argc, char *argv[]){
 
 				}
 
-				blind1 = false;
+		//		blind1 = false;
+		//		g1.change_blind(blind1);
 				bonus_heavy1 = false;
 
 			} else {
+				
+				blind2 = false;
+                                g2.change_blind(blind2);
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
@@ -938,6 +960,7 @@ int main(int argc, char *argv[]){
 						if (choice[0] == 'b') {
 							blind1 = true;
 							g1.change_blind(blind1);
+							g1.print();
 							break;
 						} else if (choice[0] == 'h') {
 							bonus_heavy1 = true;
@@ -983,14 +1006,15 @@ int main(int argc, char *argv[]){
 
 				}
 
-				blind2 = false;
+//				blind1 = false;
+//				g1.change_blind(blind1);
 				bonus_heavy2 = false;
-
 
 			}
 			++turn;
 		} else if (s.substr(0, 2) == "co") {
 			if(turn % 2 == 0){   //first player's block
+				  g1.change_blind(blind1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -1021,6 +1045,8 @@ int main(int argc, char *argv[]){
 			}
 
 			else{  //second player's block
+				  g2.change_blind(blind2);
+				
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -1044,7 +1070,7 @@ int main(int argc, char *argv[]){
 					gd->update_shape(current2->getName(), current2->getMembers(), 2);
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
-				g1.print();
+				g2.print();
 
 				//SAME HERE
 				//ALSO CHECK IF ROTATING WOULD BE ON TOP OF ANOTHER PIECE, OTHERWISE MOVE IT BACK TO THE ORIGINAL POSITION
@@ -1052,7 +1078,9 @@ int main(int argc, char *argv[]){
 
 		} else if (s.substr(0, 2) == "cl") {                     
 			for(int i=0;i<steps;i++){
+				  //g1.change_blind(blind1);
 				if(turn % 2 == 0){   //first player's block
+					 // g1.change_blind(blind1);
 					if (wants_graphics) {
 						gd->clear(current->getMembers(), 1);
 					}
@@ -1062,7 +1090,11 @@ int main(int argc, char *argv[]){
 						gd->update_shape(current->getName(), current->getMembers(), 1);
 					}
 					td->update_shape(current->getName(), current->getMembers(), 1);
-					g1.print();
+					 if (blind1){cout << "BLIND IS ON" << endl;}else {cout <<"blind is off" << endl;};
+					  ;
+                                g1.change_blind(blind1);
+					 g1.print();
+
 
 					if (!g1.piece_fits(current->getMembers())) {
 						cout << "The winner is Player 2!" << endl;
@@ -1081,17 +1113,23 @@ int main(int argc, char *argv[]){
 				}
 
 				else{  //second player's block
+					  //g2.change_blind(blind2);
 					if (wants_graphics) {
 						gd->clear(current2->getMembers(), 2);
 					}
 					td->clear(current2->getMembers(), 2);
 					current2->clockwise(g2);
-
+					
 					if (wants_graphics) {
 						gd->update_shape(current2->getName(), current2->getMembers(), 2);
 					}
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
-					g1.print();
+				
+				 if (blind2){cout << "BLIND IS ON" << endl;}else {cout <<"blind is off" << endl;};
+
+ g2.change_blind(blind2);
+	  if (g2.blind_flag) { cout << "THIS IS NOT THE PROBELMS" << endl;} else { cout << "This is the porbl" << endl;};
+					g2.print();
 
 					//SAME HERE
 
