@@ -2,6 +2,7 @@
 #include <string>
 #include <fstream>
 #include <memory>
+#include <exception>
 #include "graphicsdisplay.h"
 #include "grid.h"
 #include "textdisplay.h"
@@ -226,7 +227,13 @@ int main(int argc, char *argv[]){
 				// If digits were present at the beginning of the string, 
 				// set the steps to the amount specified in the string
 				if (numSteps != "") {
-					steps = stoi(numSteps);
+					try {
+						steps = stoi(numSteps);
+					} catch (invalid_argument& e) {
+						cin.clear();
+						cin.ignore();
+						break;
+					}
 					numSteps = "";
 					s = s.substr(i, len - i);
 					len = s.length();
