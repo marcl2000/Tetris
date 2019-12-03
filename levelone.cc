@@ -19,6 +19,12 @@ Shape* LevelOne::createShape(string name, bool bonus_heavy, bool gd_on, int leve
 	Shape *newShape;
 
 	//generate a random number
+	if (seed != -1) {
+		srand(seed);
+	} else {
+		srand(getTime());
+		increaseTime();
+	}
 	double random = (double) rand() / (RAND_MAX);
 
 	random *= 12;

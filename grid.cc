@@ -126,7 +126,6 @@ vector<int> Grid::lines_cleared(){
 				}
 				if(!pieces_left && !shapes[j]->wasScored()){
 					result.emplace_back(shapes[j]->getLevel());
-					cout<<shapes[j]->getName()<<" was scored at level "<<shapes[j]->getLevel()<<endl;
 
 					//set the piece to scored
 					shapes[j]->setScored();

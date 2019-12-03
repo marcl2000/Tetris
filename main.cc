@@ -25,6 +25,7 @@ int main(int argc, char *argv[]){
 	// Variables for program setup
 	string numSteps = "";
 	int steps = 1;
+	int seed = -1;
 	string user1file = "biquadris_sequence1.txt";
 	string user2file = "biquadris_sequence2.txt";
 	int turn = 0;
@@ -49,7 +50,7 @@ int main(int argc, char *argv[]){
 			wants_graphics = false;
 		} else if (cmd.substr(0, 3) == "-se") {
 			++i;
-			int seed = stoi(argv[i]); 
+			seed = stoi(argv[i]); 
 		} else if (cmd.substr(0, 3) == "-st") {
 			++i;
 			int level = stoi(argv[i]);
@@ -113,17 +114,17 @@ int main(int argc, char *argv[]){
 	Shape *next2 = nullptr;
 
 	if (current1_level == 1) {
-		u1level = new LevelOne();
+		u1level = new LevelOne(seed);
 	} else if (current1_level == 2) {
-		u1level = new LevelTwo();
+		u1level = new LevelTwo(seed);
 	} else if (current1_level == 3){
-		u1level = new LevelThree();
+		u1level = new LevelThree(seed);
 	} else {
 		current1_level = 0;
 		u1stream >> u1block;
 
 		//create a shape (this really needs to be Level *)
-		u1level = new LevelZero();
+		u1level = new LevelZero(seed);
 		current = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 		if (wants_graphics) {
@@ -143,16 +144,16 @@ int main(int argc, char *argv[]){
 	}
 
 	if (current2_level == 1) {
-		u2level = new LevelOne();
+		u2level = new LevelOne(seed);
 	} else if (current2_level == 2) {
-		u2level = new LevelTwo();
+		u2level = new LevelTwo(seed);
 	} else if (current2_level == 3){
-		u2level = new LevelThree();
+		u2level = new LevelThree(seed);
 	} else {
 		current2_level = 0;
 		u2stream >> u2block;
 
-		u2level = new LevelZero();
+		u2level = new LevelZero(seed);
 		current2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 		if (wants_graphics) {
@@ -276,17 +277,17 @@ int main(int argc, char *argv[]){
 				delete next1;
 
 				if (current1_level == 1) {
-					u1level = new LevelOne();
+					u1level = new LevelOne(seed);
 				} else if (current1_level == 2) {
-					u1level = new LevelTwo();
+					u1level = new LevelTwo(seed);
 				} else if (current1_level == 3){
-					u1level = new LevelThree();
+					u1level = new LevelThree(seed);
 				} else {
 					current1_level = 0;
 					u1stream >> u1block;
 
 					//create a shape (this really needs to be Level *)
-					u1level = new LevelZero();
+					u1level = new LevelZero(seed);
 					current = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 
 					if (wants_graphics) {
@@ -356,16 +357,16 @@ int main(int argc, char *argv[]){
 				delete next2;
 
 				if (current2_level == 1) {
-					u2level = new LevelOne();
+					u2level = new LevelOne(seed);
 				} else if (current2_level == 2) {
-					u2level = new LevelTwo();
+					u2level = new LevelTwo(seed);
 				} else if (current2_level == 3){
-					u2level = new LevelThree();
+					u2level = new LevelThree(seed);
 				} else {
 					current2_level = 0;
 					u2stream >> u2block;
 
-					u2level = new LevelZero();
+					u2level = new LevelZero(seed);
 					current2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 
 					if (wants_graphics) {
@@ -671,7 +672,6 @@ int main(int argc, char *argv[]){
 				}
 				vector<int> result = g1.lines_cleared();
 				int clear_count = result.back();
-				cout << "Clear count is " << clear_count << endl;
 
 				//with this information, calculate the score for player 1
 
@@ -744,13 +744,15 @@ int main(int argc, char *argv[]){
 
 				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
 				if (clear_count >= 2) {
-					cout << "Fantastic workk! You have cleared " << clear_count << " lines!" << endl;
+					cout << "====================================================" << endl;
+						cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
 					cout << "You have earned the ability to hinder your opponent!" << endl;
 					cout << "Choose from the following bonus actions: " << endl;
-					cout << "blind" << endl;
-					cout << "heavy" << endl;
-					cout << "force" << endl;
-					cout << "Please enter your choice below:" << endl;
+					cout << "		blind" << endl;
+					cout << "		heavy" << endl;
+					cout << "		force" << endl;
+					cout << "====================================================" << endl;
+						cout << "Please enter your choice below:" << endl;
 					string choice;
 
 					while (true) {
@@ -769,7 +771,7 @@ int main(int argc, char *argv[]){
 							while (true) {
 								cin >> s;
 								if (s == "I" || s == "J" || s == "L" || s == "O" || s == "Z" || s == "S" || s == "T") {
-									Level *l = new LevelZero();
+									Level *l = new LevelZero(seed);
 									delete current2;
 									current2 = l->createShape(s, bonus_heavy2, wants_graphics, current2_level);
 									current2->change_level(current2_level);
@@ -847,7 +849,6 @@ int main(int argc, char *argv[]){
 
 				vector<int> result = g2.lines_cleared();
 				int clear_count = result.back();
-				cout << "Clear count is " << clear_count << endl;
 				//with this information, calculate the score for player 2
 				if(result.back() > 0){
 					score2 += (current2_level + result.back())*(current2_level + result.back());
@@ -920,13 +921,15 @@ int main(int argc, char *argv[]){
 
 				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
 				if (clear_count >= 2) {
-					cout << "Fantastic workk! You have cleared " << clear_count << " lines!" << endl;
+					cout << "====================================================" << endl;
+						cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
 					cout << "You have earned the ability to hinder your opponent!" << endl;
 					cout << "Choose from the following bonus actions: " << endl;
-					cout << "blind" << endl;
-					cout << "heavy" << endl;
-					cout << "force" << endl;
-					cout << "Please enter your choice below:" << endl;
+					cout << "               blind" << endl;
+					cout << "               heavy" << endl;
+					cout << "               force" << endl;
+					cout << "====================================================" << endl;
+						cout << "Please enter your choice below:" << endl;
 					string choice;
 
 					while (true) {
@@ -945,7 +948,7 @@ int main(int argc, char *argv[]){
 							while (true) {
 								cin >> s;
 								if (s == "I" || s == "J" || s == "L" || s == "O" || s == "Z" || s == "S" || s == "T") {
-									Level *l = new LevelZero();
+									Level *l = new LevelZero(seed);
 									delete current;
 									current = l->createShape(s, bonus_heavy1, wants_graphics, current1_level);
 									current->change_level(current1_level);
