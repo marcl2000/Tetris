@@ -12,9 +12,7 @@ Grid::~Grid(){
 	if(this->name == "g1"){
 		delete td;
 
-		if (gd_on) {
-			delete gd;
-		}
+		if (gd_on) {delete gd;}
 	}
 	int size = this->shapes.size();
 	for (int i = 0; i < size; ++i) {
@@ -62,7 +60,6 @@ void Grid::change_blind(bool b){
 //called by the main to determine if the game is over
 bool Grid::piece_fits(vector<Coord> coords){
 	//If overlapping any piece on the grid, we are done for sure
-
 	bool can_move = true;
 	for(int i=0;i<4;i++){
 		int n = coords[i].y/20 - 3;
@@ -73,7 +70,6 @@ bool Grid::piece_fits(vector<Coord> coords){
 			break;
 		}
 	}
-
 	return can_move;
 }
 
@@ -87,7 +83,6 @@ void Grid::add_shape(Shape * sh){
 
 //called by the main (is passed on to textdisplay)
 void Grid::print(){
-	if (blind_flag) {cout << "We are true" << endl; } else {cout << "We are false" << endl;};
 	if (this->name == "g1") {
 		this->td->print(this->blind_flag, 1);
 	} else {
@@ -193,7 +188,6 @@ vector<int> Grid::lines_cleared(){
 								can_move = false;
 								break;
 							}
-
 						}
 					}
 
@@ -210,7 +204,6 @@ vector<int> Grid::lines_cleared(){
 							gd->clear(this->shapes[i]->getMembers(), g);
 						}
 						td->clear(this->shapes[i]->getMembers(), g);
-
 
 						int shift2 = 0;
 						for(int j=0;j<4;j++){
@@ -243,14 +236,11 @@ vector<int> Grid::lines_cleared(){
 							}
 							td->update_shape(shapes[i]->getName(), shapes[i]->getMembers(), 2);
 						}
-
 					}
 				}
-
 			}
 		}
 	}
-
 	return result;
 }
 

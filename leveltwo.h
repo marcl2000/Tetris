@@ -7,7 +7,9 @@
 #include "shape.h"
 
 class LevelTwo : public Level {
+	
 	int seed;
+
 	public:
 		~LevelTwo(){}
 		LevelTwo(int seed): seed{seed} {};

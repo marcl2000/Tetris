@@ -10,7 +10,9 @@
 class Cell;
 
 class TextDisplay {
+
 	std::vector<std::vector<std::string>> theDisplay;
+	
 	public:
 		void init();
 		void update_next(std::string name, int grid_number); 

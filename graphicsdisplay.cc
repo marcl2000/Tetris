@@ -22,25 +22,10 @@ GraphicsDisplay::GraphicsDisplay(){
 	xw.drawString(14*20 + 1, 60, "-------------------------------------", 1);
 	xw.drawString(14*20 + 1, 21*20, "_____________________________________", 1);
 	xw.drawString(14*20 + 1, 22*20, "Next: ", 1);
-
-
-
 }
 
 void GraphicsDisplay::restart() {
 	xw.fillRectangle(0,0,500, 520 ,0);
-        /*
-	for(int j=0;j<26;j++){
-                        xw.fillRectangle(i*20, j*20, 20, 20, 0);
-                }
-        }
-        for(int i=14;i<25;i++){
-                for(int j=0;j<26;j++){
-                        xw.fillRectangle(i*20, j*20, 20, 20, 0);
-
-                }
-        }
-	*/
 
 	//print the level and player strings
         xw.drawString(1, 20, "Level: ", 1);
@@ -53,7 +38,6 @@ void GraphicsDisplay::restart() {
         xw.drawString(14*20 + 1, 60, "-------------------------------------", 1);
         xw.drawString(14*20 + 1, 21*20, "_____________________________________", 1);
         xw.drawString(14*20 + 1, 22*20, "Next: ", 1);
-
 }
 //called by the main or shape class when something happens to next* (is created or is changed)
 void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_number) {
@@ -102,7 +86,6 @@ void GraphicsDisplay::update_shape(string name, vector<Coord> coords, int grid_n
         }
 }
 
-
 void GraphicsDisplay::clear(std::vector<Coord> coords, int grid_number){
 
 	int n = 0;
@@ -119,7 +102,6 @@ void GraphicsDisplay::clear(std::vector<Coord> coords, int grid_number){
 	else{
 		for(int i=0;i<size;i++){
 			this->xw.fillRectangle(coords[i].y*20 + n, (coords[i].x+3)*20, 20, 20, 0);
-			//cout<<"what we cleared: "<<coords[i].y*20<<" "<<(coords[i].x+3)*20 + n<<endl;
 		}
 	}
 }
@@ -168,7 +150,6 @@ void GraphicsDisplay::update_next(string name, vector<Coord> coords, int grid_nu
                         this->xw.fillRectangle(coords[i].x + n, coords[i].y + 20 * 18, 20, 20, 8);
                 }
         }
-
 }
 
 void GraphicsDisplay::clear_current(int grid_number) {
@@ -192,7 +173,6 @@ void GraphicsDisplay::clear_next(int grid_number) {
 void GraphicsDisplay::update_level(int new_level, int grid_number){
 
         string s = "";
-
         if (new_level == 0) {
                 s = "0";
         } else if (new_level == 1) {
@@ -217,7 +197,6 @@ void GraphicsDisplay::update_level(int new_level, int grid_number){
 
 void GraphicsDisplay::update_score(int new_score, int grid_number){
 	string s = to_string(new_score);
-
 	if(grid_number == 1){
 		xw.fillRectangle(0, 20, 20*11, 20, 0);
 		xw.drawString(1, 40, "Score: "+s, 1);
@@ -227,5 +206,4 @@ void GraphicsDisplay::update_score(int new_score, int grid_number){
 		xw.drawString(14*20 + 1, 40, "Score: "+s, 1);
 	}
 }
-
 

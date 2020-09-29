@@ -8,8 +8,6 @@
 #include "cell.h"
 #include "coord.h"
 
-
-
 class GraphicsDisplay {
 
 	Xwindow xw;

@@ -157,9 +157,6 @@ void TextDisplay::print(bool blind_flag, int g) {
 			cout<<endl;
 		}
 		cout<<endl;
-
-
-
 	}
 }
 

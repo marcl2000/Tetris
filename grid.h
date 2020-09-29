@@ -46,6 +46,7 @@ class Grid {
 		void set_td(TextDisplay *td);
 		bool isFilled(Coord c);
 };
+
 #endif
 
 

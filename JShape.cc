@@ -144,7 +144,6 @@ void JShape::clockwise(Grid &g){
 		}
 	}
 
-
 	//if heavy is on, then this rotate should drop the shape by 1
 	if(this->heavy_flag){
 		for(int i=0;i<4;i++){
@@ -159,7 +158,6 @@ void JShape::clockwise(Grid &g){
 			this->members[i].setCoord(c);
 		}
 	}
-
 }
 
 void JShape::counterclockwise(Grid &g){
@@ -231,7 +229,6 @@ void JShape::counterclockwise(Grid &g){
 			this->members[i].setCoord(c);
 		}
 	}
-
 }
 
 vector<Coord> JShape::getMembers(){

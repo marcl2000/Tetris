@@ -165,7 +165,6 @@ void IShape::clockwise(Grid &g){
 
 // For diagonally symmetrical shapes such as I, S, Z, and O, rotating clockwise 
 // has the same effect as rotating counterclockwise
-
 void IShape::counterclockwise(Grid &g){
 	this->clockwise(g);
 }

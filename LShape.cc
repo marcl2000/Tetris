@@ -34,7 +34,6 @@ void LShape::move_left(int n){
 			this->members[i].setCoord(c);
 		}
 	}
-
 }
 
 void LShape::move_right(int n){
@@ -63,7 +62,6 @@ void LShape::move_right(int n){
 			this->members[i].setCoord(c);
 		}
 	}
-
 }
 
 void LShape::move_down(){
@@ -147,7 +145,6 @@ void LShape::clockwise(Grid &g){
 			this->members[i].setCoord(c);
 		}
 	}
-
 }
 
 void LShape::counterclockwise(Grid &g){

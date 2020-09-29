@@ -139,8 +139,6 @@ int main(int argc, char *argv[]){
 			gd->update_next(u1block, next1->getMembers(), 1);
 		}
 		td->update_next(u1block, 1);  
-
-
 	}
 
 	if (current2_level == 1) {
@@ -171,8 +169,6 @@ int main(int argc, char *argv[]){
 		//now print the textdisplay
 		g2.print();
 	}
-
-
 
 	if (!current1_level == 0) {
 		current = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
@@ -261,7 +257,6 @@ int main(int argc, char *argv[]){
 					current1_level = 0;
 				}
 
-
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 					gd->clear(next1->getMembers(), 1);
@@ -304,7 +299,6 @@ int main(int argc, char *argv[]){
 
 					//now print the textdisplay
 					g1.print();
-
 				}
 
 				if (!current1_level == 0) {
@@ -327,8 +321,6 @@ int main(int argc, char *argv[]){
 				if (wants_graphics) {
 					gd->update_level(current1_level, 1);
 				}
-
-
 
 			} else {
 				current2_level += steps;
@@ -407,7 +399,7 @@ int main(int argc, char *argv[]){
 			}
 		} else if (s.substr(0, 3) == "lef") {
 			if (turn%2 == 0) {
-				  g1.change_blind(blind1);
+				g1.change_blind(blind1);
 				if (wants_graphics) {
 
 					gd->clear(current->getMembers(), 1);
@@ -420,8 +412,7 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 
-				//IF BONUS HEAVY OR ON LEVEL THREE, CHECK IF THIS MOVE WOULD END THE GAME
-
+				//if bonus_heavy on or the user is on level 3, check if the game must end
 				if (bonus_heavy1 || current1_level == 3) {
 					cout << "The winner is Player 2!" << endl;
 					if (!g1.piece_fits(current->getMembers())) {
@@ -438,7 +429,7 @@ int main(int argc, char *argv[]){
 				}
 
 			} else {
-				  g2.change_blind(blind2);
+				g2.change_blind(blind2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -450,7 +441,6 @@ int main(int argc, char *argv[]){
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 
-				//SAME HERE
 				if (bonus_heavy2 || current2_level == 3) {
 					if (!g2.piece_fits(current2->getMembers())) {
 						cout << "The winner is Player 1" << endl;
@@ -468,11 +458,10 @@ int main(int argc, char *argv[]){
 
 			}
 
-
 		} else if (s.substr(0, 2) == "ri") {
 			if (turn%2 == 0) {
 
-				  g1.change_blind(blind1);
+				g1.change_blind(blind1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -508,7 +497,6 @@ int main(int argc, char *argv[]){
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
 
-				//SAME HERE
 				if (bonus_heavy1 || current1_level == 3) {
 					cout << "The winner is Player 2!" << endl;
 					if (!g1.piece_fits(current->getMembers())) {
@@ -525,7 +513,7 @@ int main(int argc, char *argv[]){
 				}
 
 			} else {
-				  g2.change_blind(blind2);
+				g2.change_blind(blind2);
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -560,7 +548,6 @@ int main(int argc, char *argv[]){
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
 
-				//SAME HERE
 				if (bonus_heavy2 || current2_level == 3) {
 					if (!g2.piece_fits(current2->getMembers())) {
 						cout << "The winner is Player 1" << endl;
@@ -581,7 +568,7 @@ int main(int argc, char *argv[]){
 			for(int i=0;i<steps;i++){
 				//check to see if the block can be moved down safely
 				if(turn%2 == 0){
-					  g1.change_blind(blind1);
+					g1.change_blind(blind1);
 					bool can_drop = true;
 					for(int i=0;i<4;i++){
 						int n = current->getMembers()[i].y/20 - 2;
@@ -607,7 +594,7 @@ int main(int argc, char *argv[]){
 					g1.print();
 				}
 				else{
-					  g2.change_blind(blind2);
+					g2.change_blind(blind2);
 					bool can_drop = true;
 					for(int i =0;i<4;i++){
 						int n = current2->getMembers()[i].y/20 - 2;
@@ -632,18 +619,14 @@ int main(int argc, char *argv[]){
 					g2.print();
 				}
 			}
-		
 
 		} else if (s.substr(0, 2) == "dr") {
 
-		//	blind1 = fa/lse;
-                  //              g1.change_blind(blind1);
-//
 			//To differentiate between users, user1 will play when the turn count is
 			//even and user2 will play when the turn count is odd
 			if (turn % 2 == 0) {
-		                        blind1 = false;
-                                g1.change_blind(blind1);
+				blind1 = false;
+				g1.change_blind(blind1);
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
@@ -689,7 +672,6 @@ int main(int argc, char *argv[]){
 				int clear_count = result.back();
 
 				//with this information, calculate the score for player 1
-
 				if(result.back() > 0){
 					score1 += (current1_level + result.back())*(current1_level + result.back());
 					result.pop_back();
@@ -710,7 +692,7 @@ int main(int argc, char *argv[]){
 					td->update_score(score1, 1);
 				}
 
-				// First set the next block to the current shape
+				//set the next block to the current shape
 				current = next1;
 
 				if (wants_graphics) {
@@ -730,7 +712,6 @@ int main(int argc, char *argv[]){
 					next1 = u1level->createShape(u1block, bonus_heavy1, wants_graphics, current1_level);
 				} else {
 					next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
-
 
 				}
 				if (wants_graphics) {
@@ -754,12 +735,9 @@ int main(int argc, char *argv[]){
 					gd->update_next(next1->getName(), next1->getMembers(),1);
 				}
 				td->update_next(next1->getName(), 1);
-				  //blind1 = false;
-                                //g1.change_blind(blind1);
 				g1.print();
 
-
-				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
+				//if two or more lines are cleared, give a bonus option
 				if (clear_count >= 2) {
 					cout << "====================================================" << endl;
 					cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
@@ -795,7 +773,6 @@ int main(int argc, char *argv[]){
 									current2 = l->createShape(s, bonus_heavy2, wants_graphics, current2_level);
 									current2->change_level(current2_level);
 
-
 									if (wants_graphics) {
 										gd->clear(current2->getMembers(), 2);
 										gd->clear_current(2);
@@ -822,15 +799,12 @@ int main(int argc, char *argv[]){
 					}
 
 				}
-
-		//		blind1 = false;
-		//		g1.change_blind(blind1);
 				bonus_heavy1 = false;
 
 			} else {
-				
+
 				blind2 = false;
-                                g2.change_blind(blind2);
+				g2.change_blind(blind2);
 				bool can_move = true;
 				int move_count = 0;
 				while(can_move){
@@ -872,6 +846,7 @@ int main(int argc, char *argv[]){
 
 				vector<int> result = g2.lines_cleared();
 				int clear_count = result.back();
+
 				//with this information, calculate the score for player 2
 				if(result.back() > 0){
 					score2 += (current2_level + result.back())*(current2_level + result.back());
@@ -900,7 +875,6 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 
-
 				if (current2_level == 0) {
 					// Repeat the above process but for user2
 					current2 = next2;
@@ -911,7 +885,7 @@ int main(int argc, char *argv[]){
 					u2stream >> u2block;
 					if (u2stream.eof()) {
 						u2stream.clear( );
-						u2stream.seekg( 0, std::ios::beg);
+						u2stream.seekg(0, std::ios::beg);
 						u2stream >> u2block;
 					}
 					next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
@@ -942,7 +916,7 @@ int main(int argc, char *argv[]){
 				td->update_next(next2->getName(), 2);
 				g2.print();
 
-				//**IF THE LINES CLEARED WAS TWO OR MORE, GIVE A BONUS OPTION
+				//if the user has cleared two or more lines, offer a bonus option
 				if (clear_count >= 2) {
 					cout << "====================================================" << endl;
 					cout << "Fantastic work! You have cleared " << clear_count << " lines!" << endl;
@@ -978,7 +952,6 @@ int main(int argc, char *argv[]){
 									current = l->createShape(s, bonus_heavy1, wants_graphics, current1_level);
 									current->change_level(current1_level);
 
-
 									if (wants_graphics) {
 										gd->clear(current->getMembers(), 1);
 										gd->clear_current(1);
@@ -1005,16 +978,13 @@ int main(int argc, char *argv[]){
 					}
 
 				}
-
-//				blind1 = false;
-//				g1.change_blind(blind1);
 				bonus_heavy2 = false;
-
 			}
 			++turn;
+
 		} else if (s.substr(0, 2) == "co") {
 			if(turn % 2 == 0){   //first player's block
-				  g1.change_blind(blind1);
+				g1.change_blind(blind1);
 				if (wants_graphics) {
 					gd->clear(current->getMembers(), 1);
 				}
@@ -1039,14 +1009,11 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current->getName(), current->getMembers(), 1);
 				g1.print();
-
-				//SAME HERE
-				//ALSO CHECK IF ROTATING WOULD BE ON TOP OF ANOTHER PIECE, OTHERWISE MOVE IT BACK TO THE ORIGINAL POSITION
 			}
 
 			else{  //second player's block
-				  g2.change_blind(blind2);
-				
+				g2.change_blind(blind2);
+
 				if (wants_graphics) {
 					gd->clear(current2->getMembers(), 2);
 				}
@@ -1071,16 +1038,11 @@ int main(int argc, char *argv[]){
 				}
 				td->update_shape(current2->getName(), current2->getMembers(), 2);
 				g2.print();
-
-				//SAME HERE
-				//ALSO CHECK IF ROTATING WOULD BE ON TOP OF ANOTHER PIECE, OTHERWISE MOVE IT BACK TO THE ORIGINAL POSITION
 			}
 
 		} else if (s.substr(0, 2) == "cl") {                     
 			for(int i=0;i<steps;i++){
-				  //g1.change_blind(blind1);
 				if(turn % 2 == 0){   //first player's block
-					 // g1.change_blind(blind1);
 					if (wants_graphics) {
 						gd->clear(current->getMembers(), 1);
 					}
@@ -1090,11 +1052,8 @@ int main(int argc, char *argv[]){
 						gd->update_shape(current->getName(), current->getMembers(), 1);
 					}
 					td->update_shape(current->getName(), current->getMembers(), 1);
-					 if (blind1){cout << "BLIND IS ON" << endl;}else {cout <<"blind is off" << endl;};
-					  ;
-                                g1.change_blind(blind1);
-					 g1.print();
-
+					g1.change_blind(blind1);
+					g1.print();
 
 					if (!g1.piece_fits(current->getMembers())) {
 						cout << "The winner is Player 2!" << endl;
@@ -1108,30 +1067,22 @@ int main(int argc, char *argv[]){
 						delete u2level;
 						return 0;
 					}
-					//SAME HERE
-					//ALSO CHECK...
 				}
 
 				else{  //second player's block
-					  //g2.change_blind(blind2);
 					if (wants_graphics) {
 						gd->clear(current2->getMembers(), 2);
 					}
 					td->clear(current2->getMembers(), 2);
 					current2->clockwise(g2);
-					
+
 					if (wants_graphics) {
 						gd->update_shape(current2->getName(), current2->getMembers(), 2);
 					}
 					td->update_shape(current2->getName(), current2->getMembers(), 2);
-				
-				 if (blind2){cout << "BLIND IS ON" << endl;}else {cout <<"blind is off" << endl;};
 
- g2.change_blind(blind2);
-	  if (g2.blind_flag) { cout << "THIS IS NOT THE PROBELMS" << endl;} else { cout << "This is the porbl" << endl;};
+					g2.change_blind(blind2);
 					g2.print();
-
-					//SAME HERE
 
 					if (!g2.piece_fits(current2->getMembers())) {
 						cout << "The winner is Player 1!" << endl;
@@ -1145,10 +1096,6 @@ int main(int argc, char *argv[]){
 						delete u2level;
 						return 0;
 					}
-
-
-
-					//ALSO CHECK...
 				}
 			}
 
@@ -1203,10 +1150,8 @@ int main(int argc, char *argv[]){
 
 			} else {
 				current = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
-
 				next1 = u1level->createShape("", bonus_heavy1, wants_graphics, current1_level);
 			}
-
 			if (current2_level == 0) {
 
 				u2stream.clear( );
@@ -1221,10 +1166,8 @@ int main(int argc, char *argv[]){
 				next2 = u2level->createShape(u2block, bonus_heavy2, wants_graphics, current2_level);
 			} else {
 				current2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
-
 				next2 = u2level->createShape("", bonus_heavy2, wants_graphics, current2_level);
 			} 
-
 			if (wants_graphics) {
 				gd->update_shape(current->getName(), current->getMembers(), 1);
 				gd->update_next(next1->getName(), next1->getMembers(), 1);
